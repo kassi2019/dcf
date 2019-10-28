@@ -1,0 +1,294 @@
+
+<template>
+  <div>
+    <!-- End Page Header -->
+    <!-- Default Light Table -->
+    <div class="container-fluid">
+      <hr />
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title">
+              <span class="icon">
+                <i class="icon-th"></i>
+              </span>
+              <h5>Ajouter Immobilisation</h5>
+              <!-- <div align="right">
+                Search:
+                <input type="search" placeholder />
+              </div>-->
+            </div>
+
+            <div class="table-responsive text-nowrap">
+              <table class="table table-bordered table-striped">
+                <div class="widget-box">
+                  <div class="widget-title">
+                    <ul class="nav nav-tabs">
+                      <li class="active">
+                        <a data-toggle="tab" href="#tab1">Identification</a>
+                      </li>
+                      <li>
+                        <a data-toggle="tab" href="#tab2">Descriptif</a>
+                      </li>
+                      <li>
+                        <a data-toggle="tab" href="#tab3">Autres Information</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="widget-content tab-content">
+                    <!--ongle identification-->
+                    <div id="tab1" class="tab-pane active">
+                      <tr>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Exercice Budgetaire</label>
+                            <div class="controls">
+                              <select v-model="formData.exercice_budgetaire_id">
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="exoBudget in exercices_budgetaires"
+                                  :key="exoBudget.id"
+                                  :value="exoBudget.id"
+                                >{{exoBudget.annee}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Unite administrative:</label>
+                            <div class="controls">
+                              <select v-model="formData.uniteadministrative_id">
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="ua in trieUaImmobilisation"
+                                  :key="ua.id"
+                                  :value="ua.id"
+                                >{{ua.uniteAdminist.libelle}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Désignation:</label>
+                            <div class="controls">
+                              <select v-model="formData.designationImmo">
+                                <option value>Sélectionner</option>
+                                <option></option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Qté Réel:</label>
+                            <div class="controls">
+                              <input type="number" class="span" v-model="formData.quantite" />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Qté Afféctée:</label>
+                            <div class="controls">
+                              <input type="number" class="span" v-model="formData.qteaffecte" />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Qté Actuel:</label>
+                            <div class="controls">
+                              <input type="number" class="span" :value="QteActuel" readonly />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Prix unitaire:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                v-model="formData.prix_unitaire"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Valeur d'Origine:</label>
+                            <div class="controls">
+                              <input type="number" class="span" readonly :value="ValeurOrigine" />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </div>
+                    <!--ongle descriptif-->
+
+                    <!--ongle 3 -->
+                  </div>
+                  <br />
+                  <div align="right">
+                    <div class="controls">
+                      <div data-toggle="buttons-checkbox" class="btn-group">
+                        <a
+                          class="btn btn-primary"
+                          @click.prevent="ajouterImmobilisationLocal(formData)"
+                          v-show="formData.Prix_unitaire.length && formData.quantite.length && formData.exercice_budgetaire_id && formData.designation.length"
+                        >Valider</a>
+                        <a
+                          @click.prevent="afficherTableauImmobilisation()"
+                          class="btn"
+                          href="#"
+                        >Fermer</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" bg-color="green"></fab> -->
+    <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+  </div>
+</template>
+ <script>
+import { mapGetters, mapActions } from "vuex";
+export default {
+  data() {
+    return {
+      formData: {
+        Prix_unitaire: "",
+        quantite: "",
+        // valeur_origine = this.ValeurOrigine(),
+        valeur_origine: "",
+        exercice_budgetaire_id: "",
+        designationbesoin: "",
+        uniteadministrative_id: "",
+        qtebesoin: ""
+      },
+      stats: ["neuf(ve)", "Seconde Main", "Bon"],
+      typeImmo: ["Corporelle", "Incorporelle"],
+      causeInactivite: ["Vendue", "Mise en hors service"],
+      search: ""
+    };
+  },
+  // mounted() {
+  //   this.formData = this.immobilisations.find(
+  //     immo => immo.id == this.$route.params.id
+  //   );
+
+  //   //console.log(this.$router);
+  // },
+  computed: {
+    ...mapGetters("SuiviImmobilisation", [
+      "familles",
+      "services",
+      "trieUaImmobilisation",
+      "trieUaImmobilisation"
+    ]),
+    ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires"]),
+    ...mapGetters("parametreGenerauxProgrammeUnite", ["unites"]),
+    ...mapGetters("personnelUA", ["all_acteur_depense"]),
+    ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
+
+    ValeurOrigine() {
+      const val =
+        parseFloat(this.formData.quantite) *
+        parseFloat(this.formData.Prix_unitaire);
+      return parseFloat(val).toFixed(2);
+    },
+    QteActuel() {
+      const val =
+        parseFloat(this.formData.quantite) -
+        parseFloat(this.formData.qteaffecte);
+      return parseFloat(val).toFixed(2);
+    }
+  },
+  methods: {
+    ...mapActions("SuiviImmobilisation", ["ajouterImmobilisation"]),
+    //afiicher modal ajouter
+    afficherModalAjouterTitre() {
+      this.$("#exampleModal").modal({
+        backdrop: "static",
+        keyboard: false
+      });
+    },
+    afficherTableauImmobilisation() {
+      this.$router.push({
+        name: "immobilisation"
+      });
+    },
+    // fonction pour vider l'input ajouter
+    ajouterImmobilisationLocal() {
+      var nouvelObjet = {
+        ...this.formData,
+        valeur_origine: this.ValeurOrigine
+      };
+      this.ajouterImmobilisation(nouvelObjet);
+
+      this.formData = {
+        code: "",
+        type: "",
+        designation: "",
+        identification: "",
+        etat_immobilisation: "",
+        date_acquisition: "",
+        date_mise_service: "",
+        numero_facture: "",
+        quantite: "",
+        Prix_unitaire: "",
+        famille_id: "",
+        valeur_origine: "",
+        duree: "",
+        numero_CC: "",
+        acteur_depense_id: "",
+        exercice_budgetaire_id: "",
+        service_id: "",
+        nature_bien: "",
+        nature_dentree: "",
+        // acteur_depense_id: "",
+        TVA_id: "",
+        montant_evaluation: "",
+        date_evaluation: "",
+        montant_cession: "",
+        date_cession: "",
+        cause_inactivite: "",
+        montant_amortissement_anterieur: "",
+        date_amortissement_anterieur: ""
+      };
+    },
+
+    // fonction pour vider l'input modification
+    modifierFamilleLocal() {
+      this.modifierFamille(this.editFamille);
+
+      this.editFamille = {
+        code: "",
+        libelle: ""
+      };
+    },
+    alert() {
+      console.log("ok");
+    }
+  }
+};
+</script>
+
+<style>
+.tail {
+  width: 20px;
+}
+</style>

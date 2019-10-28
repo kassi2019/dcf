@@ -1,0 +1,323 @@
+
+<template>
+  <div>
+    <!--///////////////////////////////////////// debut modal d ajout //////////////////////////////-->
+    <div id="exampleModal" class="modal hide taillemodal">
+      <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3>Ajouter Bessoin Immobilisation par UA</h3>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Unite administrative:</label>
+                <div class="controls">
+                  <select v-model="formData.uniteadmin_id">
+                    <option
+                      v-for="ua in uniteAdministratives"
+                      :key="ua.id"
+                      :value="ua.id"
+                    >{{ua.libelle}}</option>
+                  </select>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Designation:</label>
+                <div class="controls">
+                  <input
+                    type="text"
+                    v-model="formData.designation"
+                    class="span"
+                    placeholder="Saisir la designation"
+                  />
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="control-group">
+                <label class="control-label">Date:</label>
+                <div class="controls">
+                  <input
+                    type="date"
+                    v-model="formData.date_jour"
+                    class="span"
+                    placeholder="Saisir le code"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Quantité:</label>
+                <div class="controls">
+                  <input
+                    type="number"
+                    v-model="formData.quantite"
+                    class="span"
+                    placeholder="Saisir la quantite"
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Prix Unitaire:</label>
+                <div class="controls">
+                  <input
+                    type="number"
+                    v-model="formData.prix_unitaire"
+                    class="span"
+                    placeholder="Saisir prix unitaire"
+                  />
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="control-group">
+                <label class="control-label">Montant Total:</label>
+                <div class="controls">
+                  <input
+                    type="number"
+                    readonly
+                    :value="montantTotal"
+                    class="span"
+                    placeholder="Saisir montant total"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <a
+          @click.prevent="ajouterBesoinImmoLocal(formData)"
+          class="btn btn-primary"
+          href="#"
+        >Valider</a>
+        <a data-dismiss="modal" class="btn" href="#">Fermer</a>
+      </div>
+    </div>
+    <!--///////////////////////////////////////// fin modal d ajout //////////////////////////////-->
+
+    <!--///////////////////////////////////////// debut modal de modification //////////////////////////////-->
+
+    <div id="modificationModal" class="modal hide">
+      <div class="modal-header">
+        <button data-dismiss="modal" class="close" type="button">×</button>
+        <h3>Modifier Famille Articles</h3>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <a class="btn btn-primary">Modifier</a>
+        <a data-dismiss="modal" class="btn" href="#">Fermer</a>
+      </div>
+    </div>
+    <!--///////////////////////////////////////// fin modal de modification //////////////////////////////-->
+    <!-- End Page Header -->
+    <!-- Default Light Table -->
+    <div class="container-fluid">
+      <hr />
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="widget-box">
+            <div class="widget-title">
+              <span class="icon">
+                <i class="icon-th"></i>
+              </span>
+              <h5>Liste des Bessoins Immobilisations de UA</h5>
+              <div align="right">
+                Recherche:
+                <input type="search" placeholder v-model="search" />
+              </div>
+            </div>
+
+            <div class="widget-content nopadding" v-if="uniteAdministratives.length">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>UA</th>
+                    <th>Designation</th>
+                    <th>Quantité</th>
+                    <th>Prix Unitaire</th>
+                    <th>Montant Total</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    class="odd gradeX"
+                    v-for="(BesoinImmo, index) in filtre_famille"
+                    :key="BesoinImmo.id"
+                  >
+                    <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{BesoinImmo.uniteAdminist.libelle || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{BesoinImmo.designation || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{BesoinImmo.quantite || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{formatageSomme(parseFloat(BesoinImmo.prix_unitaire)) || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{formatageSomme(parseFloat(BesoinImmo.montant_total)) || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{formaterDate(BesoinImmo.date_jour) || 'Non renseigné'}}</td>
+
+                    <td>
+                      <button class="btn btn-danger" @click="supprimerBesoinImmo(BesoinImmo.id)">
+                        <span>
+                          <i class="icon icon-trash"></i>
+                        </span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div v-else>
+              <p style="text-align:center;font-size:20px;color:red;">Aucun Besoin d'Immobolisation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+  </div>
+</template>
+  
+<script>
+import { mapGetters, mapActions } from "vuex";
+import moment from "moment";
+import { formatageSomme } from "../../../Repositories/Repository";
+
+export default {
+  data() {
+    return {
+      fabActions: [
+        {
+          name: "cache",
+          icon: "add"
+        }
+        // {
+        //   name: "alertMe",
+        //   icon: "add_alert",
+        //   class: ""
+        // }
+      ],
+
+      formData: {
+        uniteadmin_id: "",
+        designation: "",
+        quantite: "",
+        prix_unitaire: "",
+        montant_total: "",
+        date_jour: ""
+      },
+      editBesoinImmo: {
+        uniteadmin_id: "",
+        designation: "",
+        quantite: "",
+        prix_unitaire: "",
+        montant_total: "",
+        date_jour: ""
+      },
+      search: ""
+    };
+  },
+
+  computed: {
+    ...mapGetters("SuiviImmobilisation", ["trieUaImmobilisation"]),
+    ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
+
+    montantTotal() {
+      const val =
+        parseFloat(this.formData.quantite) *
+        parseFloat(this.formData.prix_unitaire);
+      // parseFloat(this.formData.TVA_id);
+      if (isNaN(val)) return null;
+      return parseFloat(val).toFixed(2);
+    },
+    filtre_famille() {
+      const st = this.search.toLowerCase();
+      return this.trieUaImmobilisation.filter(type => {
+        return type.designation.toLowerCase().includes(st);
+      });
+    }
+  },
+  methods: {
+    ...mapActions("SuiviImmobilisation", [
+      "getAllBesoinImmo",
+      "ajouterBesoinImmo",
+      "modifierBesoinImmo",
+      "supprimerBesoinImmo"
+    ]),
+    formatageSomme: formatageSomme,
+
+    //afiicher modal ajouter
+    afficherModalAjouterTitre() {
+      this.$("#exampleModal").modal({
+        backdrop: "static",
+        keyboard: false
+      });
+    },
+    // fonction pour vider l'input ajouter
+    ajouterBesoinImmoLocal() {
+      var nouvelObjet = {
+        ...this.formData,
+        montant_total: this.montantTotal
+      };
+      this.ajouterBesoinImmo(nouvelObjet);
+      this.formData = {
+        uniteadmin_id: "",
+        designation: "",
+        quantite: "",
+        prix_unitaire: "",
+        montant_total: "",
+        date_jour: ""
+      };
+    },
+    // afficher modal de modification
+    afficherModalModifierBesoinImmo(index) {
+      this.$("#modificationModal").modal({
+        backdrop: "static",
+        keyboard: false
+      });
+
+      this.editBesoinImmo = this.besoinImmobilisations[index];
+    },
+    // fonction pour vider l'input modification
+    modifierBesoinImmoLocal() {
+      this.modifierBesoinImmo(this.editBesoinImmo);
+    },
+    alert() {
+      console.log("ok");
+    },
+    formaterDate(date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    }
+  }
+};
+</script>
+<style scoped>
+.taillemodal {
+  width: 800px;
+  margin: 0 -380px;
+}
+</style>

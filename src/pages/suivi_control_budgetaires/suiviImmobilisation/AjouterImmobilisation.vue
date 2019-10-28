@@ -25,7 +25,7 @@
                   <div class="widget-title">
                     <ul class="nav nav-tabs">
                       <li class="active">
-                        <a data-toggle="tab" href="#tab1">Identification bbbb</a>
+                        <a data-toggle="tab" href="#tab1">Identification</a>
                       </li>
                       <li>
                         <a data-toggle="tab" href="#tab2">Descriptif</a>
@@ -89,9 +89,6 @@
                             </div>
                           </div>
                         </td>
-                      </tr>
-
-                      <tr>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Qté Afféctée:</label>
@@ -100,6 +97,9 @@
                             </div>
                           </div>
                         </td>
+                      </tr>
+
+                      <tr>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Qté Actuel:</label>
@@ -112,12 +112,23 @@
                           <div class="control-group">
                             <label class="control-label">Prix unitaire:</label>
                             <div class="controls">
-                              <input
-                                type="text"
-                                class="span"
-                                v-model="formData.prix_unitaire"
-                                readonly
-                              />
+                              <input type="number" class="span" v-model="formData.prixU" />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Total Actuel:</label>
+                            <div class="controls">
+                              <input type="number" class="span" :value="TotalActuel" readonly />
+                            </div>
+                          </div>
+                        </td>
+                        <!-- <td>
+                          <div class="control-group">
+                            <label class="control-label">Valeur d'Origine:</label>
+                            <div class="controls">
+                              <input type="number" class="span" readonly :value="ValeurOrigine" />
                             </div>
                           </div>
                         </td>
@@ -128,12 +139,13 @@
                               <input type="number" class="span" readonly :value="ValeurOrigine" />
                             </div>
                           </div>
-                        </td>
+                        </td>-->
                       </tr>
                     </div>
                     <!--ongle descriptif-->
-
+                    <div id="tab2" class="tab-pane active"></div>
                     <!--ongle 3 -->
+                    <div id="tab3" class="tab-pane active"></div>
                   </div>
                   <br />
                   <div align="right">
@@ -142,7 +154,7 @@
                         <a
                           class="btn btn-primary"
                           @click.prevent="ajouterImmobilisationLocal(formData)"
-                          v-show="formData.Prix_unitaire.length && formData.quantite.length && formData.exercice_budgetaire_id && formData.designation.length"
+                          v-show="formData.prixU.length && formData.quantite.length && formData.exercice_budgetaire_id && formData.designation.length"
                         >Valider</a>
                         <a
                           @click.prevent="afficherTableauImmobilisation()"
@@ -170,7 +182,7 @@ export default {
   data() {
     return {
       formData: {
-        Prix_unitaire: "",
+        prixU: "",
         quantite: "",
         // valeur_origine = this.ValeurOrigine(),
         valeur_origine: "",
@@ -204,10 +216,8 @@ export default {
     ...mapGetters("personnelUA", ["all_acteur_depense"]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
-    ValeurOrigine() {
-      const val =
-        parseFloat(this.formData.quantite) *
-        parseFloat(this.formData.Prix_unitaire);
+    TotalActuel() {
+      const val = parseFloat(this.QteActuel) * parseFloat(this.formData.prixU);
       return parseFloat(val).toFixed(2);
     },
     QteActuel() {
@@ -249,7 +259,7 @@ export default {
         date_mise_service: "",
         numero_facture: "",
         quantite: "",
-        Prix_unitaire: "",
+        prixU: "",
         famille_id: "",
         valeur_origine: "",
         duree: "",

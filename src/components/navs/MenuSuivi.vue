@@ -167,25 +167,25 @@
           <li>
             <router-link :to="{name:'famille'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Listes des Familles</span>
+              <span class="text">Liste des Familles</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{name:'service'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Listes des Services</span>
+              <span class="text">Liste des Services</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{name:''}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste des équipements</span>
+              <span class="text">Liste des Articles</span>
             </router-link>
           </li>
           <li title="Bessoin Immobilisation">
             <router-link :to="{name:'besionImmolisation'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste des besoins Immo</span>
+              <span class="text">Demande d'équipement</span>
             </router-link>
           </li>
           <li>

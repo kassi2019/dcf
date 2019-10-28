@@ -67,7 +67,7 @@
                     >{{immo.qte_actuel || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{formatageSomme(parseFloat(immo.prix_unitaire)) || 'Non renseigné'}}</td>
+                    >{{formatageSomme(parseFloat(immo.prixU)) || 'Non renseigné'}}</td>
 
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immo.id)"

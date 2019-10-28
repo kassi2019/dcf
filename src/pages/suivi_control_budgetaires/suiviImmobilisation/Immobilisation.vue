@@ -93,7 +93,7 @@
               </table>
               <div v-if="filtre_immobilisation.length"></div>
               <div v-else>
-                <p style="text-align:center;font-size:20px;color:red;">Aucun Immobilisations</p>
+                <p style="text-align:center;font-size:20px;color:red;">Aucune Immobilisations</p>
               </div>
             </div>
           </div>

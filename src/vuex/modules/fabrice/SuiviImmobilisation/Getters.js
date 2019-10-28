@@ -87,11 +87,10 @@ export const nombreTotalBesoinImmoUa = state =>
 export const nombreFamilleArticle = state => state.familles.length;
 export const nombreServices = state => state.services.length;
 export const nombreAmortissement = state => state.amortissements.length;
-export const nombreImmobilisation = state => state.immobilisations.length;
+export const nombreImmobilisation = state => state.besoinImmobilisations.length;
 export const nbreImmoRealise = state =>
-  state.immobilisations.filter(
-    Immrealise => Immrealise.date_mise_service !== null
-  ).length;
+  state.besoinImmobilisations.filter(Immrealise => Immrealise.quantite == 0)
+    .length;
 export const nbreImmoPrevue = state =>
   state.immobilisations.filter(
     Immrealise => Immrealise.date_mise_service == null

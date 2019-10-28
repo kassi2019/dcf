@@ -3,59 +3,54 @@
   <div class="container-fluid">
     <div class="quick-actions_homepage">
       <ul class="quick-actions">
-        <li class="bg_lb" title="nombre de famille d'immobilisation">
+        <!-- <li class="bg_lb" title="nombre de famille d'immobilisation">
           <a href="#">
             <i class="icon-list-ol"></i>
             <span class="label label-important">{{nombreFamilleArticle}}</span> Nbre familles immo
           </a>
-        </li>
+        </li>-->
 
-        <li class="bg_ly" title="nombre de service">
+        <!-- <li class="bg_ly" title="nombre de service">
           <a href="#">
             <i class="icon-list-ol"></i>
             <span class="label label-success">{{nombreServices}}</span> Nbre de service
           </a>
-        </li>
-        <li class="bg_lo" title="total amortissement">
+        </li>-->
+        <!-- <li class="bg_lo" title="total amortissement">
           <a href="#">
             <i class="icon-list-ol"></i>
             <span class="label label-success">{{nombreAmortissement}}</span> Nbre Amortissement
           </a>
-        </li>
-        <li class="bg_ls" title="Total immobilisation">
+        </li>-->
+        <li class="bg_ls" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{nombreImmobilisation}}</span> Nbre immobilisation
+            <span class="label label-success">{{nombreImmobilisation}}</span> Nbre Total d'équipement
           </a>
         </li>
 
-        <li class="bg_lb" title="nombre d'immobilisation réalise">
+        <li class="bg_ls" title="nombre d'immobilisation réalise">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{nbreImmoRealise}}</span>Nbre immobilisation réalisé
+            <span class="label label-success">{{nbreImmoRealise}}</span>Equipement réalisé
           </a>
         </li>
-      </ul>
-    </div>
-
-    <div class="quick-actions_homepage">
-      <ul class="quick-actions">
         <li class="bg_ls" title="nombre immobilisation prévue">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{NbreImmobilisationPrevue}}</span>Nbre Immo prévue
+            <span class="label label-success">{{NbreImmobilisationPrevue}}</span>Equipement prévue
           </a>
         </li>
-        <li class="bg_lb" title="volume d'immobilisation réalise">
+        <li class="bg_lg" title="volume d'immobilisation réalise">
           <a href="#">
             <i class="icon-th"></i>
-            <span class="label label-success">{{volumeImmoRealise}}</span>Volume immo réalisé
+            <span class="label label-success">{{volumeImmoRealise}}</span>Volume équipement réalisé
           </a>
         </li>
         <li class="bg_lg">
           <a href="#">
             <i class="icon-th"></i>
-            <span class="label label-success">{{volumeImmoPrevu}}</span>Volume immobilisation prévue
+            <span class="label label-success">{{volumeImmoPrevu}}</span>Volume équipement prévue
           </a>
         </li>
         <li class="bg_lr" title="Taux immobilisation de UA">
@@ -64,10 +59,6 @@
             <span class="label label-success">{{tauximmobilisationUa}}%</span>Taux immobilisation de ua
           </a>
         </li>
-      </ul>
-    </div>
-    <div class="quick-actions_homepage">
-      <ul class="quick-actions">
         <li class="bg_lr" title="Taux immobilisation de UA">
           <a href="#">
             <i class="icon-info-sign"></i>
@@ -75,6 +66,13 @@
           </a>
         </li>
       </ul>
+    </div>
+
+    <div class="quick-actions_homepage">
+      <ul class="quick-actions"></ul>
+    </div>
+    <div class="quick-actions_homepage">
+      <ul class="quick-actions"></ul>
     </div>
   </div>
 </template>

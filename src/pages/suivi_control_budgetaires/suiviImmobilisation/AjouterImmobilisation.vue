@@ -59,24 +59,33 @@
                           <div class="control-group">
                             <label class="control-label">Unite administrative:</label>
                             <div class="controls">
-                              <select v-model="formData.uniteadministrative_id">
+                              <select
+                                v-model="formData.uniteadministrative_id"
+                                v-on:change="changerUniteAdmin($event)"
+                              >
                                 <option value>Sélectionner</option>
                                 <option
                                   v-for="ua in trieUaImmobilisation"
                                   :key="ua.id"
-                                  :value="ua.id"
+                                  :value="ua.designation"
                                 >{{ua.uniteAdminist.libelle}}</option>
                               </select>
                             </div>
                           </div>
+                          <p>
+                            <span>Selected country name: {{quantite }}</span>
+                          </p>
                         </td>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Désignation:</label>
                             <div class="controls">
-                              <select v-model="formData.designationImmo">
+                              <select
+                                v-model="formData.designationImmo"
+                                v-on:change="changerdesignation($event)"
+                              >
                                 <option value>Sélectionner</option>
-                                <option></option>
+                                <option>{{designation}}</option>
                               </select>
                             </div>
                           </div>
@@ -85,7 +94,7 @@
                           <div class="control-group">
                             <label class="control-label">Qté Réel:</label>
                             <div class="controls">
-                              <input type="number" class="span" v-model="formData.quantite" />
+                              <input type="number" class="span" :value="quantite" />
                             </div>
                           </div>
                         </td>
@@ -154,7 +163,6 @@
                         <a
                           class="btn btn-primary"
                           @click.prevent="ajouterImmobilisationLocal(formData)"
-                          v-show="formData.prixU.length && formData.quantite.length && formData.exercice_budgetaire_id && formData.designation.length"
                         >Valider</a>
                         <a
                           @click.prevent="afficherTableauImmobilisation()"
@@ -191,10 +199,14 @@ export default {
         uniteadministrative_id: "",
         qtebesoin: ""
       },
+      selectedCountry: null,
       stats: ["neuf(ve)", "Seconde Main", "Bon"],
       typeImmo: ["Corporelle", "Incorporelle"],
       causeInactivite: ["Vendue", "Mise en hors service"],
-      search: ""
+      search: "",
+      designation: [null],
+      quantite: null,
+      prix_unitaire: null
     };
   },
   // mounted() {
@@ -208,7 +220,6 @@ export default {
     ...mapGetters("SuiviImmobilisation", [
       "familles",
       "services",
-      "trieUaImmobilisation",
       "trieUaImmobilisation"
     ]),
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires"]),
@@ -222,9 +233,8 @@ export default {
     },
     QteActuel() {
       const val =
-        parseFloat(this.formData.quantite) -
-        parseFloat(this.formData.qteaffecte);
-      return parseFloat(val).toFixed(2);
+        parseInt(this.formData.quantite) - parseInt(this.formData.qteaffecte);
+      return parseInt(val).toFixed(0);
     }
   },
   methods: {
@@ -236,7 +246,15 @@ export default {
         keyboard: false
       });
     },
-
+    changerUniteAdmin(event) {
+      this.designation = event.target.value;
+    },
+    changerdesignation(event) {
+      this.quantite =
+        event.target.options[event.target.options.selectedIndex].number;
+      this.prix_unitaire =
+        event.target.options[event.target.options.selectedIndex].float;
+    },
     afficherTableauImmobilisation() {
       this.$router.push({
         name: "immobilisation"

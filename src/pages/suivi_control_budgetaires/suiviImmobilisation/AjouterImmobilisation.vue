@@ -236,6 +236,7 @@ export default {
         keyboard: false
       });
     },
+
     afficherTableauImmobilisation() {
       this.$router.push({
         name: "immobilisation"

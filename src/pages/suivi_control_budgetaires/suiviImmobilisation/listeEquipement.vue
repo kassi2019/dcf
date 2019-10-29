@@ -5,22 +5,10 @@
     <div id="exampleModal" class="modal hide">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
-        <h3>Ajouter Famille Articles</h3>
+        <h3>Ajouter Equipement</h3>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label">Type d' équipement:</label>
-            <div class="controls">
-              <select v-model="formData.equipemt_id">
-                <option
-                  v-for="equip in equipements"
-                  :key="equip.id"
-                  :value="equip.id"
-                >{{equip.libelle}}</option>
-              </select>
-            </div>
-          </div>
           <div class="control-group">
             <label class="control-label">Code:</label>
             <div class="controls">
@@ -57,28 +45,16 @@
     <div id="modificationModal" class="modal hide">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
-        <h3>Modifier Famille Articles</h3>
+        <h3>Modifier Equipement</h3>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label">Type d' équipement:</label>
-            <div class="controls">
-              <select v-model="editFamille.equipemt_id">
-                <option
-                  v-for="equip in equipements"
-                  :key="equip.id"
-                  :value="equip.id"
-                >{{equip.libelle}}</option>
-              </select>
-            </div>
-          </div>
           <div class="control-group">
             <label class="control-label">Code:</label>
             <div class="controls">
               <input
                 type="text"
-                v-model="editFamille.code"
+                v-model="editEquipement.code"
                 class="span"
                 placeholder="Saisir le code"
               />
@@ -89,7 +65,7 @@
             <div class="controls">
               <input
                 type="text"
-                v-model="editFamille.libelle"
+                v-model="editEquipement.libelle"
                 class="span"
                 placeholder="Saisir le libelle"
               />
@@ -99,10 +75,10 @@
       </div>
       <div class="modal-footer">
         <a
-          @click.prevent="modifierFamilleLocal(editFamille)"
+          @click.prevent="modifierFamilleLocal(editEquipement)"
           class="btn btn-primary"
           href="#"
-          v-show="editFamille.code.length && editFamille.libelle.length"
+          v-show="editEquipement.code.length && editEquipement.libelle.length"
         >Modifier</a>
         <a data-dismiss="modal" class="btn" href="#">Fermer</a>
       </div>
@@ -118,9 +94,9 @@
             class="btn btn-default pull-right"
             style="cursor:pointer;"
             :fields="json_fields"
-            title="Liste des Familles"
-            :data="filtre_famille"
-            name="Liste des familles"
+            title="Liste Types équipements"
+            :data="filtre_equipement"
+            name="Liste des types équipements"
           >
             <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
@@ -129,7 +105,7 @@
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
-              <h5>Liste des Familles des Immobilisations</h5>
+              <h5>Liste Types équipements</h5>
               <div align="right">
                 Search:
                 <input type="search" placeholder v-model="search" />
@@ -148,21 +124,18 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="(famille, index) in filtre_famille"
-                    :key="famille.id"
+                    v-for="(equipement, index) in filtre_equipement"
+                    :key="equipement.id"
                   >
                     <td
                       @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>
+                    >{{equipement.code || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.code || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.libelle || 'Non renseigné'}}</td>
+                    >{{equipement.libelle || 'Non renseigné'}}</td>
 
                     <td>
-                      <button class="btn btn-danger" @click="supprimerFamille(famille.id)">
+                      <button class="btn btn-danger" @click="supprimerEquipement(equipement.id)">
                         <span>
                           <i class="icon icon-trash"></i>
                         </span>
@@ -171,9 +144,11 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="filtre_famille.length"></div>
+              <div v-if="filtre_equipement.length"></div>
               <div v-else>
-                <p style="text-align:center;font-size:20px;color:red;">Aucune Famille Article</p>
+                <p
+                  style="text-align:center;font-size:20px;color:red;"
+                >Aucun type equipement disponible</p>
               </div>
             </div>
           </div>
@@ -204,30 +179,27 @@ export default {
         // }
       ],
       json_fields: {
-        TYPE_EQUIPEMENT: "reletion_Equipement.libelle",
         CODE: "code",
         LIBELLE: "libelle"
       },
 
       formData: {
         code: "",
-        libelle: "",
-        equipemt_id: ""
+        libelle: ""
       },
-      editFamille: {
+      editEquipement: {
         code: "",
-        libelle: "",
-        equipemt_id: ""
+        libelle: ""
       },
       search: ""
     };
   },
 
   computed: {
-    ...mapGetters("SuiviImmobilisation", ["familles", "equipements"]),
-    filtre_famille() {
+    ...mapGetters("SuiviImmobilisation", ["equipements"]),
+    filtre_equipement() {
       const st = this.search.toLowerCase();
-      return this.familles.filter(type => {
+      return this.equipements.filter(type => {
         return (
           type.code.toLowerCase().includes(st) ||
           type.libelle.toLowerCase().includes(st)
@@ -237,10 +209,10 @@ export default {
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [
-      "getAllFamille",
-      "ajouterFamille",
-      "modifierFamille",
-      "supprimerFamille"
+      "getAllEquipement",
+      "ajouterEquipement",
+      "modifierEquipement",
+      "supprimerEquipement"
     ]),
     //afiicher modal ajouter
     afficherModalAjouterTitre() {
@@ -251,7 +223,7 @@ export default {
     },
     // fonction pour vider l'input ajouter
     ajouterFamilleLocal() {
-      this.ajouterFamille(this.formData);
+      this.ajouterEquipement(this.formData);
 
       this.formData = {
         code: "",
@@ -265,16 +237,11 @@ export default {
         keyboard: false
       });
 
-      this.editFamille = this.familles[index];
+      this.editEquipement = this.equipements[index];
     },
     // fonction pour vider l'input modification
     modifierFamilleLocal() {
-      this.modifierFamille(this.editFamille);
-
-      this.editFamille = {
-        code: "",
-        libelle: ""
-      };
+      this.modifierEquipement(this.editEquipement);
     },
     alert() {
       console.log("ok");

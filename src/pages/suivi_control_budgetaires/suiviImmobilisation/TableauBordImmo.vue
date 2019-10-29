@@ -47,24 +47,24 @@
             <span class="label label-success">{{volumeImmoRealise}}</span>Volume équipement réalisé
           </a>
         </li>
-        <li class="bg_lg">
+        <!-- <li class="bg_lg">
           <a href="#">
             <i class="icon-th"></i>
             <span class="label label-success">{{volumeImmoPrevu}}</span>Volume équipement prévue
           </a>
-        </li>
-        <li class="bg_lr" title="Taux immobilisation de UA">
+        </li>-->
+        <!-- <li class="bg_lr" title="Taux immobilisation de UA">
           <a href="#">
             <i class="icon-info-sign"></i>
             <span class="label label-success">{{tauximmobilisationUa}}%</span>Taux immobilisation de ua
           </a>
-        </li>
-        <li class="bg_lr" title="Taux immobilisation de UA">
+        </li>-->
+        <!-- <li class="bg_lr" title="Taux immobilisation de UA">
           <a href="#">
             <i class="icon-info-sign"></i>
             <span class="label label-success">{{tauxbesoinimmoUa}}%</span>Taux Besoin immobilisation de ua
           </a>
-        </li>
+        </li>-->
       </ul>
     </div>
 

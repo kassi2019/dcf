@@ -12,6 +12,9 @@ const besoinImmobilisations = state =>
     a.quantite > b.quantite ? 1 : -1
   );
 
+const equipements = state =>
+  state.equipements.sort((a, b) => (a.code > b.code ? 1 : -1));
+
 export const listeImmoRealise = state =>
   state.immobilisations.filter(
     Immrealise => Immrealise.date_mise_service !== null
@@ -69,12 +72,15 @@ export const trieUaBesoinImmo = state =>
 
 export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
   getters.trieUaBesoinImmo.map(element => {
-    if (element.uniteadmin_id !== null) {
+    if (element.uniteadmin_id !== null && element.epuipement_id !== null) {
       element = {
         ...element,
         uniteAdminist: rootGetters[
           "uniteadministrative/uniteAdministratives"
-        ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id)
+        ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id),
+        equipemt: rootGetters["SuiviImmobilisation/equipements"].find(
+          equipe => equipe.id == element.epuipement_id
+        )
       };
     }
 
@@ -108,19 +114,31 @@ export const SommeEquipementPrevue = (state, getters) =>
     0
   );
 
-export const volumeImmoRealise = (state, getters) =>
-  parseFloat(getters.nbreImmoRealise / getters.nombreImmobilisation).toFixed(2);
+export const volumeImmoRealise = (state, getters) => {
+  const val = parseFloat(
+    getters.nbreImmoRealise / getters.nombreImmobilisation
+  ).toFixed(2);
+  if (isNaN(val)) return null;
+  return val;
+};
+
 ////////////////////getter calcul pourcentage///////////////
-export const volumeImmoPrevu = (state, getters) =>
-  parseFloat(
+export const volumeImmoPrevu = (state, getters) => {
+  const val = parseFloat(
     getters.NbreImmobilisationPrevue / getters.nombreTotalBesoinImmoUa
   ).toFixed(2);
+  if (isNaN(val)) return null;
+  return val;
+};
 
-export const tauximmobilisationUa = (state, getters) =>
-  parseFloat((1 / getters.nombreImmobilisation) * 100).toFixed(2);
+export const tauximmobilisationUa = (state, getters) => {
+  const val = parseFloat((1 / getters.nombreImmobilisation) * 100).toFixed(2);
+  if (isNaN(val)) return null;
+  return val;
+};
 
-export const tauxbesoinimmoUa = (state, getters) =>
-  parseFloat((1 / getters.NbreImmobilisationPrevue) * 100).toFixed(2);
+// export const tauxbesoinimmoUa = (state, getters) =>
+//   parseFloat((1 / getters.NbreImmobilisationPrevue) * 100).toFixed(2);
 
 // export const trieUaBesoinImmo = state =>
 //   state.besoinImmobilisations.filter(
@@ -132,5 +150,6 @@ export {
   services,
   amortissements,
   immobilisations,
-  besoinImmobilisations
+  besoinImmobilisations,
+  equipements
 };

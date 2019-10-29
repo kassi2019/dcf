@@ -157,7 +157,44 @@ const SUPPRIMER_BESOIN_IMMO = (state, id) => {
 
 /*fin mutation BESOIN_IMMO */
 
+/////////////////////////////////*debut mutation equipement */////////////////////
+// afficher FAMILLE*
+const GET_ALL_EQUIPEMENT = (state, tableauEquipement) => {
+  state.equipements = tableauEquipement;
+};
+
+// ajouter FAMILLE
+const AJOUTER_EQUIPEMENT = (state, nouveau_equipement) => {
+  // state.typeTextes = [...nouveau_type, ...state.typeTextes]
+  state.equipements.unshift(nouveau_equipement);
+};
+
+// modifier EQUIPEMENT
+const MODIFIER_EQUIPEMENT = (state, objetModifie) => {
+  state.equipements = state.equipements.map(equipement => {
+    if (equipement.id == objetModifie.id) {
+      equipement = { ...objetModifie };
+    }
+
+    return equipement;
+  });
+};
+
+// supprimer EQUIPEMENT
+const SUPPRIMER_EQUIPEMENT = (state, id) => {
+  state.equipements = state.equipements.filter(
+    equipement => equipement.id != id
+  );
+};
+
+/*fin mutation EQUIPEMENT */
+
 export {
+  /* mutation EQUIPEMENT*/
+  GET_ALL_EQUIPEMENT,
+  AJOUTER_EQUIPEMENT,
+  MODIFIER_EQUIPEMENT,
+  SUPPRIMER_EQUIPEMENT,
   /* mutation BESOIN_IMMO*/
   GET_ALL_BESOIN_IMMO,
   AJOUTER_BESOIN_IMMO,

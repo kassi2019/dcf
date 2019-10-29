@@ -14,8 +14,13 @@ import Amortissement2 from "../../pages/suivi_control_budgetaires/suiviImmobilis
 import amortissementLineaire from "../../pages/suivi_control_budgetaires/suiviImmobilisation/amortissementLineaire.vue";
 import DetailImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/DetailImmobilisation.vue";
 import besionImmolisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/besionImmolisation.vue";
-
+import listeEquipement from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeEquipement.vue";
 const suiviImmobilisationRoutes = [
+  {
+    path: "/liste-Equipement",
+    name: "listeEquipement",
+    component: listeEquipement
+  },
   {
     path: "/besion-Immolisation",
     name: "besionImmolisation",

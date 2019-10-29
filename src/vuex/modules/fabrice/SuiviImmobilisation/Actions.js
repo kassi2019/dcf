@@ -22,7 +22,8 @@ export function ajouterFamille({ commit }, nouveau) {
   axios
     .post("/ajouter_famille", {
       code: nouveau.code,
-      libelle: nouveau.libelle
+      libelle: nouveau.libelle,
+      equipemt_id: nouveau.equipemt_id
     })
     .then(response => {
       if (response.status == 201) {
@@ -36,7 +37,8 @@ export function modifierFamille({ commit }, nouveau) {
   axios
     .put("/modifier_famille/" + nouveau.id, {
       code: nouveau.code,
-      libelle: nouveau.libelle
+      libelle: nouveau.libelle,
+      equipemt_id: nouveau.equipemt_id
     })
     .then(response => {
       commit("MODIFIER_FAMILLE", response.data);
@@ -96,9 +98,6 @@ export function modifierService({ commit }, nouveau) {
 }
 //supprimer
 export function supprimerService({ commit }, id) {
-  
-
-
   this.$app.$dialog
     .confirm("Voulez vouz vraiment supprimer ?.")
     .then(dialog => {
@@ -172,18 +171,15 @@ export function modifierImmobilisation({ commit }, nouveau) {
 }
 //supprimer
 export function supprimerImmobilisation({ commit }, id) {
-  
-
-
   this.$app.$dialog
     .confirm("Voulez vouz vraiment supprimer ?.")
     .then(dialog => {
       commit("SUPPRIMER_IMMOBILISATION", id);
       // // dialog.loading(false) // stops the proceed button's loader
-      axios.delete("/supprimer_immobilisation/" + id).then(() => dialog.close());
+      axios
+        .delete("/supprimer_immobilisation/" + id)
+        .then(() => dialog.close());
     });
-
-
 }
 export function afficherUnSeulImmobilisation({ commit }, id) {
   commit("GET_SEUL_IMMOBILISATION", id);
@@ -249,10 +245,6 @@ export function modifierAmortissement({ commit }, nouveau) {
 }
 //supprimer
 export function supprimerAmortissement({ commit }, id) {
-  
-
-
-
   this.$app.$dialog
     .confirm("Voulez vouz vraiment supprimer ?.")
     .then(dialog => {
@@ -280,7 +272,7 @@ export function ajouterBesoinImmo({ commit }, nouveau) {
   axios
     .post("/ajouter_besoin_immo", {
       uniteadmin_id: nouveau.uniteadmin_id,
-      designation: nouveau.designation,
+      epuipement_id: nouveau.epuipement_id,
       quantite: nouveau.quantite,
       prix_unitaire: nouveau.prix_unitaire,
       montant_total: nouveau.montant_total,
@@ -298,7 +290,7 @@ export function modifierBesoinImmo({ commit }, nouveau) {
   axios
     .put("/modifier_besoin_immo/" + nouveau.id, {
       uniteadmin_id: nouveau.uniteadmin_id,
-      designation: nouveau.designation,
+      epuipement_id: nouveau.epuipement_id,
       quantite: nouveau.quantite,
       prix_unitaire: nouveau.prix_unitaire,
       montant_total: nouveau.montant_total,
@@ -310,15 +302,62 @@ export function modifierBesoinImmo({ commit }, nouveau) {
 }
 //supprimer
 export function supprimerBesoinImmo({ commit }, id) {
-  
-
-
   this.$app.$dialog
     .confirm("Voulez vouz vraiment supprimer ?.")
     .then(dialog => {
       commit("SUPPRIMER_BESOIN_IMMO", id);
       // // dialog.loading(false) // stops the proceed button's loader
       axios.delete("/supprimer_besoin_immo/" + id).then(() => dialog.close());
+    });
+}
+
+/*fin action famille */
+
+// afficher liste famille
+export function getAllEquipement({ commit }) {
+  queue.push(() => {
+    axios
+      .get("/liste_equipement")
+      .then(response => {
+        commit("GET_ALL_EQUIPEMENT", response.data);
+      })
+      .catch(error => console.log(error));
+  });
+}
+
+// ajouter
+export function ajouterEquipement({ commit }, nouveau) {
+  axios
+    .post("/ajouter_equipement", {
+      code: nouveau.code,
+      libelle: nouveau.libelle
+    })
+    .then(response => {
+      if (response.status == 201) {
+        commit("AJOUTER_EQUIPEMENT", response.data);
+      }
+    });
+}
+
+// modifier
+export function modifierEquipement({ commit }, nouveau) {
+  axios
+    .put("/modifier_equipement/" + nouveau.id, {
+      code: nouveau.code,
+      libelle: nouveau.libelle
+    })
+    .then(response => {
+      commit("MODIFIER_EQUIPEMENT", response.data);
+    });
+}
+//supprimer
+export function supprimerEquipement({ commit }, id) {
+  this.$app.$dialog
+    .confirm("Voulez vouz vraiment supprimer ?.")
+    .then(dialog => {
+      commit("SUPPRIMER_EQUIPEMENT", id);
+      // // dialog.loading(false) // stops the proceed button's loader
+      axios.delete("/supprimer_equipement/" + id).then(() => dialog.close());
     });
 }
 

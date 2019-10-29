@@ -177,9 +177,9 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{name:''}" tag="a">
+            <router-link :to="{name:'listeEquipement'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste des Articles</span>
+              <span class="text">Liste Types équipements</span>
             </router-link>
           </li>
           <li title="Bessoin Immobilisation">

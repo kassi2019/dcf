@@ -6,7 +6,8 @@ const defaultState = {
   amortissements: [],
 
   immobilisations: [],
-  besoinImmobilisations: []
+  besoinImmobilisations: [],
+  equipements: []
 };
 
 export default defaultState;

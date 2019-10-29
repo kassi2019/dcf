@@ -5,7 +5,7 @@
     <div id="exampleModal" class="modal hide taillemodal">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
-        <h3>Ajouter Bessoin Immobilisation par UA</h3>
+        <h3>Ajouter Besoin d'équipement</h3>
       </div>
       <div class="modal-body">
         <table class="table table-bordered table-striped">
@@ -28,12 +28,13 @@
               <div class="control-group">
                 <label class="control-label">Designation:</label>
                 <div class="controls">
-                  <input
-                    type="text"
-                    v-model="formData.designation"
-                    class="span"
-                    placeholder="Saisir la designation"
-                  />
+                  <select v-model="formData.epuipement_id">
+                    <option
+                      v-for="equipe in equipements"
+                      :key="equipe.id"
+                      :value="equipe.id"
+                    >{{equipe.libelle}}</option>
+                  </select>
                 </div>
               </div>
             </td>
@@ -113,9 +114,99 @@
     <div id="modificationModal" class="modal hide">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
-        <h3>Modifier Famille Articles</h3>
+        <h3>Modifier Besoin d'équipement</h3>
       </div>
-      <div class="modal-body"></div>
+      <div class="modal-body">
+        <table class="table table-bordered table-striped">
+          <tr>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Unite administrative:</label>
+                <div class="controls">
+                  <select v-model="editBesoinImmo.uniteadmin_id">
+                    <option
+                      v-for="ua in uniteAdministratives"
+                      :key="ua.id"
+                      :value="ua.id"
+                    >{{ua.libelle}}</option>
+                  </select>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Designation:</label>
+                <div class="controls">
+                  <select v-model="editBesoinImmo.epuipement_id">
+                    <option
+                      v-for="equipe in equipements"
+                      :key="equipe.id"
+                      :value="equipe.id"
+                    >{{equipe.libelle}}</option>
+                  </select>
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="control-group">
+                <label class="control-label">Date:</label>
+                <div class="controls">
+                  <input
+                    type="date"
+                    v-model="editBesoinImmo.date_jour"
+                    class="span"
+                    placeholder="Saisir le code"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Quantité:</label>
+                <div class="controls">
+                  <input
+                    type="number"
+                    v-model="editBesoinImmo.quantite"
+                    class="span"
+                    placeholder="Saisir la quantite"
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Prix Unitaire:</label>
+                <div class="controls">
+                  <input
+                    type="number"
+                    v-model="editBesoinImmo.prix_unitaire"
+                    class="span"
+                    placeholder="Saisir prix unitaire"
+                  />
+                </div>
+              </div>
+            </td>
+
+            <td>
+              <div class="control-group">
+                <label class="control-label">Montant Total:</label>
+                <div class="controls">
+                  <input
+                    type="number"
+                    readonly
+                    :value="montantTotal"
+                    class="span"
+                    placeholder="Saisir montant total"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
       <div class="modal-footer">
         <a class="btn btn-primary">Modifier</a>
         <a data-dismiss="modal" class="btn" href="#">Fermer</a>
@@ -156,7 +247,7 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="(BesoinImmo, index) in filtre_famille"
+                    v-for="(BesoinImmo, index) in trieUaImmobilisation"
                     :key="BesoinImmo.id"
                   >
                     <td
@@ -164,7 +255,7 @@
                     >{{BesoinImmo.uniteAdminist.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
-                    >{{BesoinImmo.designation || 'Non renseigné'}}</td>
+                    >{{BesoinImmo.equipemt.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
                     >{{BesoinImmo.quantite || 'Non renseigné'}}</td>
@@ -224,7 +315,7 @@ export default {
 
       formData: {
         uniteadmin_id: "",
-        designation: "",
+        epuipement_id: "",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
@@ -232,7 +323,7 @@ export default {
       },
       editBesoinImmo: {
         uniteadmin_id: "",
-        designation: "",
+        epuipement_id: "",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
@@ -243,7 +334,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters("SuiviImmobilisation", ["trieUaImmobilisation"]),
+    ...mapGetters("SuiviImmobilisation", [
+      "trieUaImmobilisation",
+      "equipements"
+    ]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
     montantTotal() {
@@ -253,13 +347,13 @@ export default {
       // parseFloat(this.formData.TVA_id);
       if (isNaN(val)) return null;
       return parseFloat(val).toFixed(2);
-    },
-    filtre_famille() {
-      const st = this.search.toLowerCase();
-      return this.trieUaImmobilisation.filter(type => {
-        return type.designation.toLowerCase().includes(st);
-      });
     }
+    // filtre_famille() {
+    //   const st = this.search.toLowerCase();
+    //   return this.trieUaImmobilisation.filter(type => {
+    //     return type.designation.toLowerCase().includes(st);
+    //   });
+    // }
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [
@@ -286,7 +380,7 @@ export default {
       this.ajouterBesoinImmo(nouvelObjet);
       this.formData = {
         uniteadmin_id: "",
-        designation: "",
+        epuipement_id: "",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",

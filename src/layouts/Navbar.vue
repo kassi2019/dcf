@@ -114,6 +114,7 @@ export default {
     ...mapActions("SuiviImmobilisation", [
       "getAllFamille",
       "getAllService",
+      "getAllEquipement",
       "getAllBesoinImmo",
       "getAllImmobilisation",
       "getAllAmortissement"
@@ -169,6 +170,7 @@ export default {
 
     this.getAllFamille();
     this.getAllService();
+    this.getAllEquipement();
     this.getAllBesoinImmo();
     this.getAllImmobilisation();
     this.getAllAmortissement();

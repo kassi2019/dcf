@@ -91,6 +91,7 @@ export const nombreImmobilisation = state => state.besoinImmobilisations.length;
 export const nbreImmoRealise = state =>
   state.besoinImmobilisations.filter(Immrealise => Immrealise.quantite == 0)
     .length;
+
 export const nbreImmoPrevue = state =>
   state.immobilisations.filter(
     Immrealise => Immrealise.date_mise_service == null
@@ -99,7 +100,13 @@ export const nbreImmoPrevue = state =>
 export const NbreImmobilisationPrevue = state =>
   state.besoinImmobilisations.filter(
     immobilisationPrevu => immobilisationPrevu.quantite !== 0
-  ).length;
+  );
+
+export const SommeEquipementPrevue = (state, getters) =>
+  getters.NbreImmobilisationPrevue.reduce(
+    (prec, cur) => parseFloat(prec) + parseFloat(cur.quantite),
+    0
+  );
 
 export const volumeImmoRealise = (state, getters) =>
   parseFloat(getters.nbreImmoRealise / getters.nombreImmobilisation).toFixed(2);

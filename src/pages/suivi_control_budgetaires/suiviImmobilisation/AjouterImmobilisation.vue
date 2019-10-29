@@ -73,7 +73,7 @@
                             </div>
                           </div>
                           <p>
-                            <span>Selected country name: {{quantite }}</span>
+                            <span>Selected country name: {{qte}}</span>
                           </p>
                         </td>
                         <td>
@@ -84,8 +84,11 @@
                                 v-model="formData.designationImmo"
                                 v-on:change="changerdesignation($event)"
                               >
-                                <option value>Sélectionner</option>
-                                <option>{{designation}}</option>
+                                <option
+                                  v-for="ua in trieUaImmobilisation"
+                                  :key="ua.id"
+                                  :value="ua.quantite"
+                                >{{designation}}</option>
                               </select>
                             </div>
                           </div>
@@ -94,7 +97,7 @@
                           <div class="control-group">
                             <label class="control-label">Qté Réel:</label>
                             <div class="controls">
-                              <input type="number" class="span" :value="quantite" />
+                              <input type="number" class="span" :value="qte" />
                             </div>
                           </div>
                         </td>
@@ -204,9 +207,10 @@ export default {
       typeImmo: ["Corporelle", "Incorporelle"],
       causeInactivite: ["Vendue", "Mise en hors service"],
       search: "",
-      designation: [null],
-      quantite: null,
-      prix_unitaire: null
+
+      prix_unitaire: null,
+      qte: "",
+      designation: ""
     };
   },
   // mounted() {
@@ -232,8 +236,7 @@ export default {
       return parseFloat(val).toFixed(2);
     },
     QteActuel() {
-      const val =
-        parseInt(this.formData.quantite) - parseInt(this.formData.qteaffecte);
+      const val = parseInt(this.qte) - parseInt(this.formData.qteaffecte);
       return parseInt(val).toFixed(0);
     }
   },
@@ -250,10 +253,8 @@ export default {
       this.designation = event.target.value;
     },
     changerdesignation(event) {
-      this.quantite =
-        event.target.options[event.target.options.selectedIndex].number;
-      this.prix_unitaire =
-        event.target.options[event.target.options.selectedIndex].float;
+      this.qte = event.target.value;
+      this.prix_unitaire = event.target.value;
     },
     afficherTableauImmobilisation() {
       this.$router.push({

@@ -38,7 +38,7 @@
         <li class="bg_ls" title="nombre immobilisation prévue">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{NbreImmobilisationPrevue}}</span>Equipement prévue
+            <span class="label label-success">{{SommeEquipementPrevue}}</span>Equipement prévue
           </a>
         </li>
         <li class="bg_lg" title="volume d'immobilisation réalise">
@@ -103,7 +103,8 @@ export default {
       "volumeImmoPrevu",
       "tauximmobilisationUa",
       "NbreImmobilisationPrevue",
-      "tauxbesoinimmoUa"
+      "tauxbesoinimmoUa",
+      "SommeEquipementPrevue"
 
       // "nbreArchivageNotes"
     ]),

@@ -168,7 +168,7 @@
               <div class="control-group">
                 <label class="control-label">Désignation:</label>
                 <div class="controls">
-                  <select :readOnly="veifEquipementExist" v-model="editBesoinImmo.famille_id">
+                  <select :readOnly="veifEquipementExist1" v-model="editBesoinImmo.famille_id">
                     <option
                       v-for="famil in fammillesDynamiques(editBesoinImmo.epuipement_id)"
                       :key="famil.id"
@@ -383,7 +383,7 @@ export default {
     veifEquipementExist() {
       return this.formData.epuipement_id == "";
     },
-    veifEquipementExist() {
+    veifEquipementExist1() {
       return this.editBesoinImmo.epuipement_id == "";
     },
     montantTotal() {

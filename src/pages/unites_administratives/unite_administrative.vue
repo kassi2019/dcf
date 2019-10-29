@@ -230,14 +230,26 @@
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
+              <div align="right">
+                Recherche:
+                <input type="search" v-model="search" />
+
+                <!-- <div class="span3">
+                  <model-list-select
+                    v-model="formData.test"
+                    style="background-color: rgb(222, 222, 222);"
+                    :list="type_Unite_admins"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="unite administrative"
+                  ></model-list-select>
+                </div>
+                <button>ok</button>-->
+              </div>
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
               <h5>Liste des unité d'administrative</h5>
-              <div align="right">
-                Recherche:
-                <input type="search" v-model="search" />
-              </div>
             </div>
 
             <div
@@ -311,7 +323,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
+import { ModelListSelect } from "vue-search-select";
+import "vue-search-select/dist/VueSearchSelect.css";
 export default {
+  components: {
+    ModelListSelect
+  },
   data() {
     return {
       fabActions: [
@@ -326,7 +343,8 @@ export default {
         section_id: "",
         chapitre_id: "",
         type_ua_id: "",
-        date_creation: ""
+        date_creation: "",
+        test: ""
       },
       editUniteAdministrative: {
         code: "",

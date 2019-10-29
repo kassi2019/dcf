@@ -26,7 +26,7 @@
             </td>
             <td>
               <div class="control-group">
-                <label class="control-label">Designation:</label>
+                <label class="control-label">Type équipement:</label>
                 <div class="controls">
                   <select v-model="formData.epuipement_id">
                     <option
@@ -41,14 +41,15 @@
 
             <td>
               <div class="control-group">
-                <label class="control-label">Date:</label>
+                <label class="control-label">Désignation:</label>
                 <div class="controls">
-                  <input
-                    type="date"
-                    v-model="formData.date_jour"
-                    class="span"
-                    placeholder="Saisir le code"
-                  />
+                  <select :readOnly="veifEquipementExist" v-model="formData.famille_id">
+                    <option
+                      v-for="famil in fammillesDynamiques(formData.epuipement_id)"
+                      :key="famil.id"
+                      :value="famil.id"
+                    >{{famil.libelle}}</option>
+                  </select>
                 </div>
               </div>
             </td>
@@ -96,6 +97,21 @@
               </div>
             </td>
           </tr>
+          <tr>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Date:</label>
+                <div class="controls">
+                  <input
+                    type="date"
+                    v-model="formData.date_jour"
+                    class="span"
+                    placeholder="Saisir le code"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
         </table>
       </div>
       <div class="modal-footer">
@@ -111,7 +127,7 @@
 
     <!--///////////////////////////////////////// debut modal de modification //////////////////////////////-->
 
-    <div id="modificationModal" class="modal hide">
+    <div id="modificationModal" class="modal hide taillemodal">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
         <h3>Modifier Besoin d'équipement</h3>
@@ -135,7 +151,7 @@
             </td>
             <td>
               <div class="control-group">
-                <label class="control-label">Designation:</label>
+                <label class="control-label">Type équipement:</label>
                 <div class="controls">
                   <select v-model="editBesoinImmo.epuipement_id">
                     <option
@@ -150,14 +166,15 @@
 
             <td>
               <div class="control-group">
-                <label class="control-label">Date:</label>
+                <label class="control-label">Désignation:</label>
                 <div class="controls">
-                  <input
-                    type="date"
-                    v-model="editBesoinImmo.date_jour"
-                    class="span"
-                    placeholder="Saisir le code"
-                  />
+                  <select :readOnly="veifEquipementExist" v-model="editBesoinImmo.famille_id">
+                    <option
+                      v-for="famil in fammillesDynamiques(editBesoinImmo.epuipement_id)"
+                      :key="famil.id"
+                      :value="famil.id"
+                    >{{famil.libelle}}</option>
+                  </select>
                 </div>
               </div>
             </td>
@@ -197,9 +214,24 @@
                   <input
                     type="number"
                     readonly
-                    :value="montantTotal"
+                    :value="montantTotalmodif"
                     class="span"
                     placeholder="Saisir montant total"
+                  />
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Date:</label>
+                <div class="controls">
+                  <input
+                    type="date"
+                    v-model="editBesoinImmo.date_jour"
+                    class="span"
+                    placeholder="Saisir le code"
                   />
                 </div>
               </div>
@@ -255,7 +287,7 @@
                     >{{BesoinImmo.uniteAdminist.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
-                    >{{BesoinImmo.equipemt.libelle || 'Non renseigné'}}</td>
+                    >{{BesoinImmo.famille.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
                     >{{BesoinImmo.quantite || 'Non renseigné'}}</td>
@@ -336,14 +368,36 @@ export default {
   computed: {
     ...mapGetters("SuiviImmobilisation", [
       "trieUaImmobilisation",
-      "equipements"
+      "equipements",
+      "familles"
     ]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
+    fammillesDynamiques() {
+      return id => {
+        if (id != null && id != "") {
+          return this.familles.filter(element => element.equipemt_id == id);
+        }
+      };
+    },
 
+    veifEquipementExist() {
+      return this.formData.epuipement_id == "";
+    },
+    veifEquipementExist() {
+      return this.editBesoinImmo.epuipement_id == "";
+    },
     montantTotal() {
       const val =
         parseFloat(this.formData.quantite) *
         parseFloat(this.formData.prix_unitaire);
+      // parseFloat(this.formData.TVA_id);
+      if (isNaN(val)) return null;
+      return parseFloat(val).toFixed(2);
+    },
+    montantTotalmodif() {
+      const val =
+        parseFloat(this.editBesoinImmo.quantite) *
+        parseFloat(this.editBesoinImmo.prix_unitaire);
       // parseFloat(this.formData.TVA_id);
       if (isNaN(val)) return null;
       return parseFloat(val).toFixed(2);

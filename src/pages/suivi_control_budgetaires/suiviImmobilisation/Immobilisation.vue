@@ -37,7 +37,7 @@
                     <th>Famille</th>
                     <th>Valeur Origine</th>-->
                     <!-- <th>Acteur Depense</th> -->
-                    <th>Famille</th>
+                    <th>type equipement</th>
                     <th>Designation</th>
                     <th>Besoin Réel</th>
                     <th>Qte afféctée</th>
@@ -51,10 +51,10 @@
                   <tr class="odd gradeX" v-for="immo in filtre_immobilisation" :key="immo.id">
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.reletion_famille.libelle || 'Non renseigné'}}</td>
+                    >{{immo.famill.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.designation || 'Non renseigné'}}</td>
+                    >{{immo.famill.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immo.id)"
                     >{{immo.quantite || 'Non renseigné'}}</td>

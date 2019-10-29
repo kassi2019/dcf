@@ -5,12 +5,12 @@
     <div id="exampleModal" class="modal hide">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
-        <h3>Ajouter Famille Articles</h3>
+        <h3>Ajouter Famille</h3>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
           <div class="control-group">
-            <label class="control-label">Type d' équipement:</label>
+            <label class="control-label">Type d'équipement:</label>
             <div class="controls">
               <select v-model="formData.equipemt_id">
                 <option
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">Code:</label>
+            <label class="control-label">Classe:</label>
             <div class="controls">
               <input type="text" v-model="formData.code" class="span" placeholder="Saisir le code" />
             </div>
@@ -57,7 +57,7 @@
     <div id="modificationModal" class="modal hide">
       <div class="modal-header">
         <button data-dismiss="modal" class="close" type="button">×</button>
-        <h3>Modifier Famille Articles</h3>
+        <h3>Modifier Famille</h3>
       </div>
       <div class="modal-body">
         <form class="form-horizontal">
@@ -74,7 +74,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">Code:</label>
+            <label class="control-label">Classe:</label>
             <div class="controls">
               <input
                 type="text"
@@ -129,9 +129,9 @@
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
-              <h5>Liste des Familles des Immobilisations</h5>
+              <h5>Liste des Familles</h5>
               <div align="right">
-                Search:
+                Recherche:
                 <input type="search" placeholder v-model="search" />
               </div>
             </div>
@@ -140,7 +140,8 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Code</th>
+                    <th>Type équipement</th>
+                    <th>Classe</th>
                     <th>Libelle</th>
                     <th>Action</th>
                   </tr>
@@ -153,7 +154,7 @@
                   >
                     <td
                       @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>
+                    >{{famille.equipemt.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierFamille(index)"
                     >{{famille.code || 'Non renseigné'}}</td>
@@ -224,10 +225,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters("SuiviImmobilisation", ["familles", "equipements"]),
+    ...mapGetters("SuiviImmobilisation", [
+      "familles",
+      "equipements",
+      "persoEquipement"
+    ]),
     filtre_famille() {
       const st = this.search.toLowerCase();
-      return this.familles.filter(type => {
+      return this.persoEquipement.filter(type => {
         return (
           type.code.toLowerCase().includes(st) ||
           type.libelle.toLowerCase().includes(st)

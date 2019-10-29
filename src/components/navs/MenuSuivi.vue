@@ -165,6 +165,12 @@
         </a>
         <ul class="dropdown-menu">
           <li>
+            <router-link :to="{name:'listeEquipement'}" tag="a">
+              <i class="icon-key"></i>
+              <span class="text">Liste Types équipements</span>
+            </router-link>
+          </li>
+          <li>
             <router-link :to="{name:'famille'}" tag="a">
               <i class="icon-key"></i>
               <span class="text">Liste des Familles</span>
@@ -176,12 +182,7 @@
               <span class="text">Liste des Services</span>
             </router-link>
           </li>
-          <li>
-            <router-link :to="{name:'listeEquipement'}" tag="a">
-              <i class="icon-key"></i>
-              <span class="text">Liste Types équipements</span>
-            </router-link>
-          </li>
+
           <li title="Bessoin Immobilisation">
             <router-link :to="{name:'besionImmolisation'}" tag="a">
               <i class="icon-key"></i>

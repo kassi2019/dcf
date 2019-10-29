@@ -31,7 +31,8 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
     if (
       element.exercice_budgetaire_id !== null &&
       element.unite_id !== null &&
-      element.acteurdepense_id !== null
+      element.acteurdepense_id !== null &&
+      element.famille_id !== null
     ) {
       element = {
         ...element,
@@ -43,7 +44,10 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
         ),
         acteurDepense: rootGetters[
           "personnelUA/personnaliseActeurDepense"
-        ].find(auteurDep => auteurDep.id == element.acteurdepense_id)
+        ].find(auteurDep => auteurDep.id == element.acteurdepense_id),
+        famill: rootGetters["SuiviImmobilisation/familles"].find(
+          famils => famils.id == element.famille_id
+        )
       };
     }
 
@@ -72,14 +76,14 @@ export const trieUaBesoinImmo = state =>
 
 export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
   getters.trieUaBesoinImmo.map(element => {
-    if (element.uniteadmin_id !== null && element.epuipement_id !== null) {
+    if (element.uniteadmin_id !== null && element.famille_id !== null) {
       element = {
         ...element,
         uniteAdminist: rootGetters[
           "uniteadministrative/uniteAdministratives"
         ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id),
-        equipemt: rootGetters["SuiviImmobilisation/equipements"].find(
-          equipe => equipe.id == element.epuipement_id
+        famille: rootGetters["SuiviImmobilisation/familles"].find(
+          equipe => equipe.id == element.famille_id
         )
       };
     }
@@ -144,6 +148,20 @@ export const tauximmobilisationUa = (state, getters) => {
 //   state.besoinImmobilisations.filter(
 //     trieUaBesoin => trieUaBesoin.quantite !== 0
 //   ).length;
+
+export const persoEquipement = (state, getters, rootState, rootGetters) =>
+  state.familles.map(element => {
+    if (element.equipemt_id !== null) {
+      element = {
+        ...element,
+        equipemt: rootGetters["SuiviImmobilisation/equipements"].find(
+          typequipe => typequipe.id == element.equipemt_id
+        )
+      };
+    }
+
+    return element;
+  });
 
 export {
   familles,

@@ -59,36 +59,27 @@
                           <div class="control-group">
                             <label class="control-label">Unite administrative:</label>
                             <div class="controls">
-                              <select
-                                v-model="formData.uniteadministrative_id"
-                                v-on:change="changerUniteAdmin($event)"
-                              >
+                              <select v-model="formData.uniteadministrative_id">
                                 <option value>Sélectionner</option>
                                 <option
-                                  v-for="ua in trieUaImmobilisation"
-                                  :key="ua.id"
-                                  :value="ua.designation"
-                                >{{ua.uniteAdminist.libelle}}</option>
+                                  v-for="ua in groupTriUaImmo"
+                                  :key="ua[0].id"
+                                  :value="ua[0].uniteAdminist.id"
+                                >{{ua[0].uniteAdminist.libelle}}</option>
                               </select>
                             </div>
                           </div>
-                          <p>
-                            <span>Selected country name: {{qte}}</span>
-                          </p>
                         </td>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Désignation:</label>
                             <div class="controls">
-                              <select
-                                v-model="formData.designationImmo"
-                                v-on:change="changerdesignation($event)"
-                              >
+                              <select v-model="formData.famille_id" :readOnly="veifEquipementExist">
                                 <option
-                                  v-for="ua in trieUaImmobilisation"
-                                  :key="ua.id"
-                                  :value="ua.quantite"
-                                >{{designation}}</option>
+                                  v-for="desig in designationDynamiques(formData.uniteadministrative_id)"
+                                  :key="desig.id"
+                                  :value="desig.id"
+                                >{{desig.libelle}}</option>
                               </select>
                             </div>
                           </div>
@@ -97,7 +88,7 @@
                           <div class="control-group">
                             <label class="control-label">Qté Réel:</label>
                             <div class="controls">
-                              <input type="number" class="span" :value="qte" />
+                              <input type="number" class="span" />
                             </div>
                           </div>
                         </td>
@@ -198,19 +189,15 @@ export default {
         // valeur_origine = this.ValeurOrigine(),
         valeur_origine: "",
         exercice_budgetaire_id: "",
-        designationbesoin: "",
+        famille_id: "",
         uniteadministrative_id: "",
         qtebesoin: ""
       },
-      selectedCountry: null,
+
       stats: ["neuf(ve)", "Seconde Main", "Bon"],
       typeImmo: ["Corporelle", "Incorporelle"],
       causeInactivite: ["Vendue", "Mise en hors service"],
-      search: "",
-
-      prix_unitaire: null,
-      qte: "",
-      designation: ""
+      search: ""
     };
   },
   // mounted() {
@@ -224,13 +211,35 @@ export default {
     ...mapGetters("SuiviImmobilisation", [
       "familles",
       "services",
-      "trieUaImmobilisation"
+      "trieUaImmobilisation",
+      "besoinImmobilisations",
+      "groupTriUaImmo"
     ]),
+
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires"]),
     ...mapGetters("parametreGenerauxProgrammeUnite", ["unites"]),
     ...mapGetters("personnelUA", ["all_acteur_depense"]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
+    designationDynamiques() {
+      return id => {
+        if (id != null && id != "") {
+          return this.familles.filter(element => element.uniteadmin_id == id);
+        }
+      };
+    },
+
+    // fammillesDynamiques() {
+    //       return id => {
+    //         if (id != null && id != "") {
+    //           return this.familles.filter(element => element.equipemt_id == id);
+    //         }
+    //       };
+    //     },
+
+    veifEquipementExist() {
+      return this.formData.uniteadministrative_id == "";
+    },
     TotalActuel() {
       const val = parseFloat(this.QteActuel) * parseFloat(this.formData.prixU);
       return parseFloat(val).toFixed(2);
@@ -249,13 +258,13 @@ export default {
         keyboard: false
       });
     },
-    changerUniteAdmin(event) {
-      this.designation = event.target.value;
-    },
-    changerdesignation(event) {
-      this.qte = event.target.value;
-      this.prix_unitaire = event.target.value;
-    },
+    // changerUniteAdmin(event) {
+    //   this.designation = event.target.value;
+    // },
+    // changerdesignation(event) {
+    //   this.qte = event.target.value;
+    //   this.prix_unitaire = event.target.value;
+    // },
     afficherTableauImmobilisation() {
       this.$router.push({
         name: "immobilisation"

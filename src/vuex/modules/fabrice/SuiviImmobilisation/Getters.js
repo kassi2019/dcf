@@ -1,3 +1,5 @@
+import { groupBy } from "../../../../Repositories/Repository";
+
 const familles = state =>
   state.familles.sort((a, b) => (a.code > b.code ? 1 : -1));
 
@@ -90,6 +92,11 @@ export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
 
     return element;
   });
+
+export const groupTriUaImmo = (state, getters) => {
+  //delete getters.trieUaImmobilisation.
+  return groupBy(getters.trieUaImmobilisation, "uniteadmin_id");
+};
 
 //////////////// getter calcul des nombre////////////////
 export const nombreTotalBesoinImmoUa = state =>

@@ -15,6 +15,7 @@
                 <label class="control-label">Unite administrative:</label>
                 <div class="controls">
                   <select v-model="formData.uniteadmin_id">
+                    <option value>Sélectionner</option>
                     <option
                       v-for="ua in uniteAdministratives"
                       :key="ua.id"
@@ -29,6 +30,7 @@
                 <label class="control-label">Type équipement:</label>
                 <div class="controls">
                   <select v-model="formData.epuipement_id">
+                    <option value>Sélectionner</option>
                     <option
                       v-for="equipe in equipements"
                       :key="equipe.id"
@@ -44,6 +46,7 @@
                 <label class="control-label">Désignation:</label>
                 <div class="controls">
                   <select :readOnly="veifEquipementExist" v-model="formData.famille_id">
+                    <option value>Sélectionner</option>
                     <option
                       v-for="famil in fammillesDynamiques(formData.epuipement_id)"
                       :key="famil.id"
@@ -149,7 +152,7 @@
                 </div>
               </div>
             </td>
-            <td>
+            <!-- <td>
               <div class="control-group">
                 <label class="control-label">Type équipement:</label>
                 <div class="controls">
@@ -162,15 +165,27 @@
                   </select>
                 </div>
               </div>
+            </td>-->
+            <td>
+              <div class="control-group">
+                <label class="control-label">Date:</label>
+                <div class="controls">
+                  <input
+                    type="date"
+                    v-model="editBesoinImmo.date_jour"
+                    class="span"
+                    placeholder="Saisir le code"
+                  />
+                </div>
+              </div>
             </td>
-
             <td>
               <div class="control-group">
                 <label class="control-label">Désignation:</label>
                 <div class="controls">
-                  <select :readOnly="veifEquipementExist1" v-model="editBesoinImmo.famille_id">
+                  <select v-model="editBesoinImmo.famille_id">
                     <option
-                      v-for="famil in fammillesDynamiques(editBesoinImmo.epuipement_id)"
+                      v-for="famil in fammillesDynamiques1(editBesoinImmo.famille_id)"
                       :key="famil.id"
                       :value="famil.id"
                     >{{famil.libelle}}</option>
@@ -222,25 +237,10 @@
               </div>
             </td>
           </tr>
-          <tr>
-            <td>
-              <div class="control-group">
-                <label class="control-label">Date:</label>
-                <div class="controls">
-                  <input
-                    type="date"
-                    v-model="editBesoinImmo.date_jour"
-                    class="span"
-                    placeholder="Saisir le code"
-                  />
-                </div>
-              </div>
-            </td>
-          </tr>
         </table>
       </div>
       <div class="modal-footer">
-        <a class="btn btn-primary">Modifier</a>
+        <a class="btn btn-primary" @click.prevent="modifierBesoinImmoLocal(editBesoinImmo)">Modifier</a>
         <a data-dismiss="modal" class="btn" href="#">Fermer</a>
       </div>
     </div>
@@ -348,7 +348,7 @@ export default {
       formData: {
         uniteadmin_id: "",
         epuipement_id: "",
-        famille_id:"",
+        famille_id: "",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
@@ -356,7 +356,7 @@ export default {
       },
       editBesoinImmo: {
         uniteadmin_id: "",
-         famille_id:"",
+        famille_id: "",
         epuipement_id: "",
         quantite: "",
         prix_unitaire: "",
@@ -381,13 +381,18 @@ export default {
         }
       };
     },
+    fammillesDynamiques1() {
+      return id => {
+        if (id != null && id != "") {
+          return this.familles.filter(element => element.equipemt_id);
+        }
+      };
+    },
 
     veifEquipementExist() {
       return this.formData.epuipement_id == "";
     },
-    veifEquipementExist1() {
-      return this.editBesoinImmo.epuipement_id == "";
-    },
+
     montantTotal() {
       const val =
         parseFloat(this.formData.quantite) *
@@ -437,7 +442,7 @@ export default {
       this.formData = {
         uniteadmin_id: "",
         epuipement_id: "",
-         famille_id:"",
+        famille_id: "",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
@@ -451,7 +456,7 @@ export default {
         keyboard: false
       });
 
-      this.editBesoinImmo = this.besoinImmobilisations[index];
+      this.editBesoinImmo = this.trieUaImmobilisation[index];
     },
     // fonction pour vider l'input modification
     modifierBesoinImmoLocal() {
@@ -460,6 +465,7 @@ export default {
     alert() {
       console.log("ok");
     },
+
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     }

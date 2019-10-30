@@ -167,19 +167,19 @@
           <li>
             <router-link :to="{name:'listeEquipement'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste Types équipements</span>
+              <span class="text">Types équipements</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{name:'famille'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste des Familles</span>
+              <span class="text">Familles</span>
             </router-link>
           </li>
           <li>
             <router-link :to="{name:'service'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste des Services</span>
+              <span class="text">Services</span>
             </router-link>
           </li>
 
@@ -192,7 +192,7 @@
           <li>
             <router-link :to="{name:'immobilisation'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Liste des Immobilisations</span>
+              <span class="text">Immobilisations</span>
             </router-link>
           </li>
 

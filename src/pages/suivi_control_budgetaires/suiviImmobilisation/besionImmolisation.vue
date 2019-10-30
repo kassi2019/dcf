@@ -348,6 +348,7 @@ export default {
       formData: {
         uniteadmin_id: "",
         epuipement_id: "",
+        famille_id:"",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
@@ -355,6 +356,7 @@ export default {
       },
       editBesoinImmo: {
         uniteadmin_id: "",
+         famille_id:"",
         epuipement_id: "",
         quantite: "",
         prix_unitaire: "",
@@ -435,6 +437,7 @@ export default {
       this.formData = {
         uniteadmin_id: "",
         epuipement_id: "",
+         famille_id:"",
         quantite: "",
         prix_unitaire: "",
         montant_total: "",

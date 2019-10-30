@@ -272,7 +272,7 @@ export function ajouterBesoinImmo({ commit }, nouveau) {
   axios
     .post("/ajouter_besoin_immo", {
       uniteadmin_id: nouveau.uniteadmin_id,
-      epuipement_id: nouveau.epuipement_id,
+      famille_id: nouveau.famille_id,
       quantite: nouveau.quantite,
       prix_unitaire: nouveau.prix_unitaire,
       montant_total: nouveau.montant_total,
@@ -290,7 +290,7 @@ export function modifierBesoinImmo({ commit }, nouveau) {
   axios
     .put("/modifier_besoin_immo/" + nouveau.id, {
       uniteadmin_id: nouveau.uniteadmin_id,
-      epuipement_id: nouveau.epuipement_id,
+      famille_id: nouveau.famille_id,
       quantite: nouveau.quantite,
       prix_unitaire: nouveau.prix_unitaire,
       montant_total: nouveau.montant_total,

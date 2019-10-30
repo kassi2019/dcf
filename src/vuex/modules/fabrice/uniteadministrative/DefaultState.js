@@ -3,7 +3,7 @@ const defaultState = {
 
   uniteAdministratives: [],
 
-  archivageDocuments: [],
+  archivageDocuments: []
 
   // listeDocUniteAdministratives: [],
 

@@ -74,9 +74,10 @@ export function ajouterUniteAdministrative({ commit }, nouveau) {
       type_ua_id: nouveau.type_ua_id,
       section_id: nouveau.section_id,
       chapitre_id: nouveau.chapitre_id,
-      date_creation: nouveau.date_creation,
+
       code: nouveau.code,
-      libelle: nouveau.libelle
+      libelle: nouveau.libelle,
+      date_creation: nouveau.date_creation
     })
     .then(response => {
       if (response.status == 201) {
@@ -91,9 +92,10 @@ export function modifierUniteAdministrative({ commit }, nouveau) {
       type_ua_id: nouveau.type_ua_id,
       section_id: nouveau.section_id,
       chapitre_id: nouveau.chapitre_id,
-      date_creation: nouveau.date_creation,
+
       code: nouveau.code,
-      libelle: nouveau.libelle
+      libelle: nouveau.libelle,
+      date_creation: nouveau.date_creation
     })
     .then(response => {
       commit("MODIFIER_UNITE_ADMINISTRATIVE", response.data);

@@ -75,11 +75,12 @@
                             <label class="control-label">Désignation:</label>
                             <div class="controls">
                               <select v-model="formData.famille_id" :readOnly="veifEquipementExist">
+                                <option value>Sélectionner</option>
                                 <option
                                   v-for="desig in designationDynamiques(formData.uniteadministrative_id)"
                                   :key="desig.id"
                                   :value="desig.id"
-                                >{{desig.libelle}}</option>
+                                >{{desig.famille.libelle}}</option>
                               </select>
                             </div>
                           </div>
@@ -88,15 +89,25 @@
                           <div class="control-group">
                             <label class="control-label">Qté Réel:</label>
                             <div class="controls">
-                              <input type="number" class="span" />
+                              <input
+                                type="number"
+                                class="span"
+                                :value="AffichierQuantiteteReel"
+                                readonly
+                              />
                             </div>
                           </div>
                         </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Qté Afféctée:</label>
+                            <label class="control-label">Prix unitaire:</label>
                             <div class="controls">
-                              <input type="number" class="span" v-model="formData.qteaffecte" />
+                              <input
+                                type="number"
+                                class="span"
+                                :value="AffichierprixUnitaire"
+                                readonly
+                              />
                             </div>
                           </div>
                         </td>
@@ -105,20 +116,35 @@
                       <tr>
                         <td>
                           <div class="control-group">
+                            <label class="control-label">Total réel:</label>
+                            <div class="controls">
+                              <input
+                                type="number"
+                                class="span"
+                                :value="AffichierTotalReel"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Qté Afféctée:</label>
+                            <div class="controls">
+                              <input type="number" class="span" v-model="formData.qteaffecte" />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
                             <label class="control-label">Qté Actuel:</label>
                             <div class="controls">
                               <input type="number" class="span" :value="QteActuel" readonly />
                             </div>
                           </div>
                         </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Prix unitaire:</label>
-                            <div class="controls">
-                              <input type="number" class="span" v-model="formData.prixU" />
-                            </div>
-                          </div>
-                        </td>
+
                         <td>
                           <div class="control-group">
                             <label class="control-label">Total Actuel:</label>
@@ -127,28 +153,260 @@
                             </div>
                           </div>
                         </td>
-                        <!-- <td>
+                        <td>
                           <div class="control-group">
-                            <label class="control-label">Valeur d'Origine:</label>
+                            <label class="control-label">Acteur Depense:</label>
                             <div class="controls">
-                              <input type="number" class="span" readonly :value="ValeurOrigine" />
+                              <select
+                                v-model="formData.acteurdepense_id"
+                                :readOnly="veifEquipementExist"
+                              >
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="acteurDep in all_acteur_depense"
+                                  :key="acteurDep.id"
+                                  :value="acteurDep.id"
+                                >{{acteurDep.matricule}}</option>
+                              </select>
+                              EQUIPE:&nbsp;&nbsp;
+                              <input
+                                type="radio"
+                                name="b"
+                                checked
+                              />OUI&nbsp;&nbsp;
+                              <input type="radio" name="b" />NON
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </div>
+                    <!--ongle descriptif-->
+                    <div id="tab2" class="tab-pane">
+                      <tr>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Numero Identification:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir Num identification"
+                                v-model="formData.identification"
+                              />
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Etat de l'Immobilisation</label>
+                            <div class="controls">
+                              <select v-model="formData.etat_immobilisation">
+                                <option v-for="statut in stats" :key="statut.id">{{statut}}</option>
+                              </select>
                             </div>
                           </div>
                         </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Valeur d'Origine:</label>
+                            <label class="control-label">Cause inactivite:</label>
                             <div class="controls">
-                              <input type="number" class="span" readonly :value="ValeurOrigine" />
+                              <select v-model="formData.cause_inactivite">
+                                <option
+                                  v-for="inactivite in causeInactivite"
+                                  :key="inactivite.id"
+                                >{{inactivite}}</option>
+                              </select>
                             </div>
                           </div>
-                        </td>-->
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Type Immobilisation</label>
+                            <div class="controls">
+                              <select v-model="formData.etat_immobilisation">
+                                <option
+                                  v-for="typeimmob in typeImmo"
+                                  :key="typeimmob.id"
+                                >{{typeimmob}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Nature du Bien:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir la Nature"
+                                v-model="formData.nature_bien"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <label class="control-label">Numero CC:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Numero CC"
+                              v-model="formData.numero_CC"
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <label class="control-label">Taux:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Taux"
+                              v-model="formData.TVA_id"
+                            />
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Duree:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                v-model="formData.duree"
+                                placeholder="Saisir durée"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Date d'acquisition:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="formData.date_acquisition" />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Nature d'Entree:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir Nature entree"
+                                v-model="formData.nature_dentree"
+                              />
+                            </div>
+                          </div>
+                        </td>
                       </tr>
                     </div>
-                    <!--ongle descriptif-->
-                    <div id="tab2" class="tab-pane active"></div>
                     <!--ongle 3 -->
-                    <div id="tab3" class="tab-pane active"></div>
+                    <div id="tab3" class="tab-pane">
+                      <tr>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Montant Amorti:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir le Montant amortissement anterieur"
+                                v-model="formData.montant_amortissement_anterieur"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Montant Evaluation:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir le Montant amortissement anterieur"
+                                v-model="formData.montant_evaluation"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Montant Cession:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir le Montant Cession"
+                                v-model="formData.montant_cession"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <div class="control-group">
+                          <td>
+                            <div class="control-group">
+                              <label class="control-label">Date Amort Anterieur:</label>
+                              <div class="controls">
+                                <input
+                                  type="date"
+                                  class="span"
+                                  v-model="formData.date_amortissement_anterieur"
+                                />
+                              </div>
+                            </div>
+                          </td>
+                        </div>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Date Evaluation:</label>
+                            <div class="controls">
+                              <input
+                                type="date"
+                                class="span"
+                                v-model="formData.date_evaluation"
+                                placeholder="Date dernière evaluation"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Date cession:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="formData.date_cession" />
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Date de mise en service:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="formData.date_mise_service" />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <label class="control-label">Numero facture:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Numero facture"
+                              v-model="formData.numero_facture"
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    </div>
                   </div>
                   <br />
                   <div align="right">
@@ -213,7 +471,8 @@ export default {
       "services",
       "trieUaImmobilisation",
       "besoinImmobilisations",
-      "groupTriUaImmo"
+      "groupTriUaImmo",
+      "SuiviImmo"
     ]),
 
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires"]),
@@ -224,29 +483,60 @@ export default {
     designationDynamiques() {
       return id => {
         if (id != null && id != "") {
-          return this.familles.filter(element => element.uniteadmin_id == id);
+          return this.trieUaImmobilisation.filter(
+            element => element.uniteadmin_id == id
+          );
         }
       };
     },
-
-    // fammillesDynamiques() {
-    //       return id => {
-    //         if (id != null && id != "") {
-    //           return this.familles.filter(element => element.equipemt_id == id);
-    //         }
-    //       };
-    //     },
-
+    acteurDepenseDynamiques() {
+      return id => {
+        if (id != null && id != "") {
+          return this.SuiviImmo.filter(element => element.uniteadmin_id == id);
+        }
+      };
+    },
     veifEquipementExist() {
       return this.formData.uniteadministrative_id == "";
     },
     TotalActuel() {
-      const val = parseFloat(this.QteActuel) * parseFloat(this.formData.prixU);
+      const val =
+        parseFloat(this.QteActuel) * parseFloat(this.AffichierprixUnitaire);
       return parseFloat(val).toFixed(2);
     },
     QteActuel() {
-      const val = parseInt(this.qte) - parseInt(this.formData.qteaffecte);
+      const val =
+        parseInt(this.AffichierQuantiteteReel) -
+        parseInt(this.formData.qteaffecte);
       return parseInt(val).toFixed(0);
+    },
+
+    AffichierQuantiteteReel() {
+      const qtereel = this.trieUaImmobilisation.find(
+        qtreel => qtreel.id == this.formData.famille_id
+      );
+
+      if (qtereel) {
+        return qtereel.quantite;
+      }
+    },
+    AffichierprixUnitaire() {
+      const prixUnitaire = this.trieUaImmobilisation.find(
+        prixUnitaire => prixUnitaire.id == this.formData.famille_id
+      );
+
+      if (prixUnitaire) {
+        return prixUnitaire.prix_unitaire;
+      }
+    },
+    AffichierTotalReel() {
+      const totalreel = this.trieUaImmobilisation.find(
+        totalreel => totalreel.id == this.formData.famille_id
+      );
+
+      if (totalreel) {
+        return totalreel.montant_total;
+      }
     }
   },
   methods: {
@@ -279,6 +569,7 @@ export default {
       this.ajouterImmobilisation(nouvelObjet);
 
       this.formData = {
+        totalreel: "",
         code: "",
         type: "",
         designation: "",

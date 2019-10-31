@@ -132,7 +132,7 @@
                           <div class="control-group">
                             <label class="control-label">Qté Afféctée:</label>
                             <div class="controls">
-                              <input type="number" class="span" v-model="formData.qteaffecte" />
+                              <input type="number" class="span" v-model="formData.qte_affecte" />
                             </div>
                           </div>
                         </td>
@@ -140,7 +140,7 @@
                           <div class="control-group">
                             <label class="control-label">Qté Actuel:</label>
                             <div class="controls">
-                              <input type="number" class="span" :value="QteActuel" readonly />
+                              <input type="number" class="span" :value="AfficheQteActuel" readonly />
                             </div>
                           </div>
                         </td>
@@ -149,7 +149,12 @@
                           <div class="control-group">
                             <label class="control-label">Total Actuel:</label>
                             <div class="controls">
-                              <input type="number" class="span" :value="TotalActuel" readonly />
+                              <input
+                                type="number"
+                                class="span"
+                                :value="AffichierTotalActuel"
+                                readonly
+                              />
                             </div>
                           </div>
                         </td>
@@ -442,14 +447,11 @@ export default {
   data() {
     return {
       formData: {
-        prixU: "",
-        quantite: "",
         // valeur_origine = this.ValeurOrigine(),
-        valeur_origine: "",
+
         exercice_budgetaire_id: "",
         famille_id: "",
-        uniteadministrative_id: "",
-        qtebesoin: ""
+        uniteadministrative_id: ""
       },
 
       stats: ["neuf(ve)", "Seconde Main", "Bon"],
@@ -480,6 +482,20 @@ export default {
     ...mapGetters("personnelUA", ["all_acteur_depense"]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
+    AfficheQteActuel() {
+      const form = this.formData;
+
+      if (form.qte_affecte <= this.AffichierQuantiteteReel)
+        var val =
+          parseInt(this.AffichierQuantiteteReel) -
+          parseInt(this.formData.qte_affecte);
+      if (isNaN(val)) return null;
+
+      if (form.qte_affecte < 0) return (form.qte_affecte = "");
+
+      return parseInt(val).toFixed(0);
+    },
+
     designationDynamiques() {
       return id => {
         if (id != null && id != "") {
@@ -499,17 +515,13 @@ export default {
     veifEquipementExist() {
       return this.formData.uniteadministrative_id == "";
     },
-    TotalActuel() {
-      const val =
-        parseFloat(this.QteActuel) * parseFloat(this.AffichierprixUnitaire);
-      return parseFloat(val).toFixed(2);
-    },
-    QteActuel() {
-      const val =
-        parseInt(this.AffichierQuantiteteReel) -
-        parseInt(this.formData.qteaffecte);
-      return parseInt(val).toFixed(0);
-    },
+
+    // AfficheQteActuel() {
+    //   const val =
+    //     parseInt(this.AffichierQuantiteteReel) -
+    //     parseInt(this.formData.qte_affecte);
+    //   return parseInt(val).toFixed(0);
+    // },
 
     AffichierQuantiteteReel() {
       const qtereel = this.trieUaImmobilisation.find(
@@ -539,14 +551,20 @@ export default {
       }
     },
     AffichierTotalActuel() {
-      const totalactuel = this.trieUaImmobilisation.find(
-        totalReel => totalReel.id == this.formData.total_actuel
-      );
-
-      if (totalreel) {
-        return totalreel.montant_total;
-      }
+      const val =
+        parseFloat(this.AfficheQteActuel) *
+        parseFloat(this.AffichierprixUnitaire);
+      return parseFloat(val).toFixed(2);
     }
+    // AffichierTotalActuel() {
+    //   const totalactuel = this.trieUaImmobilisation.find(
+    //     totalactuel => totalactuel.id == this.formData.total_actuel
+    //   );
+
+    //   if (totalactuel) {
+    //     return totalactuel.montant_total;
+    //   }
+    // }
   },
   methods: {
     ...mapActions("SuiviImmobilisation", ["ajouterImmobilisation"]),
@@ -579,7 +597,7 @@ export default {
         ...this.formData,
         qte_reel: this.AffichierQuantiteteReel
       };
-      var prix_unitaire = {
+      var prixUnit = {
         ...this.formData,
         prixUnitaire: this.AffichierprixUnitaire
       };
@@ -592,14 +610,15 @@ export default {
         ...this.formData,
         total_actuel: this.AffichierTotalActuel
       };
-      this.ajouterImmobilisation(
-        qtereel,
-        prix_unitaire,
-        montant_reel,
-        qte_actuel,
-        montant_actuel
-      );
 
+      var Qte_actuel = {
+        ...this.formData,
+        qte_actuel: this.AfficheQteActuel
+      };
+      this.ajouterImmobilisation(qtereel, prixUnit);
+      // this.ajouterImmobilisation(montant_reel);
+      // this.ajouterImmobilisation(Qte_actuel);
+      // this.ajouterImmobilisation(montant_actuel);
       this.formData = {
         totalreel: "",
         type: "",

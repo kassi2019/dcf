@@ -5,26 +5,43 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
+          <div class="container-fluid">
+            <div class="quick-actions_homepage deplaceCarre">
+              <ul class="quick-actions">
+                <li class="bg_ls">
+                  <a href="#">
+                    <i class="icon-list-ol"></i>
+                    <span class="label label-important">{{nbreDocumentParTypeTexte(typeText_id)}}</span> Nbre de Document
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
           <download-excel
             class="btn btn-default pull-right"
             style="cursor:pointer;"
             :fields="json_fields"
             title="Liste d'Archivages document"
-            :data="filtre_archivage_document"
+            :data="archivageDocuments"
             name="Liste d'Archivages document"
             worksheet="Archivage de document"
           >
             <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
+            <h5>Liste Documents</h5>
             <div class="widget-title">
-              <span class="icon">
-                <i class="icon-th"></i>
-              </span>
-              <h5>Liste Documents</h5>
               <div align="right">
-                Search:
-                <input type="search" placeholder v-model="search" />
+                <div class="span3">
+                  <model-list-select
+                    v-model="typeText_id"
+                    style="background-color: rgb(222, 222, 222);"
+                    :list="typeTextes"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="Type text"
+                  ></model-list-select>
+                </div>
               </div>
             </div>
 
@@ -42,7 +59,7 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="(archivagedocument) in filtre_archivage_document"
+                    v-for="(archivagedocument) in archivageDocuments"
                     :key="archivagedocument.id"
                   >
                     <td>{{archivagedocument.reference || 'Non renseigné'}}</td>
@@ -53,7 +70,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div v-if="filtre_archivage_document.length"></div>
+              <div v-if="archivageDocuments.length"></div>
               <div v-else>
                 <p style="text-align:center;font-size:20px;color:red;">Aucun Document</p>
               </div>
@@ -68,7 +85,12 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
+import { ModelListSelect } from "vue-search-select";
+import "vue-search-select/dist/VueSearchSelect.css";
 export default {
+  components: {
+    ModelListSelect
+  },
   data() {
     return {
       fabActions: [
@@ -88,7 +110,9 @@ export default {
         FICHIER: "fichier_join",
         DATE: "date_jours"
       },
-      search: ""
+      search: "",
+
+      typeText_id: ""
     };
   },
 
@@ -98,18 +122,46 @@ export default {
       "typeTextes",
       "uniteAdministratives"
     ]),
-    filtre_archivage_document() {
-      const st = this.search.toLowerCase();
-      return this.archivageDocuments.filter(archivagedocument => {
-        return (
-          archivagedocument.reference.toLowerCase().includes(st) ||
-          archivagedocument.unite_administrative.libelle
-            .toLowerCase()
-            .includes(st) ||
-          archivagedocument.type_texte.libelle.toLowerCase().includes(st)
-        );
-      });
+    nbreDocumentParTypeTexte() {
+      return typeText_id => {
+        if (typeText_id != "") {
+          return this.archivageDocuments.filter(
+            element => element.type_texte.id == typeText_id
+          ).length;
+        }
+      };
     }
+    // nomDocumentParTypeTexte() {
+    //   return typeText_id => {
+    //     if (typeText_id != "") {
+    //       var ObjetTYPTEXT = this.typeTextes.find(
+    //         element => element.type_texte.id == typeText_id
+    //       );
+    //       return ObjetTYPTEXT.libelle;
+    //     }
+    //   };
+    // }
+
+    //     NomDeMissionParUA(){
+    // return ua_id =>{
+    //   if(ua_id !=""){
+    //     var ObjetUA = this.uniteAdministratives.find(element => element.id == ua_id)
+    //     return ObjetUA.libelle
+    //   }
+    // }
+    //   },
+    // filtre_archivage_document() {
+    //   const st = this.search.toLowerCase();
+    //   return this.archivageDocuments.filter(archivagedocument => {
+    //     return (
+    //       archivagedocument.reference.toLowerCase().includes(st) ||
+    //       archivagedocument.unite_administrative.libelle
+    //         .toLowerCase()
+    //         .includes(st) ||
+    //       archivagedocument.type_texte.libelle.toLowerCase().includes(st)
+    //     );
+    //   });
+    // }
   },
   methods: {
     formaterDate(date) {

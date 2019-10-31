@@ -26,7 +26,11 @@
               <h5>Liste des unité d'administrative</h5>
               <div align="right">
                 Recherche:
-                <input type="search" v-model="search" />
+                <input
+                  type="search"
+                  v-model="search"
+                  placeholder="Saisir UNITE ADMINISTRATIVE"
+                />
               </div>
             </div>
 
@@ -48,7 +52,7 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="uniteadministrative in jointureUaChapitreSection"
+                    v-for="uniteadministrative in filtre_unite_admin"
                     :key="uniteadministrative.id"
                   >
                     <td>{{uniteadministrative.typeua.libelle || 'Non renseigné'}}</td>
@@ -106,17 +110,17 @@ export default {
       "chapitres",
       "sections",
       "type_Unite_admins"
-    ])
+    ]),
 
-    // filtre_unite_admin() {
-    //   const st = this.search.toLowerCase();
-    //   return this.jointureUaChapitreSection.filter(items => {
-    //     return (
-    //       items.code.toLowerCase().includes(st) ||
-    //       items.libelle.toLowerCase().includes(st)
-    //     );
-    //   });
-    // }
+    filtre_unite_admin() {
+      const st = this.search.toLowerCase();
+      return this.jointureUaChapitreSection.filter(items => {
+        return (
+          items.code.toLowerCase().includes(st) ||
+          items.libelle.toLowerCase().includes(st)
+        );
+      });
+    }
   },
   methods: {
     afficherModalAjouterTitre() {

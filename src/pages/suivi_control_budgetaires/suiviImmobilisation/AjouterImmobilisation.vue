@@ -592,30 +592,17 @@ export default {
       // var nouvelObjet = {
       //   ...this.formData,
       //   valeur_origine: this.ValeurOrigine
-      // };
-      var qtereel = {
+      // };{}
+      var nouvelObjet = {
         ...this.formData,
-        qte_reel: this.AffichierQuantiteteReel
-      };
-      var prixUnit = {
-        ...this.formData,
-        prixUnitaire: this.AffichierprixUnitaire
-      };
-      var montant_reel = {
-        ...this.formData,
-        total_reel: this.AffichierTotalReel
-      };
-
-      var montant_actuel = {
-        ...this.formData,
-        total_actuel: this.AffichierTotalActuel
-      };
-
-      var Qte_actuel = {
-        ...this.formData,
+        qte_reel: this.AffichierQuantiteteReel,
+        prixUnitaire: this.AffichierprixUnitaire,
+        total_reel: this.AffichierTotalReel,
+        total_actuel: this.AffichierTotalActuel,
         qte_actuel: this.AfficheQteActuel
       };
-      this.ajouterImmobilisation(qtereel, prixUnit);
+
+      this.ajouterImmobilisation(nouvelObjet);
       // this.ajouterImmobilisation(montant_reel);
       // this.ajouterImmobilisation(Qte_actuel);
       // this.ajouterImmobilisation(montant_actuel);

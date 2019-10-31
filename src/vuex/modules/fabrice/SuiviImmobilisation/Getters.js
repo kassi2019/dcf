@@ -208,6 +208,40 @@ export const persoEquipement = (state, getters, rootState, rootGetters) =>
     return element;
   });
 
+export const getPersonnaliseImmobilisation = (
+  state,
+  getters,
+  rootState,
+  rootGetters
+) =>
+  state.immobilisations.map(element => {
+    if (
+      element.famille_id !== null &&
+      element.uniteadministrative_id !== null &&
+      element.service_id !== null &&
+      element.exercice_budgetaire_id !== null &&
+      element.acteurdepense_id !== null
+    ) {
+      element = {
+        ...element,
+        uniteAdministrative: rootGetters[
+          "uniteadministrative/uniteAdministratives"
+        ].find(uniteAdm => uniteAdm.id == element.uniteadministrative_id),
+        famille: rootGetters["SuiviImmobilisation/familles"].find(
+          equipefamill => equipefamill.id == element.famille_id
+        ),
+        service: rootGetters["SuiviImmobilisation/familles"].find(
+          equipe => equipe.id == element.famille_id
+        ),
+        famille: rootGetters["SuiviImmobilisation/familles"].find(
+          equipe => equipe.id == element.famille_id
+        )
+      };
+    }
+
+    return element;
+  });
+
 export {
   familles,
   services,

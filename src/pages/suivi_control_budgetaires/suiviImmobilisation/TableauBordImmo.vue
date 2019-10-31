@@ -25,34 +25,34 @@
         <li class="bg_ls" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{nombreImmobilisation}}</span> Nbre Total d'équipement
+            <span class="label label-success">{{nombreEquipement}}</span> Nbre Total d'équipement
           </a>
         </li>
 
-        <li class="bg_ls" title="nombre d'immobilisation réalise">
+        <!-- <li class="bg_lo" title="nombre d'immobilisation réalise">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{nbreImmoRealise}}</span>Equipement réalisé
+            <span class="label label-success">{{SommeEquipementRealise}}</span>Equipement réalisé
           </a>
-        </li>
-        <li class="bg_ls" title="nombre immobilisation prévue">
+        </li>-->
+        <li class="bg_ly" title="nombre immobilisation prévue">
           <a href="#">
             <i class="icon-list-ol"></i>
             <span class="label label-success">{{SommeEquipementPrevue}}</span>Equipement prévue
           </a>
         </li>
-        <li class="bg_lg" title="volume d'immobilisation réalise">
+        <!-- <li class="bg_lg" title="volume d'immobilisation réalise">
           <a href="#">
             <i class="icon-th"></i>
             <span class="label label-success">{{volumeImmoRealise}}</span>Volume équipement réalisé
           </a>
-        </li>
-        <!-- <li class="bg_lg">
+        </li>-->
+        <li class="bg_lg">
           <a href="#">
             <i class="icon-th"></i>
             <span class="label label-success">{{volumeImmoPrevu}}</span>Volume équipement prévue
           </a>
-        </li>-->
+        </li>
         <!-- <li class="bg_lr" title="Taux immobilisation de UA">
           <a href="#">
             <i class="icon-info-sign"></i>
@@ -99,12 +99,15 @@ export default {
       "nombreImmobilisation",
       "nbreImmoRealise",
       "nbreImmoPrevue",
-      "volumeImmoRealise",
+      // "volumeImmoRealise",
       "volumeImmoPrevu",
       "tauximmobilisationUa",
       "NbreImmobilisationPrevue",
       "tauxbesoinimmoUa",
-      "SommeEquipementPrevue"
+      "SommeEquipementPrevue",
+      "SommeEquipementActuel",
+      "SommeEquipementRealise",
+      "nombreEquipement"
 
       // "nbreArchivageNotes"
     ]),

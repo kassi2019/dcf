@@ -285,11 +285,14 @@
                           </div>
                         </td>
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Date d'acquisition:</label>
-                            <div class="controls">
-                              <input type="date" class="span" v-model="formData.date_acquisition" />
-                            </div>
+                          <label class="control-label">Numero facture:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Numero facture"
+                              v-model="formData.numero_facture"
+                            />
                           </div>
                         </td>
                         <td>
@@ -395,14 +398,11 @@
                           </div>
                         </td>
                         <td>
-                          <label class="control-label">Numero facture:</label>
-                          <div class="controls">
-                            <input
-                              type="text"
-                              class="span"
-                              placeholder="Saisir le Numero facture"
-                              v-model="formData.numero_facture"
-                            />
+                          <div class="control-group">
+                            <label class="control-label">Date d'acquisition:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="formData.date_acquisition" />
+                            </div>
                           </div>
                         </td>
                       </tr>
@@ -537,6 +537,15 @@ export default {
       if (totalreel) {
         return totalreel.montant_total;
       }
+    },
+    AffichierTotalActuel() {
+      const totalactuel = this.trieUaImmobilisation.find(
+        totalReel => totalReel.id == this.formData.total_actuel
+      );
+
+      if (totalreel) {
+        return totalreel.montant_total;
+      }
     }
   },
   methods: {
@@ -562,15 +571,37 @@ export default {
     },
     // fonction pour vider l'input ajouter
     ajouterImmobilisationLocal() {
-      var nouvelObjet = {
+      // var nouvelObjet = {
+      //   ...this.formData,
+      //   valeur_origine: this.ValeurOrigine
+      // };
+      var qtereel = {
         ...this.formData,
-        valeur_origine: this.ValeurOrigine
+        qte_reel: this.AffichierQuantiteteReel
       };
-      this.ajouterImmobilisation(nouvelObjet);
+      var prix_unitaire = {
+        ...this.formData,
+        prixUnitaire: this.AffichierprixUnitaire
+      };
+      var montant_reel = {
+        ...this.formData,
+        total_reel: this.AffichierTotalReel
+      };
+
+      var montant_actuel = {
+        ...this.formData,
+        total_actuel: this.AffichierTotalActuel
+      };
+      this.ajouterImmobilisation(
+        qtereel,
+        prix_unitaire,
+        montant_reel,
+        qte_actuel,
+        montant_actuel
+      );
 
       this.formData = {
         totalreel: "",
-        code: "",
         type: "",
         designation: "",
         identification: "",
@@ -578,10 +609,14 @@ export default {
         date_acquisition: "",
         date_mise_service: "",
         numero_facture: "",
-        quantite: "",
-        prixU: "",
+        qte_reel: "",
+        qte_affecte: "",
+        qte_actuel: "",
+
+        prixUnitaire: "",
+        total_actuel: "",
         famille_id: "",
-        valeur_origine: "",
+
         duree: "",
         numero_CC: "",
         acteur_depense_id: "",

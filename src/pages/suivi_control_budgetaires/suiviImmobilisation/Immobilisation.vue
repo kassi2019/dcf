@@ -23,20 +23,7 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <!-- <th>Code</th> -->
-                    <!-- <th>Type</th>
-                    <th>Designation</th>
-
-                    <th>Etat Immobilisation</th>
-
-                    <th>Date Acquisition</th>
-                    <th>Date Service</th>
-                    <th>Service</th>
-                    <th title="Quantité">Qte</th>
-                    <th>Prix Unitaire</th>
-                    <th>Famille</th>
-                    <th>Valeur Origine</th>-->
-                    <!-- <th>Acteur Depense</th> -->
+                    <th>Classe</th>
                     <th>type equipement</th>
                     <th>Designation</th>
                     <th>Besoin Réel</th>
@@ -47,54 +34,12 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr class="odd gradeX" v-for="immo in filtre_immobilisation" :key="immo.id">
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.famill.libelle || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.famill.libelle || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.quantite || 'Non renseigné'}}</td>
-
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.qte_affecte || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{immo.qte_actuel || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{formatageSomme(parseFloat(immo.prixU)) || 'Non renseigné'}}</td>
-
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immo.id)"
-                    >{{formatageSomme(parseFloat(immo.valeur_origine)) || 'Non renseigné'}}</td>
-                    <td>
-                      <router-link
-                        :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immo.id}}"
-                        class="btn btn-default"
-                        title="Detail Immobilisation"
-                      >
-                        <span>
-                          <i class="icon icon-folder-open"></i>
-                        </span>
-                      </router-link>
-                      <button class="btn btn-danger" @click="supprimerImmobilisation(immo.id)">
-                        <span>
-                          <i class="icon icon-trash"></i>
-                        </span>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
+                <tbody></tbody>
               </table>
-              <div v-if="filtre_immobilisation.length"></div>
+              <!-- <div v-if="filtre_immobilisation.length"></div>
               <div v-else>
                 <p style="text-align:center;font-size:20px;color:red;">Aucune Immobilisations</p>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>
@@ -138,13 +83,13 @@ export default {
     //console.log(this.$router);
   },
   computed: {
-    ...mapGetters("SuiviImmobilisation", ["SuiviImmo", "familles", "services"]),
-    filtre_immobilisation() {
-      const st = this.search.toLowerCase();
-      return this.SuiviImmo.filter(immo => {
-        return immo.relation_service.libelle.toLowerCase().includes(st);
-      });
-    }
+    ...mapGetters("SuiviImmobilisation", ["SuiviImmo", "familles", "services"])
+    // filtre_immobilisation() {
+    //   const st = this.search.toLowerCase();
+    //   return this.SuiviImmo.filter(immo => {
+    //     return immo.relation_service.libelle.toLowerCase().includes(st);
+    //   });
+    // }
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [

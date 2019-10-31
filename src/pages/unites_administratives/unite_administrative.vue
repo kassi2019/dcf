@@ -8,67 +8,92 @@
         <h3>Ajouter Unité d'Administrative</h3>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label">Type Unite d'administrative</label>
-            <div class="controls">
-              <select v-model="formData.type_ua_id">
-                <option
-                  v-for="typeUniteA in type_Unite_admins"
-                  :key="typeUniteA.id"
-                  :value="typeUniteA.id"
-                >{{typeUniteA.libelle}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Section</label>
-            <div class="controls">
-              <select v-model="formData.section_id">
-                <option
-                  v-for="section in sections"
-                  :key="section.id"
-                  :value="section.id"
-                >{{section.nom_section}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Chapitre</label>
-            <div class="controls">
-              <select v-model="formData.chapitre_id">
-                <option
-                  v-for="chapitre in chapitres"
-                  :key="chapitre.id"
-                  :value="chapitre.id"
-                >{{chapitre.libelle}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Code:</label>
-            <div class="controls">
-              <input type="text" v-model="formData.code" class="span" placeholder="Saisir le code" />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Libelle:</label>
-            <div class="controls">
-              <input
-                type="text"
-                v-model="formData.libelle"
-                class="span"
-                placeholder="Saisir le libelle"
-              />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Date création:</label>
-            <div class="controls">
-              <input type="date" v-model="formData.date_creation" class="span" />
-            </div>
-          </div>
-        </form>
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Type Unite d'administrative</label>
+                  <div class="controls">
+                    <select v-model="formData.type_ua_id">
+                      <option
+                        v-for="typeUniteA in type_Unite_admins"
+                        :key="typeUniteA.id"
+                        :value="typeUniteA.id"
+                      >{{typeUniteA.libelle}}</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Section</label>
+                  <div class="controls">
+                    <select v-model="formData.section_id">
+                      <option
+                        v-for="section in sections"
+                        :key="section.id"
+                        :value="section.id"
+                      >{{section.nom_section}}</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Chapitre</label>
+                  <div class="controls">
+                    <select v-model="formData.chapitre_id">
+                      <option
+                        v-for="chapitre in chapitres"
+                        :key="chapitre.id"
+                        :value="chapitre.id"
+                      >{{chapitre.libelle}}</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Date création:</label>
+                  <div class="controls">
+                    <input type="date" v-model="formData.date_creation" class="span" />
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Code:</label>
+                  <div class="controls">
+                    <input
+                      type="text"
+                      v-model="formData.code"
+                      class="span"
+                      placeholder="Saisir le code"
+                    />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Libelle:</label>
+                  <div class="controls">
+                    <input
+                      type="text"
+                      v-model="formData.libelle"
+                      class="span"
+                      placeholder="Saisir le libelle"
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <a
@@ -88,72 +113,92 @@
         <h3>Modifier Unité d'Administrative</h3>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal">
-          <div class="control-group">
-            <label class="control-label">Type Unite d'administrative</label>
-            <div class="controls">
-              <select v-model="editUniteAdministrative.type_ua_id">
-                <option
-                  v-for="typeUniteA in type_Unite_admins"
-                  :key="typeUniteA.id"
-                  :value="typeUniteA.id"
-                >{{typeUniteA.libelle}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Section</label>
-            <div class="controls">
-              <select v-model="editUniteAdministrative.section_id">
-                <option
-                  v-for="section in sections"
-                  :key="section.id"
-                  :value="section.id"
-                >{{section.nom_section}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Chapitre</label>
-            <div class="controls">
-              <select v-model="editUniteAdministrative.chapitre_id">
-                <option
-                  v-for="chapitre in chapitres"
-                  :key="chapitre.id"
-                  :value="chapitre.id"
-                >{{chapitre.libelle}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Code:</label>
-            <div class="controls">
-              <input
-                type="text"
-                v-model="editUniteAdministrative.code"
-                class="span"
-                placeholder="Saisir le code"
-              />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Libelle:</label>
-            <div class="controls">
-              <input
-                type="text"
-                v-model="editUniteAdministrative.libelle"
-                class="span"
-                placeholder="Saisir le libelle"
-              />
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Date création:</label>
-            <div class="controls">
-              <input type="date" v-model="editUniteAdministrative.date_creation" class="span" />
-            </div>
-          </div>
-        </form>
+        <table class="table table-bordered table-striped">
+          <tbody>
+            <tr>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Type Unite d'administrative</label>
+                  <div class="controls">
+                    <select v-model="editUniteAdministrative.type_ua_id">
+                      <option
+                        v-for="typeUniteA in type_Unite_admins"
+                        :key="typeUniteA.id"
+                        :value="typeUniteA.id"
+                      >{{typeUniteA.libelle}}</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Section</label>
+                  <div class="controls">
+                    <select v-model="editUniteAdministrative.section_id">
+                      <option
+                        v-for="section in sections"
+                        :key="section.id"
+                        :value="section.id"
+                      >{{section.nom_section}}</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Chapitre</label>
+                  <div class="controls">
+                    <select v-model="editUniteAdministrative.chapitre_id">
+                      <option
+                        v-for="chapitre in chapitres"
+                        :key="chapitre.id"
+                        :value="chapitre.id"
+                      >{{chapitre.libelle}}</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Date création:</label>
+                  <div class="controls">
+                    <input type="date" v-model="editUniteAdministrative.date_creation" class="span" />
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Code:</label>
+                  <div class="controls">
+                    <input
+                      type="text"
+                      v-model="editUniteAdministrative.code"
+                      class="span"
+                      placeholder="Saisir le code"
+                    />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="control-group">
+                  <label class="control-label">Libelle:</label>
+                  <div class="controls">
+                    <input
+                      type="text"
+                      v-model="editUniteAdministrative.libelle"
+                      class="span"
+                      placeholder="Saisir le libelle"
+                    />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <a
@@ -185,14 +230,26 @@
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
+              <div align="right">
+                Recherche:
+                <input type="search" v-model="search" />
+
+                <!-- <div class="span3">
+                  <model-list-select
+                    v-model="formData.test"
+                    style="background-color: rgb(222, 222, 222);"
+                    :list="type_Unite_admins"
+                    option-value="id"
+                    option-text="libelle"
+                    placeholder="unite administrative"
+                  ></model-list-select>
+                </div>
+                <button>ok</button>-->
+              </div>
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
               <h5>Liste des unité d'administrative</h5>
-              <div align="right">
-                Recherche:
-                <input type="search" v-model="search" />
-              </div>
             </div>
 
             <div
@@ -266,7 +323,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
+// import { ModelListSelect } from "vue-search-select";
+// import "vue-search-select/dist/VueSearchSelect.css";
 export default {
+  // components: {
+  //   ModelListSelect
+  // },
   data() {
     return {
       fabActions: [
@@ -281,7 +343,8 @@ export default {
         section_id: "",
         chapitre_id: "",
         type_ua_id: "",
-        date_creation: ""
+        date_creation: "",
+        test: ""
       },
       editUniteAdministrative: {
         code: "",

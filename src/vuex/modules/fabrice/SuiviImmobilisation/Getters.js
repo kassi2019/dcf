@@ -121,22 +121,60 @@ export const NbreImmobilisationPrevue = state =>
 
 export const SommeEquipementPrevue = (state, getters) =>
   getters.NbreImmobilisationPrevue.reduce(
-    (prec, cur) => parseFloat(prec) + parseFloat(cur.quantite),
+    (prec, cur) => parseInt(prec) + parseInt(cur.quantite),
     0
   );
 
-export const volumeImmoRealise = (state, getters) => {
-  const val = parseFloat(
-    getters.nbreImmoRealise / getters.nombreImmobilisation
-  ).toFixed(2);
+export const SommeEquipementActuel = (state, getters) =>
+  state.immobilisations.reduce(
+    (prec, cur) => parseInt(prec) + parseInt(cur.qte_actuel),
+    0
+  );
+
+// export const SommeEquipementRealise = (state, getters) => {
+//   const val = parseInt(
+//     getters.SommeEquipementPrevue - getters.SommeEquipementActuel
+//   ).toFixed(0);
+//   if (isNaN(val)) return null;
+//   return val;
+// };
+
+export const nombreEquipement = (state, getters) => {
+  const val = parseInt(
+    getters.SommeEquipementPrevue + getters.SommeEquipementActuel
+  ).toFixed(0);
   if (isNaN(val)) return null;
   return val;
 };
 
+// export const volumeImmoRealise = (state, getters) => {
+//   const val = parseFloat(
+//     getters.SommeEquipementRealise / getters.nombreEquipement
+//   ).toFixed(2);
+//   if (isNaN(val)) return null;
+//   return val;
+// };
+
+// export const SommeEquipementRealise = (
+//   state,
+//   getters,
+//   rootState,
+//   rootGetters
+// ) =>
+//   getters.immobilisations.map(element => {
+//     if (element.qte_actuel !== "") {
+//       const val = parseInt(
+//         getters.SommeEquipementPrevue - SommeEquipementActuel
+//       ).toFixed(0);
+//     }
+
+//     return element;
+//   });
+
 ////////////////////getter calcul pourcentage///////////////
 export const volumeImmoPrevu = (state, getters) => {
   const val = parseFloat(
-    getters.NbreImmobilisationPrevue / getters.nombreTotalBesoinImmoUa
+    getters.SommeEquipementPrevue / getters.nombreEquipement
   ).toFixed(2);
   if (isNaN(val)) return null;
   return val;

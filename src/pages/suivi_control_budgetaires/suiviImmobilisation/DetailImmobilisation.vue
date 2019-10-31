@@ -16,36 +16,27 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th title="Type Immobilisation">Type Immo</th>
+                  <th>Classe</th>
+                  <!-- <th>type equipement</th> -->
                   <th>Designation</th>
-                  <th title="Identification Immobilisation">Identification Immo</th>
-                  <th>Etat Immobilisation</th>
-                  <th>Date Acquisition</th>
-                  <th>Date Service</th>
-                  <th>Numero Facture</th>
-
-                  <th title="Quantité">Qte</th>
+                  <th>Quantité Réel</th>
+                  <th>Quantité afféctée</th>
+                  <th>Quantité actuel</th>
                   <th>Prix Unitaire</th>
-
-                  <th>Valeur Origine</th>
+                  <th>Total Actuel</th>
                   <!-- <th>Acteur Depense</th> -->
                 </tr>
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{immo.type_immo || 'Non renseigné'}}</td>
-                  <td>{{immo.designation || 'Non renseigné'}}</td>
-                  <td>{{immo.identification || 'Non renseigné'}}</td>
-                  <td>{{immo.etat_immobilisation || 'Non renseigné'}}</td>
-
-                  <td>{{formaterDate(immo.date_acquisition) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immo.date_mise_service) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immo.numero_facture) || 'Non renseigné'}}</td>
-
-                  <td>{{immo.quantite || 'Non renseigné'}}</td>
-                  <td>{{immo.prix_unitaire || 'Non renseigné'}}</td>
-
-                  <td>{{immo.valeur_origine || 'Non renseigné'}}</td>
+                  <!-- <td>{{immobilisat.reletion_famille.code || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.reletion_famille.equipemt_id || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.reletion_famille.libelle || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.qte_reel || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.total_actuel || 'Non renseigné'}}</td>-->
                 </tr>
               </tbody>
             </table>
@@ -54,7 +45,7 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th>Famille</th>
+                  <th>Type immobilisation</th>
                   <th>Service</th>
                   <th>Durée</th>
                   <th>Numero CC</th>
@@ -70,19 +61,19 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{immo.reletion_famille.libelle || 'Non renseigné'}}</td>
-                  <td>{{immo.relation_service.libelle || 'Non renseigné'}}</td>
-                  <td>{{immo.duree || 'Non renseigné'}}</td>
-                  <td>{{immo.numero_CC || 'Non renseigné'}}</td>
+                  <!-- <td>{{immobilisat.type_immo || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.relation_service.libelle || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.duree || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.numero_CC || 'Non renseigné'}}</td>
 
-                  <td>{{immo.acteurDepense.matricule || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
 
-                  <td>{{formaterDate(immo.exoBudgetaire.annee) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immo.nature_bien) || 'Non renseigné'}}</td>
-                  <td>{{immo.nature_dentree || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.nature_bien || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.nature_dentree || 'Non renseigné'}}</td>
 
-                  <td>{{immo.unitePara.libelle || 'Non renseigné'}}</td>
-                  <td>{{immo.TVA_id || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.unitePara.libelle || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>-->
                 </tr>
               </tbody>
             </table>
@@ -104,15 +95,15 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{immo.montant_evaluation || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immo.date_evaluation) || 'Non renseigné'}}</td>
-                  <td>{{immo.montant_cession || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immo.date_cession) || 'Non renseigné'}}</td>
+                  <!-- <td>{{immobilisat.montant_evaluation || 'Non renseigné'}}</td>
+                  <td>{{formaterDate(immobilisat.date_evaluation) || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.montant_cession || 'Non renseigné'}}</td>
+                  <td>{{formaterDate(immobilisat.date_cession) || 'Non renseigné'}}</td>
 
-                  <td>{{immo.cause_inactivite || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.cause_inactivite || 'Non renseigné'}}</td>
 
-                  <td>{{formaterDate(immo.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(formaterDate(immo.date_amortissement_anterieur)) || 'Non renseigné'}}</td>
+                  <td>{{formaterDate(immobilisat.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
+                  <td>{{formaterDate(formaterDate(immobilisat.date_amortissement_anterieur)) || 'Non renseigné'}}</td>-->
                 </tr>
               </tbody>
             </table>
@@ -128,12 +119,12 @@ import moment from "moment";
 export default {
   data() {
     return {
-      immo: undefined
+      immobilisat: undefined
     };
   },
   created() {
-    this.immo = this.SuiviImmo.find(
-      immo => immo.id == this.$route.params.id_immobilisation
+    this.immobilisat = this.SuiviImmo.find(
+      immobilisat => immobilisat.id == this.$route.params.id_immobilisation
     );
   },
 

@@ -15,7 +15,14 @@ import amortissementLineaire from "../../pages/suivi_control_budgetaires/suiviIm
 import DetailImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/DetailImmobilisation.vue";
 import besionImmolisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/besionImmolisation.vue";
 import listeEquipement from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeEquipement.vue";
+import listeBesoinParUniteAdmin from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeBesoinParUniteAdmin.vue";
+
 const suiviImmobilisationRoutes = [
+  {
+    path: "/liste-Besoin-par-ua",
+    name: "listeBesoinParUniteAdmin",
+    component: listeBesoinParUniteAdmin
+  },
   {
     path: "/liste-Equipement",
     name: "listeEquipement",

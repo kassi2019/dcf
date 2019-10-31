@@ -132,7 +132,12 @@
                           <div class="control-group">
                             <label class="control-label">Qté Afféctée:</label>
                             <div class="controls">
-                              <input type="number" class="span" v-model="formData.qte_affecte" />
+                              <input
+                                type="number"
+                                class="span"
+                                :max="AffichierQuantiteteReel"
+                                v-model="formData.qte_affecte"
+                              />
                             </div>
                           </div>
                         </td>
@@ -179,7 +184,8 @@
                                 name="b"
                                 checked
                               />OUI&nbsp;&nbsp;
-                              <input type="radio" name="b" />NON
+                              <input type="radio" name="b" />
+                              NON
                             </div>
                           </div>
                         </td>
@@ -206,9 +212,9 @@
                           <div class="control-group">
                             <label class="control-label">Etat de l'Immobilisation</label>
                             <div class="controls">
-                              <select v-model="formData.etat_immobilisation">
+                              <!-- <select v-model="formData.etat_immobilisation">
                                 <option v-for="statut in stats" :key="statut.id">{{statut}}</option>
-                              </select>
+                              </select>-->
                             </div>
                           </div>
                         </td>
@@ -217,10 +223,10 @@
                             <label class="control-label">Cause inactivite:</label>
                             <div class="controls">
                               <select v-model="formData.cause_inactivite">
-                                <option
+                                <!-- <option
                                   v-for="inactivite in causeInactivite"
                                   :key="inactivite.id"
-                                >{{inactivite}}</option>
+                                >{{inactivite}}</option>-->
                               </select>
                             </div>
                           </div>
@@ -230,10 +236,10 @@
                             <label class="control-label">Type Immobilisation</label>
                             <div class="controls">
                               <select v-model="formData.etat_immobilisation">
-                                <option
+                                <!-- <option
                                   v-for="typeimmob in typeImmo"
                                   :key="typeimmob.id"
-                                >{{typeimmob}}</option>
+                                >{{typeimmob}}</option>-->
                               </select>
                             </div>
                           </div>
@@ -454,9 +460,9 @@ export default {
         uniteadministrative_id: ""
       },
 
-      stats: ["neuf(ve)", "Seconde Main", "Bon"],
-      typeImmo: ["Corporelle", "Incorporelle"],
-      causeInactivite: ["Vendue", "Mise en hors service"],
+      // stats: ["neuf(ve)", "Seconde Main", "Bon"],
+      // typeImmo: ["Corporelle", "Incorporelle"],
+      // causeInactivite: ["Vendue", "Mise en hors service"],
       search: ""
     };
   },
@@ -532,6 +538,17 @@ export default {
         return qtereel.quantite;
       }
     },
+
+    idObjetBesoinImmoAModifierLaQuantite() {
+      const qtereel = this.trieUaImmobilisation.find(
+        qtreel => qtreel.id == this.formData.famille_id
+      );
+
+      if (qtereel) {
+        return qtereel.id;
+      }
+    },
+
     AffichierprixUnitaire() {
       const prixUnitaire = this.trieUaImmobilisation.find(
         prixUnitaire => prixUnitaire.id == this.formData.famille_id
@@ -567,14 +584,11 @@ export default {
     // }
   },
   methods: {
-    ...mapActions("SuiviImmobilisation", ["ajouterImmobilisation"]),
-    //afiicher modal ajouter
-    afficherModalAjouterTitre() {
-      this.$("#exampleModal").modal({
-        backdrop: "static",
-        keyboard: false
-      });
-    },
+    ...mapActions("SuiviImmobilisation", [
+      "ajouterImmobilisation",
+      "modifierQuantiteReel"
+    ]),
+
     // changerUniteAdmin(event) {
     //   this.designation = event.target.value;
     // },
@@ -588,69 +602,70 @@ export default {
       });
     },
     // fonction pour vider l'input ajouter
+
     ajouterImmobilisationLocal() {
       // var nouvelObjet = {
       //   ...this.formData,
       //   valeur_origine: this.ValeurOrigine
       // };{}
-      var nouvelObjet = {
-        ...this.formData,
-        qte_reel: this.AffichierQuantiteteReel,
-        prixUnitaire: this.AffichierprixUnitaire,
-        total_reel: this.AffichierTotalReel,
-        total_actuel: this.AffichierTotalActuel,
-        qte_actuel: this.AfficheQteActuel
-      };
 
-      this.ajouterImmobilisation(nouvelObjet);
-      // this.ajouterImmobilisation(montant_reel);
-      // this.ajouterImmobilisation(Qte_actuel);
-      // this.ajouterImmobilisation(montant_actuel);
-      this.formData = {
-        totalreel: "",
-        type: "",
-        designation: "",
-        identification: "",
-        etat_immobilisation: "",
-        date_acquisition: "",
-        date_mise_service: "",
-        numero_facture: "",
-        qte_reel: "",
-        qte_affecte: "",
-        qte_actuel: "",
+      this.modifierQuantiteReel(this.AfficheQteActuel, this.idObjetBesoinImmoAModifierLaQuantite);
+      // var nouvelObjet = {
+      //   ...this.formData,
+      //   qte_reel: this.AffichierQuantiteteReel,
+      //   prixUnitaire: this.AffichierprixUnitaire,
+      //   total_reel: this.AffichierTotalReel,
+      //   total_actuel: this.AffichierTotalActuel,
+      //   qte_actuel: this.AfficheQteActuel
+      // };
 
-        prixUnitaire: "",
-        total_actuel: "",
-        famille_id: "",
+      // this.ajouterImmobilisation(nouvelObjet);
 
-        duree: "",
-        numero_CC: "",
-        acteur_depense_id: "",
-        exercice_budgetaire_id: "",
-        service_id: "",
-        nature_bien: "",
-        nature_dentree: "",
-        // acteur_depense_id: "",
-        TVA_id: "",
-        montant_evaluation: "",
-        date_evaluation: "",
-        montant_cession: "",
-        date_cession: "",
-        cause_inactivite: "",
-        montant_amortissement_anterieur: "",
-        date_amortissement_anterieur: ""
-      };
+      // this.formData = {
+      //   totalreel: "",
+      //   type: "",
+      //   designation: "",
+      //   identification: "",
+      //   etat_immobilisation: "",
+      //   date_acquisition: "",
+      //   date_mise_service: "",
+      //   numero_facture: "",
+      //   qte_reel: "",
+      //   qte_affecte: "",
+      //   qte_actuel: "",
+
+      //   prixUnitaire: "",
+      //   total_actuel: "",
+      //   famille_id: "",
+
+      //   duree: "",
+      //   numero_CC: "",
+      //   acteur_depense_id: "",
+      //   exercice_budgetaire_id: "",
+      //   service_id: "",
+      //   nature_bien: "",
+      //   nature_dentree: "",
+      //   // acteur_depense_id: "",
+      //   TVA_id: "",
+      //   montant_evaluation: "",
+      //   date_evaluation: "",
+      //   montant_cession: "",
+      //   date_cession: "",
+      //   cause_inactivite: "",
+      //   montant_amortissement_anterieur: "",
+      //   date_amortissement_anterieur: ""
+      // };
     },
 
-    // fonction pour vider l'input modification
-    modifierFamilleLocal() {
-      this.modifierFamille(this.editFamille);
+    // // fonction pour vider l'input modification
+    // modifierFamilleLocal() {
+    //   this.modifierFamille(this.editFamille);
 
-      this.editFamille = {
-        code: "",
-        libelle: ""
-      };
-    },
+    //   this.editFamille = {
+    //     code: "",
+    //     libelle: ""
+    //   };
+    // },
     alert() {
       console.log("ok");
     }

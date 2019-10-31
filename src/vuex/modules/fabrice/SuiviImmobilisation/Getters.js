@@ -220,7 +220,8 @@ export const getPersonnaliseImmobilisation = (
       element.uniteadministrative_id !== null &&
       element.service_id !== null &&
       element.exercice_budgetaire_id !== null &&
-      element.acteurdepense_id !== null
+      element.acteurdepense_id !== null &&
+      element.equipemt_id !== null
     ) {
       element = {
         ...element,
@@ -230,17 +231,36 @@ export const getPersonnaliseImmobilisation = (
         famille: rootGetters["SuiviImmobilisation/familles"].find(
           equipefamill => equipefamill.id == element.famille_id
         ),
-        service: rootGetters["SuiviImmobilisation/familles"].find(
-          equipe => equipe.id == element.famille_id
+        service: rootGetters["SuiviImmobilisation/services"].find(
+          equipeservice => equipeservice.id == element.service_id
         ),
-        famille: rootGetters["SuiviImmobilisation/familles"].find(
-          equipe => equipe.id == element.famille_id
+        acteurDepen: rootGetters["personnelUA/personnaliseActeurDepense"].find(
+          acteurDepenUA => acteurDepenUA.id == element.acteurdepense_id
+        ),
+        exercBudget: rootGetters[
+          "parametreGenerauxAdministratif/exercices_budgetaires"
+        ].find(tempBudget => tempBudget.id == element.exercice_budgetaire_id),
+        equipemt: rootGetters["SuiviImmobilisation/equipements"].find(
+          equipe => equipe.id == element.equipemt_id
         )
       };
     }
 
     return element;
   });
+
+// export const getPersonnalise = (state, getters, rootState, rootGetters) =>
+//   getters.immobilisations.map(element => {
+//     if (element.famille_id !== null) {
+//       element = {
+//         ...element,
+//         fam: rootGetters["SuiviImmobilisation/familles"].find(
+//           famil => famil.id == element.famille_id
+//         )
+//       };
+//     }
+//     return element;
+//   });
 
 export {
   familles,

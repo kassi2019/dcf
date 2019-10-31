@@ -19,27 +19,73 @@
               </div>
             </div>
 
-            <div class="table-responsive text-nowrap">
+            <div class="table-responsive text-nowrap" v-if="SuiviImmo.length">
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>Classe</th>
-                    <th>type equipement</th>
+                    <!-- <th>type equipement</th> -->
                     <th>Designation</th>
-                    <th>Besoin Réel</th>
-                    <th>Qte afféctée</th>
-                    <th>Besoin actuel</th>
+                    <th>Quantité Réel</th>
+                    <th>Quantité afféctée</th>
+                    <th>Quantité actuel</th>
                     <th>Prix Unitaire</th>
                     <th>Total Actuel</th>
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  <tr class="odd gradeX" v-for="(immobilisat) in SuiviImmo" :key="immobilisat.id">
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.reletion_famille.code || 'Non renseigné'}}</td>
+                    <!-- <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.reletion_famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>-->
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.reletion_famille.libelle || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.qte_reel || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
+                    <td
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                    >{{immobilisat.total_actuel || 'Non renseigné'}}</td>
+                    <td>
+                      <router-link
+                        :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immobilisat.id}}"
+                        class="btn btn-default"
+                        title="Detail Immobilisation"
+                      >
+                        <span>
+                          <i class="icon icon-folder-open"></i>
+                        </span>
+                      </router-link>
+                      <button class="btn btn-danger" @click="supprimerFamille(immobilisat.id)">
+                        <span>
+                          <i class="icon icon-trash"></i>
+                        </span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
               <!-- <div v-if="filtre_immobilisation.length"></div>
               <div v-else>
                 <p style="text-align:center;font-size:20px;color:red;">Aucune Immobilisations</p>
               </div>-->
+            </div>
+            <div v-else>
+              <p style="text-align:center;font-size:20px;color:red;">Pas d'Immobilisation</p>
             </div>
           </div>
         </div>
@@ -77,13 +123,19 @@ export default {
   },
   mounted() {
     this.formData = this.SuiviImmo.find(
-      immo => immo.id == this.$route.params.id
+      immobilisat => immobilisat.id == this.$route.params.id
     );
 
     //console.log(this.$router);
   },
   computed: {
-    ...mapGetters("SuiviImmobilisation", ["SuiviImmo", "familles", "services"])
+    ...mapGetters("SuiviImmobilisation", [
+      "SuiviImmo",
+      "familles",
+      "services",
+      "getPersonnaliseImmobilisation",
+      "getPersonnalise"
+    ])
     // filtre_immobilisation() {
     //   const st = this.search.toLowerCase();
     //   return this.SuiviImmo.filter(immo => {
@@ -97,6 +149,7 @@ export default {
 
       "supprimerImmobilisation"
     ]),
+
     //afiicher modal ajouter
     afficherModalAjouterTitre() {
       this.$router.push({

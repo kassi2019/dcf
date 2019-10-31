@@ -300,6 +300,17 @@ export function modifierBesoinImmo({ commit }, nouveau) {
       commit("MODIFIER_BESOIN_IMMO", response.data);
     });
 }
+
+export function modifierQuantiteReel({ commit }, {id_besoinImmo_a_modifier, qte_actu}) {
+  console.log(id_besoinImmo_a_modifier, qte_actu);
+  // axios.put("/modifier_besoin_immo/" + id_besoinImmo_a_modifier, {
+  //     quantite: qte_actu
+  //   })
+  //   .then(response => {
+  //     commit("MODIFIER_QUANTITE_REEL", id_besoinImmo_a_modifier, qte_actu);
+  //   });
+}
+
 //supprimer
 export function supprimerBesoinImmo({ commit }, id) {
   this.$app.$dialog

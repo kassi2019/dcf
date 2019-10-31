@@ -148,6 +148,17 @@ const MODIFIER_BESOIN_IMMO = (state, objetModifie) => {
   });
 };
 
+// modifier QUANTITE REEL
+const MODIFIER_QUANTITE_REEL = (state, {id_besoinImmo_a_modifier, qte_actu}) => {
+  state.besoinImmobilisations = state.besoinImmobilisations.map(besoin_immo => {
+    if (besoin_immo.id == id_besoinImmo_a_modifier) {
+      besoin_immo.quantite = qte_actu;
+    }
+
+    return besoin_immo;
+  });
+};
+
 // supprimer FAMILLE
 const SUPPRIMER_BESOIN_IMMO = (state, id) => {
   state.besoinImmobilisations = state.besoinImmobilisations.filter(
@@ -190,6 +201,7 @@ const SUPPRIMER_EQUIPEMENT = (state, id) => {
 /*fin mutation EQUIPEMENT */
 
 export {
+  MODIFIER_QUANTITE_REEL,
   /* mutation EQUIPEMENT*/
   GET_ALL_EQUIPEMENT,
   AJOUTER_EQUIPEMENT,

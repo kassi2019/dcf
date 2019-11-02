@@ -7,6 +7,18 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
+           <!-- <div class="container-fluid">
+            <div class="quick-actions_homepage deplaceCarre">
+              <ul class="quick-actions">
+                <li class="bg_ls">
+                  <a href="#">
+                    <i class="icon-list-ol"></i>
+                    <span class="label label-important"></span> Nbre de Document
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div> -->
           <div class="widget-box">
             <div class="widget-title">
               <span class="icon">
@@ -14,8 +26,22 @@
               </span>
               <h5>Liste des Bessoins Immobilisations</h5>
               <div align="right">
-                Recherche:
-                <input type="search" placeholder v-model="search" />
+                 Recherche:
+                <input type="search" placeholder="Saisir Unite Administrative" v-model="search" />
+              <!-- <div class="control-group">
+             
+                <div class="controls">
+                  <select v-model="uniteadmin_id">
+                    <option
+                      v-for="ua in uniteAdministratives"
+                      :key="ua.id"
+                      :value="ua.id"
+                    >{{ua.libelle}}</option>
+                  </select>
+                                
+
+                </div>
+              </div> -->
               </div>
             </div>
 
@@ -34,7 +60,7 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="BesoinImmo in trieUaImmobilisation"
+                    v-for="BesoinImmo in filtreBesoinParUa"
                     :key="BesoinImmo.id"
                   >
                     <td>{{BesoinImmo.uniteAdminist.libelle || 'Non renseigné'}}</td>
@@ -45,8 +71,10 @@
                     <td>{{formaterDate(BesoinImmo.date_jour) || 'Non renseigné'}}</td>
                   </tr>
                 </tbody>
+                
               </table>
             </div>
+            
             <div v-else>
               <p style="text-align:center;font-size:20px;color:red;">Aucun Besoin d'Immobolisation</p>
             </div>
@@ -80,7 +108,8 @@ export default {
         // }
       ],
 
-      search: ""
+      search: "",
+      uniteadmin_id:""
     };
   },
 
@@ -90,14 +119,49 @@ export default {
       "equipements",
       "familles"
     ]),
-    ...mapGetters("uniteadministrative", ["uniteAdministratives"])
+    ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
+     filtreBesoinParUa() {
+      const st = this.search.toLowerCase();
+      return this.trieUaImmobilisation.filter(BesoinImmo => {
+        return (
+          BesoinImmo.uniteAdminist.libelle.toLowerCase().includes(st) 
+        );
+      });
+    },
+    //  computed_items: function() {
+    //   let filteruniteAdministrative = this.uniteadmin_id
+          
+    //   return this.trieUaImmobilisation.filter(BesoinImmo=>{
 
-    // filtre_famille() {
-    //   const st = this.search.toLowerCase();
-    //   return this.trieUaImmobilisation.filter(type => {
-    //     return type.designation.toLowerCase().includes(st);
-    //   });
+    //   let filtered = true
+    //     if(filteruniteAdministrative && filteruniteAdministrative.length > 0){
+    //   filtered = BesoinImmo.uniteAdminist.libelle == filteruniteAdministrative
+    //    }
+    //     // if(filtered){
+    //     //   if(filterSize && filterSize.length > 0){
+    //     //     filtered = item.size == filterSize
+    //     //   }
+    //     // }
+    //     return filtered
+    //   })
     // }
+
+    // filtreBesoinImmoParUa() {
+    //   const st = this.search.toLowerCase();
+    //   return this.trieUaImmobilisation.filter(BesoinImmo => {
+    //     return BesoinImmo.uniteAdminist.libelle.toLowerCase().includes(st);
+    //   });
+    // },
+    // nombreBesoinParUa() {
+    //  return uniteadmin_id => {
+    //     if (uniteadmin_id != "") {
+    //       return this.trieUaImmobilisation.filter(
+    //         BesoinImmo => BesoinImmo.uniteAdminist.id == uniteadmin_id
+    //       ).length;
+    //     }
+    //   };
+    // },
+    
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [
@@ -106,6 +170,22 @@ export default {
       "modifierBesoinImmo",
       "supprimerBesoinImmo"
     ]),
+    // nbreDocumentParTypeTexte() {
+    //   return uniteadmin_id => {
+    //     if (uniteadmin_id != "") {
+    //       return this.trieUaImmobilisation.filter(
+    //         element => element.uniteAdminist.id == uniteadmin_id
+    //       );
+    //     }
+    //   };
+    // },
+   
+    // cascade(){
+      
+		//   this.trieUaImmobilisation.filter( BesoinImmo => {
+		// 		return BesoinImmo.uniteAdminist.id == uniteadmin_id; //???????
+		// 	});			
+		// },
     formatageSomme: formatageSomme,
 
     //afiicher modal ajouter

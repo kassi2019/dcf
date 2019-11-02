@@ -14,8 +14,8 @@
               </span>
               <h5>Liste des Immobilisations</h5>
               <div align="right">
-                Search:
-                <input type="search" placeholder v-model="search" />
+                Recherche:
+                <input type="search" placeholder="Service ou Matricule" v-model="search" />
               </div>
             </div>
 
@@ -23,8 +23,11 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Classe</th> 
-                    <th>type equipement</th> 
+                       <th>Unite administrative</th>
+                    
+                    <th>Acteur depense</th>
+                    <th>Service</th>
+                    <th>Classe</th>
                     <th>Designation</th>
                     <th>Quantité Réel</th>
                     <th>Quantité afféctée</th>
@@ -35,30 +38,39 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="odd gradeX" v-for="(immobilisat) in SuiviImmo" :key="immobilisat.id">
+                  <tr class="odd gradeX" v-for="immobilisat in filtre_immobilisation" :key="immobilisat.id">
+                       <td
+                      
+                    >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>  
+                      
+                    >{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
+                     <td
+                      
+                    >{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.familleImmo.reletion__equipement.libelle || 'Non renseigné'}}</td>
+                      
+                    >{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>
+                    <!-- <td
+                      
+                    >{{immobilisat.reletion_famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>-->
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                      
                     >{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                      
                     >{{immobilisat.qte_reel || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                      
                     >{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                      
                     >{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                      
                     >{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
+                      
                     >{{immobilisat.total_actuel || 'Non renseigné'}}</td>
                     <td>
                       <router-link
@@ -70,11 +82,7 @@
                           <i class="icon icon-folder-open"></i>
                         </span>
                       </router-link>
-                      <button class="btn btn-danger" @click="supprimerFamille(immobilisat.id)">
-                        <span>
-                          <i class="icon icon-trash"></i>
-                        </span>
-                      </button>
+                     
                     </td>
                   </tr>
                 </tbody>
@@ -92,7 +100,7 @@
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab> -->
   </div>
 </template>
   
@@ -133,16 +141,16 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
-      "getPersonnaliseImmobilisation",
+      "getPersonnaliseImmobilisation"
      
-      "getPersonnaliseSuivImmo"
-    ])
-    // filtre_immobilisation() {
-    //   const st = this.search.toLowerCase();
-    //   return this.SuiviImmo.filter(immo => {
-    //     return immo.relation_service.libelle.toLowerCase().includes(st);
-    //   });
-    // }
+    ]),
+    filtre_immobilisation() {
+      const st = this.search.toLowerCase();
+      return this.SuiviImmo.filter(immo => {
+        return immo.acteurDepense.matricule.toLowerCase().includes(st) ||
+          immo.serviceImmo.libelle.toLowerCase().includes(st);
+      });
+    }
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [
@@ -160,46 +168,8 @@ export default {
 
     formatageSomme: formatageSomme,
     // fonction pour vider l'input ajouter
-    ajouterImmobilisationLocal() {
-      this.ajouterImmobilisation(this.formData);
-
-      this.formData = {
-        code: "",
-        type_immo: "",
-        designation: "",
-        identification: "",
-        etat_immobilisation: "",
-        date_acquisition: "",
-        date_mise_service: "",
-        numero_facture: "",
-        quantite: "",
-        Prix_unitaire: "",
-        famille_id: "",
-        valeur_origine: "",
-        duree: "",
-        numero_CC: "",
-        acteur_depense_id: "",
-        exercice_budgetaire_id: "",
-        service_id: "",
-        nature_bien: "",
-        nature_dentree: "",
-        unite_id: "",
-        TVA_id: "",
-        montant_evaluation: "",
-        date_evaluation: "",
-        montant_cession: "",
-        date_cession: "",
-        cause_inactivite: "",
-        montant_amortissement_anterieur: "",
-        date_amortissement_anterieur: ""
-      };
-    },
-    // afficher modal de modification
-    afficherModalModifierImmobilisation(id) {
-      this.$router.push({
-        path: "/Modifier_immobilisation/" + id
-      });
-    },
+ 
+    
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     }

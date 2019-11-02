@@ -16,8 +16,20 @@ import DetailImmobilisation from "../../pages/suivi_control_budgetaires/suiviImm
 import besionImmolisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/besionImmolisation.vue";
 import listeEquipement from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeEquipement.vue";
 import listeBesoinParUniteAdmin from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeBesoinParUniteAdmin.vue";
+import listeImmobilisationParUa from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmobilisationParUa.vue";
+import listeImmoParServiceParAgent from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmoParServiceParAgent.vue";
 
 const suiviImmobilisationRoutes = [
+  {
+    path: "/liste-immo-par-service-et-agent",
+    name: "listeImmoParServiceParAgent",
+    component: listeImmoParServiceParAgent
+  },
+  {
+    path: "/liste-immo-par-ua",
+    name: "listeImmobilisationParUa",
+    component: listeImmobilisationParUa
+  },
   {
     path: "/liste-Besoin-par-ua",
     name: "listeBesoinParUniteAdmin",

@@ -148,7 +148,7 @@ const MODIFIER_BESOIN_IMMO = (state, objetModifie) => {
   });
 };
 
-// modifier QUANTITE REEL
+//modifier QUANTITE REEL
 const MODIFIER_QUANTITE_REEL = (state, {id_besoinImmo_a_modifier, qte_actu}) => {
   state.besoinImmobilisations = state.besoinImmobilisations.map(besoin_immo => {
     if (besoin_immo.id == id_besoinImmo_a_modifier) {

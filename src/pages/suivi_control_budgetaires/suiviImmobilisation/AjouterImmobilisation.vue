@@ -74,7 +74,7 @@
                           <div class="control-group">
                             <label class="control-label">Désignation:</label>
                             <div class="controls">
-                              <select v-model="formData.famille_id" :readOnly="veifEquipementExist">
+                              <select v-model="formData.familleimmo_id" :readOnly="veifEquipementExist">
                                 <option value>Sélectionner</option>
                                 <option
                                   v-for="desig in designationDynamiques(formData.uniteadministrative_id)"
@@ -212,9 +212,11 @@
                           <div class="control-group">
                             <label class="control-label">Etat de l'Immobilisation</label>
                             <div class="controls">
-                              <!-- <select v-model="formData.etat_immobilisation">
-                                <option v-for="statut in stats" :key="statut.id">{{statut}}</option>
-                              </select>-->
+                              <select v-model="formData.etat_immobilisation">
+                              <option value="1">neuf(ve)</option>
+    <option value="2">Seconde Main</option>
+    <option value="3">Bon</option>
+    </select>
                             </div>
                           </div>
                         </td>
@@ -223,10 +225,9 @@
                             <label class="control-label">Cause inactivite:</label>
                             <div class="controls">
                               <select v-model="formData.cause_inactivite">
-                                <!-- <option
-                                  v-for="inactivite in causeInactivite"
-                                  :key="inactivite.id"
-                                >{{inactivite}}</option>-->
+                            
+    <option value="1">Vendue</option>
+    <option value="2">Mise en hors service</option>
                               </select>
                             </div>
                           </div>
@@ -235,11 +236,10 @@
                           <div class="control-group">
                             <label class="control-label">Type Immobilisation</label>
                             <div class="controls">
-                              <select v-model="formData.etat_immobilisation">
-                                <!-- <option
-                                  v-for="typeimmob in typeImmo"
-                                  :key="typeimmob.id"
-                                >{{typeimmob}}</option>-->
+                              <select v-model="formData.type_immo">
+                              
+    <option value="1">Corporelle</option>
+    <option value="2">Incorporelle</option>
                               </select>
                             </div>
                           </div>
@@ -456,7 +456,7 @@ export default {
         // valeur_origine = this.ValeurOrigine(),
 
         exercice_budgetaire_id: "",
-        famille_id: "",
+        familleimmo_id: "",
         uniteadministrative_id: ""
       },
 
@@ -531,7 +531,7 @@ export default {
 
     AffichierQuantiteteReel() {
       const qtereel = this.trieUaImmobilisation.find(
-        qtreel => qtreel.id == this.formData.famille_id
+        qtreel => qtreel.id == this.formData.familleimmo_id
       );
 
       if (qtereel) {
@@ -539,19 +539,19 @@ export default {
       }
     },
 
-    idObjetBesoinImmoAModifierLaQuantite() {
-      const qtereel = this.trieUaImmobilisation.find(
-        qtreel => qtreel.id == this.formData.famille_id
-      );
+    // idObjetBesoinImmoAModifierLaQuantite() {
+    //   const qtereel = this.trieUaImmobilisation.find(
+    //     qtreel => qtreel.id == this.formData.familleimmo_id
+    //   );
 
-      if (qtereel) {
-        return qtereel.id;
-      }
-    },
+    //   if (qtereel) {
+    //     return qtereel.id;
+    //   }
+    // },
 
     AffichierprixUnitaire() {
       const prixUnitaire = this.trieUaImmobilisation.find(
-        prixUnitaire => prixUnitaire.id == this.formData.famille_id
+        prixUnitaire => prixUnitaire.id == this.formData.familleimmo_id
       );
 
       if (prixUnitaire) {
@@ -560,7 +560,7 @@ export default {
     },
     AffichierTotalReel() {
       const totalreel = this.trieUaImmobilisation.find(
-        totalreel => totalreel.id == this.formData.famille_id
+        totalreel => totalreel.id == this.formData.familleimmo_id
       );
 
       if (totalreel) {
@@ -609,7 +609,7 @@ export default {
       //   valeur_origine: this.ValeurOrigine
       // };{}
 
-      this.modifierQuantiteReel(this.AfficheQteActuel, this.idObjetBesoinImmoAModifierLaQuantite);
+      // this.modifierQuantiteReel(this.AfficheQteActuel, this.idObjetBesoinImmoAModifierLaQuantite);
       // var nouvelObjet = {
       //   ...this.formData,
       //   qte_reel: this.AffichierQuantiteteReel,
@@ -636,7 +636,7 @@ export default {
 
       //   prixUnitaire: "",
       //   total_actuel: "",
-      //   famille_id: "",
+      //   familleimmo_id: "",
 
       //   duree: "",
       //   numero_CC: "",

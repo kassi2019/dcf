@@ -238,11 +238,24 @@
               <span class="text">Recherche Immobilisation</span>
             </router-link>
           </li>-->
-          <li class="divider"></li>
+         
           <li>
             <router-link :to="{name:'listeBesoinParUniteAdmin'}" tag="a" title>
               <i class="icon-key"></i>
               <span class="text">Besoin Par Unite d'administrative</span>
+            </router-link>
+          </li>
+         
+          <li>
+            <router-link :to="{name:'listeImmobilisationParUa'}" tag="a" title>
+              <i class="icon-key"></i>
+              <span class="text">Immo Par Unite d'administrative</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="{name:'listeImmoParServiceParAgent'}" tag="a" title>
+              <i class="icon-key"></i>
+              <span class="text">Immo Par Service && Agent</span>
             </router-link>
           </li>
           <!-- <li>

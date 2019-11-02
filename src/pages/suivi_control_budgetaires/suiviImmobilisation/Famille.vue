@@ -133,10 +133,11 @@
               <div align="right">
                 Recherche:
                 <input type="search" placeholder v-model="search" />
+                <button>ok</button>
               </div>
             </div>
 
-            <div class="widget-content nopadding">
+            <div class="widget-content nopadding" v-if="equipements.length && persoEquipement.length">
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -247,6 +248,7 @@ export default {
       "modifierFamille",
       "supprimerFamille"
     ]),
+    
     //afiicher modal ajouter
     afficherModalAjouterTitre() {
       this.$("#exampleModal").modal({

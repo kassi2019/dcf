@@ -16,9 +16,9 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th>Classe</th>
+                  <!-- <th>Classe</th> -->
                   <!-- <th>type equipement</th> -->
-                  <th>Designation</th>
+                  <!-- <th>Designation</th> -->
                   <th>Quantité Réel</th>
                   <th>Quantité afféctée</th>
                   <th>Quantité actuel</th>
@@ -29,14 +29,14 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <!-- <td>{{immobilisat.reletion_famille.code || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.reletion_famille.equipemt_id || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.reletion_famille.libelle || 'Non renseigné'}}</td>
+                  <!-- <td>{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.familleImmo.reletion__equipement.libelle || 'Non renseigné'}}</td> -->
+                  <!-- <td>{{immobilisat.familleimmo_id|| 'Non renseigné'}}</td> -->
                   <td>{{immobilisat.qte_reel || 'Non renseigné'}}</td>
                   <td>{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
                   <td>{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
                   <td>{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.total_actuel || 'Non renseigné'}}</td>-->
+                  <td>{{immobilisat.total_actuel || 'Non renseigné'}}</td>
                 </tr>
               </tbody>
             </table>
@@ -55,25 +55,25 @@
                   <th title="Exercice Budgetaire">Exercice Budget</th>
                   <th>Nature de Bien</th>
                   <th>Nature Entrée</th>
-                  <th>Unite</th>
+                  <!-- <th>Unite</th> -->
                   <th>Tva</th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <!-- <td>{{immobilisat.type_immo || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.relation_service.libelle || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.type_immo || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.service_id || 'Non renseigné'}}</td>
                   <td>{{immobilisat.duree || 'Non renseigné'}}</td>
                   <td>{{immobilisat.numero_CC || 'Non renseigné'}}</td>
 
-                  <td>{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.acteurdepense_id || 'Non renseigné'}}</td>
 
                   <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td>
                   <td>{{immobilisat.nature_bien || 'Non renseigné'}}</td>
                   <td>{{immobilisat.nature_dentree || 'Non renseigné'}}</td>
 
-                  <td>{{immobilisat.unitePara.libelle || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>-->
+                  <!-- <td>{{immobilisat.unitePara.libelle || 'Non renseigné'}}</td> -->
+                  <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>
                 </tr>
               </tbody>
             </table>
@@ -95,7 +95,7 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <!-- <td>{{immobilisat.montant_evaluation || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.montant_evaluation || 'Non renseigné'}}</td>
                   <td>{{formaterDate(immobilisat.date_evaluation) || 'Non renseigné'}}</td>
                   <td>{{immobilisat.montant_cession || 'Non renseigné'}}</td>
                   <td>{{formaterDate(immobilisat.date_cession) || 'Non renseigné'}}</td>
@@ -103,7 +103,7 @@
                   <td>{{immobilisat.cause_inactivite || 'Non renseigné'}}</td>
 
                   <td>{{formaterDate(immobilisat.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(formaterDate(immobilisat.date_amortissement_anterieur)) || 'Non renseigné'}}</td>-->
+                  <td>{{formaterDate(formaterDate(immobilisat.date_amortissement_anterieur)) || 'Non renseigné'}}</td>
                 </tr>
               </tbody>
             </table>

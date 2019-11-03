@@ -34,27 +34,20 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
       element.familleimmo_id !== null &&
       element.acteurdepense_id !== null &&
       element.acteurdepense_id !== null &&
-      element.uniteadministrative_id !== null
+      element.uniteadministrative_id !== null &&
+      element.typeuniteadminis_id !== null
     ) {
       element = {
         ...element,
-        exoBudgetaire: rootGetters[
-          "parametreGenerauxAdministratif/exercices_budgetaires"
-        ].find(exercice => exercice.id == element.exercice_budgetaire_id),
-        acteurDepense: rootGetters[
-          "personnelUA/personnaliseActeurDepense"
-        ].find(auteurDep => auteurDep.id == element.acteurdepense_id),
-          uniteAdminist: rootGetters[
-            "uniteadministrative/uniteAdministratives"
-          ].find(uniteAdm => uniteAdm.id == element.uniteadministrative_id),
+        exoBudgetaire: rootGetters["parametreGenerauxAdministratif/exercices_budgetaires"].find(exercice => exercice.id == element.exercice_budgetaire_id),
+        acteurDepense: rootGetters["personnelUA/personnaliseActeurDepense"].find(auteurDep => auteurDep.id == element.acteurdepense_id),
+          uniteAdminist: rootGetters["uniteadministrative/uniteAdministratives"].find(uniteAdm => uniteAdm.id == element.uniteadministrative_id),
           
-        familleImmo: rootGetters[
-          "SuiviImmobilisation/familles"
-        ].find(Famileimmo => Famileimmo.id == element.familleimmo_id),
+        familleImmo: rootGetters["SuiviImmobilisation/familles"].find(Famileimmo => Famileimmo.id == element.familleimmo_id),
 
-        serviceImmo: rootGetters[
-          "SuiviImmobilisation/services"
-        ].find(servImmo => servImmo.id == element.service_id)
+        serviceImmo: rootGetters["SuiviImmobilisation/services"].find(servImmo => servImmo.id == element.service_id),
+        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminis_id
+        )
       
       };
     }
@@ -85,11 +78,6 @@ export const getPersonnaliseSuivImmo = (state, getters, rootState, rootGetters) 
 
 
 
-
-
-
-
-
 export const personBesoinImmo = (state, getters, rootState, rootGetters) =>
   state.besoinImmobilisations.map(element => {
     if (element.uniteadmin_id !== null) {
@@ -103,6 +91,7 @@ export const personBesoinImmo = (state, getters, rootState, rootGetters) =>
 
     return element;
   });
+  
 export const trieUaBesoinImmo = state =>
   state.besoinImmobilisations.filter(
     trieUaBesoin => trieUaBesoin.quantite !== 0
@@ -110,14 +99,17 @@ export const trieUaBesoinImmo = state =>
 
 export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
   getters.trieUaBesoinImmo.map(element => {
-    if (element.uniteadmin_id !== null && element.famille_id !== null) {
+    if (element.uniteadmin_id !== null && element.famille_id !== null && element.typeuniteadminist_id !==null) {
       element = {
         ...element,
         uniteAdminist: rootGetters[
           "uniteadministrative/uniteAdministratives"
         ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id),
         famille: rootGetters["SuiviImmobilisation/familles"].find(
-          equipe => equipe.id == element.famille_id
+          equipefamille => equipefamille.id == element.famille_id
+        ),
+        typeUniteAdmin: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(
+          typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminist_id
         )
       };
     }
@@ -127,7 +119,7 @@ export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
 
 export const groupTriUaImmo = (state, getters) => {
   //delete getters.trieUaImmobilisation.
-  return groupBy(getters.trieUaImmobilisation, "uniteadmin_id");
+  return groupBy(getters.trieUaImmobilisation, "typeuniteadminist_id");
 };
 
 //////////////// getter calcul des nombre////////////////
@@ -163,13 +155,7 @@ export const SommeEquipementActuel = (state, getters) =>
     0
   );
 
-// export const SommeEquipementRealise = (state, getters) => {
-//   const val = parseInt(
-//     getters.SommeEquipementPrevue - getters.SommeEquipementActuel
-//   ).toFixed(0);
-//   if (isNaN(val)) return null;
-//   return val;
-// };
+
 
 export const nombreEquipement = (state, getters) => {
   const val = parseInt(
@@ -179,52 +165,23 @@ export const nombreEquipement = (state, getters) => {
   return val;
 };
 
-// export const volumeImmoRealise = (state, getters) => {
+
+////////////////////getter calcul pourcentage///////////////
+// export const volumeImmoPrevu = (state, getters) => {
 //   const val = parseFloat(
-//     getters.SommeEquipementRealise / getters.nombreEquipement
+//     getters.SommeEquipementPrevue / getters.nombreEquipement
 //   ).toFixed(2);
 //   if (isNaN(val)) return null;
 //   return val;
 // };
 
-// export const SommeEquipementRealise = (
-//   state,
-//   getters,
-//   rootState,
-//   rootGetters
-// ) =>
-//   getters.immobilisations.map(element => {
-//     if (element.qte_actuel !== "") {
-//       const val = parseInt(
-//         getters.SommeEquipementPrevue - SommeEquipementActuel
-//       ).toFixed(0);
-//     }
+// export const tauximmobilisationUa = (state, getters) => {
+//   const val = parseFloat((1 / getters.nombreImmobilisation) * 100).toFixed(2);
+//   if (isNaN(val)) return null;
+//   return val;
+// };
 
-//     return element;
-//   });
 
-////////////////////getter calcul pourcentage///////////////
-export const volumeImmoPrevu = (state, getters) => {
-  const val = parseFloat(
-    getters.SommeEquipementPrevue / getters.nombreEquipement
-  ).toFixed(2);
-  if (isNaN(val)) return null;
-  return val;
-};
-
-export const tauximmobilisationUa = (state, getters) => {
-  const val = parseFloat((1 / getters.nombreImmobilisation) * 100).toFixed(2);
-  if (isNaN(val)) return null;
-  return val;
-};
-
-// export const tauxbesoinimmoUa = (state, getters) =>
-//   parseFloat((1 / getters.NbreImmobilisationPrevue) * 100).toFixed(2);
-
-// export const trieUaBesoinImmo = state =>
-//   state.besoinImmobilisations.filter(
-//     trieUaBesoin => trieUaBesoin.quantite !== 0
-//   ).length;
 
 export const persoEquipement = (state, getters, rootState, rootGetters) =>
   state.familles.map(element => {
@@ -239,6 +196,13 @@ export const persoEquipement = (state, getters, rootState, rootGetters) =>
 
     return element;
   });
+
+
+
+
+
+
+
 
 export const getPersonnaliseImmobilisation = (
   state,
@@ -281,18 +245,18 @@ export const getPersonnaliseImmobilisation = (
     return element;
   });
 
-// export const getPersonnalise = (state, getters, rootState, rootGetters) =>
-//   getters.immobilisations.map(element => {
-//     if (element.famille_id !== null) {
-//       element = {
-//         ...element,
-//         fam: rootGetters["SuiviImmobilisation/familles"].find(
-//           famil => famil.id == element.famille_id
-//         )
-//       };
-//     }
-//     return element;
-//   });
+
+
+
+
+
+
+
+
+
+
+
+
 
 export {
   familles,

@@ -23,49 +23,22 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                     <th>type equipement</th> 
+                     <th>Matricule</th> 
+                       <th>Nom</th>
+                     <th>Prenoms</th> 
                        <th>Unite administrative</th>
                     
-                    <th>Acteur depense</th>
-                    <th>Service</th>
-                   
-                    <th>Designation</th>
-                    
-                    <th>Prix Unitaire</th>
-                  
-                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="odd gradeX" v-for="immobilisat in filtre_immobilisation" :key="immobilisat.id">
-                      <td
-                     
-                    >{{immobilisat.familleImmo.reletion__equipement.libelle || 'Non renseigné'}}</td>
-                       <td
+                  <tr class="odd gradeX" v-for="immobilisat in personnaliseActeurDepense" :key="immobilisat.id">
                       
-                    >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
-                    <td
-                      
-                    >{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
-                     <td
-                      
-                    >{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
-                    
-                    <!-- <td
-                      
-                    >{{immobilisat.reletion_famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>-->
-                    <td
-                      
-                    >{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.matricule || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.nom || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.prenom || 'Non renseigné'}}</td>
+                       <td>{{immobilisat.uniteAdmin.libelle || 'Non renseigné'}}</td>
                    
-                    <td
-                      
-                    >{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
                    
-                    <td>
-                     <button  class="btn btn-success">Equipé</button>
-                     
-                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -126,13 +99,15 @@ export default {
       "getPersonnaliseImmobilisation"
      
     ]),
+    ...mapGetters("personnelUA", ["personnaliseActeurDepense"]),
     filtre_immobilisation() {
       const st = this.search.toLowerCase();
       return this.SuiviImmo.filter(immo => {
         return immo.acteurDepense.matricule.toLowerCase().includes(st) ||
           immo.serviceImmo.libelle.toLowerCase().includes(st);
       });
-    }
+    },
+    
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [

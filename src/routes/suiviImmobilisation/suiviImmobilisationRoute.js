@@ -6,11 +6,10 @@ import AjouterImmobilisation from "../../pages/suivi_control_budgetaires/suiviIm
 import ModifierImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/ModifierImmobilisation.vue";
 import immobilisationParService from "../../pages/suivi_control_budgetaires/suiviImmobilisation/immobilisationParService.vue";
 import VoirImmoParService from "../../pages/suivi_control_budgetaires/suiviImmobilisation/VoirImmoParService.vue";
-import ListeImmoRealise from "../../pages/suivi_control_budgetaires/suiviImmobilisation/ListeImmoRealise.vue";
-import ListeImmobilisationPrevu from "../../pages/suivi_control_budgetaires/suiviImmobilisation/ListeImmobilisationPrevu.vue";
+
 import TableauBordImmo from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TableauBordImmo.vue";
 import RechercheTauxParUniteAdm from "../../pages/suivi_control_budgetaires/suiviImmobilisation/RechercheTauxParUniteAdm.vue";
-import Amortissement2 from "../../pages/suivi_control_budgetaires/suiviImmobilisation/Amortissement2.vue";
+
 import amortissementLineaire from "../../pages/suivi_control_budgetaires/suiviImmobilisation/amortissementLineaire.vue";
 import DetailImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/DetailImmobilisation.vue";
 import besionImmolisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/besionImmolisation.vue";
@@ -18,8 +17,20 @@ import listeEquipement from "../../pages/suivi_control_budgetaires/suiviImmobili
 import listeBesoinParUniteAdmin from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeBesoinParUniteAdmin.vue";
 import listeImmobilisationParUa from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmobilisationParUa.vue";
 import listeImmoParServiceParAgent from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmoParServiceParAgent.vue";
+import TauxEquipementMinistère from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TauxEquipementMinistère.vue";
+import listeActeurEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeActeurEquipe.vue";
 
 const suiviImmobilisationRoutes = [
+  {
+    path: "/listeActeurEquipe",
+    name: "listeActeurEquipe",
+    component: listeActeurEquipe
+  },
+  {
+    path: "/Taux-Equipement-Ministère",
+    name: "TauxEquipementMinistère",
+    component: TauxEquipementMinistère
+  },
   {
     path: "/liste-immo-par-service-et-agent",
     name: "listeImmoParServiceParAgent",
@@ -85,16 +96,7 @@ const suiviImmobilisationRoutes = [
     name: "afficherImmobilisation",
     component: VoirImmoParService
   },
-  {
-    path: "/Liste_immo_realise",
-    name: "ListeImmoRealise",
-    component: ListeImmoRealise
-  },
-  {
-    path: "/Liste_immo_prevu",
-    name: "ListeImmoPrevu",
-    component: ListeImmobilisationPrevu
-  },
+  
   {
     path: "/TableauBordImmo",
     name: "TableauBordImmo",
@@ -106,11 +108,7 @@ const suiviImmobilisationRoutes = [
     name: "RechercheTauxUniteAd",
     component: RechercheTauxParUniteAdm
   },
-  {
-    path: "/Amortissement2",
-    name: "Amortissement2",
-    component: Amortissement2
-  },
+  
   {
     path: "/amortissement-Lineaire",
     name: "amortissementLineaire",

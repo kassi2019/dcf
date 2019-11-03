@@ -54,7 +54,21 @@
                             </div>
                           </div>
                         </td>
-
+ <td>
+                          <div class="control-group">
+                            <label class="control-label">Type Unite administrative:</label>
+                            <div class="controls">
+                              <select v-model="formData.typeuniteadminis_id">
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="typeua in groupTriUaImmo"
+                                  :key="typeua[0].id"
+                                  :value="typeua[0].typeUniteAdmin.id"
+                                >{{typeua[0].typeUniteAdmin.libelle}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Unite administrative:</label>
@@ -62,10 +76,10 @@
                               <select v-model="formData.uniteadministrative_id">
                                 <option value>Sélectionner</option>
                                 <option
-                                  v-for="ua in groupTriUaImmo"
-                                  :key="ua[0].id"
-                                  :value="ua[0].uniteAdminist.id"
-                                >{{ua[0].uniteAdminist.libelle}}</option>
+                                  v-for="ua in typeUniteAdministrativeDynamiques(formData.typeuniteadminis_id)"
+                                  :key="ua.id"
+                                  :value="ua.uniteAdminist.id"
+                                >{{ua.uniteAdminist.libelle}}</option>
                               </select>
                             </div>
                           </div>
@@ -98,7 +112,11 @@
                             </div>
                           </div>
                         </td>
-                        <td>
+                       
+                      </tr>
+
+                      <tr>
+                         <td>
                           <div class="control-group">
                             <label class="control-label">Prix unitaire:</label>
                             <div class="controls">
@@ -111,9 +129,6 @@
                             </div>
                           </div>
                         </td>
-                      </tr>
-
-                      <tr>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Total réel:</label>
@@ -163,8 +178,13 @@
                             </div>
                           </div>
                         </td>
-                        <td>
-                          <div class="control-group">
+                       
+                      </tr>
+                    </div>
+                    <!--ongle descriptif-->
+                    <div id="tab2" class="tab-pane">
+                      <tr>
+                         <div class="control-group">
                             <label class="control-label">Acteur Depense:</label>
                             <div class="controls">
                               <select
@@ -183,20 +203,16 @@
                                 type="radio"
                                 name="b"
                                 checked
+                                :value="1"
+                                v-model="formData.decision_equipe"
                               />OUI&nbsp;&nbsp;
-                              <input type="radio" name="b" />
+                              <input type="radio" name="b"  :value="2" v-model="formData.decision_equipe"/>
                               NON
                             </div>
                           </div>
-                        </td>
-                      </tr>
-                    </div>
-                    <!--ongle descriptif-->
-                    <div id="tab2" class="tab-pane">
-                      <tr>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Numero Identification:</label>
+                            <label class="control-label">N Identification:</label>
                             <div class="controls">
                               <input
                                 type="text"
@@ -210,7 +226,7 @@
 
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Etat de l'Immobilisation</label>
+                            <label class="control-label">Etat Immobilisation</label>
                             <div class="controls">
                               <select v-model="formData.etat_immobilisation">
                               <option value="1">neuf(ve)</option>
@@ -244,7 +260,11 @@
                             </div>
                           </div>
                         </td>
-                        <td>
+                       
+                      </tr>
+
+                      <tr>
+                         <td>
                           <div class="control-group">
                             <label class="control-label">Nature du Bien:</label>
                             <div class="controls">
@@ -257,9 +277,6 @@
                             </div>
                           </div>
                         </td>
-                      </tr>
-
-                      <tr>
                         <td>
                           <label class="control-label">Numero CC:</label>
                           <div class="controls">
@@ -306,7 +323,13 @@
                             />
                           </div>
                         </td>
-                        <td>
+                        
+                      </tr>
+                    </div>
+                    <!--ongle 3 -->
+                    <div id="tab3" class="tab-pane">
+                      <tr>
+                         <td>
                           <div class="control-group">
                             <label class="control-label">Nature d'Entree:</label>
                             <div class="controls">
@@ -319,11 +342,6 @@
                             </div>
                           </div>
                         </td>
-                      </tr>
-                    </div>
-                    <!--ongle 3 -->
-                    <div id="tab3" class="tab-pane">
-                      <tr>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Montant Amorti:</label>
@@ -390,7 +408,10 @@
                             </div>
                           </div>
                         </td>
-                        <td>
+                       
+                      </tr>
+                      <tr>
+                         <td>
                           <div class="control-group">
                             <label class="control-label">Date cession:</label>
                             <div class="controls">
@@ -398,8 +419,6 @@
                             </div>
                           </div>
                         </td>
-                      </tr>
-                      <tr>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Date de mise en service:</label>
@@ -416,6 +435,7 @@
                             </div>
                           </div>
                         </td>
+                       
                       </tr>
                     </div>
                   </div>
@@ -483,7 +503,7 @@ export default {
       "SuiviImmo"
     ]),
 
-    ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires"]),
+    ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires","type_Unite_admins"]),
     ...mapGetters("parametreGenerauxProgrammeUnite", ["unites"]),
     ...mapGetters("personnelUA", ["all_acteur_depense"]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
@@ -511,6 +531,18 @@ export default {
         }
       };
     },
+
+typeUniteAdministrativeDynamiques() {
+     return id => {
+        if (id != null && id != "") {
+          return this.trieUaImmobilisation.filter(
+            element => element.typeuniteadminist_id == id
+          );
+        }
+      };
+    },
+
+
     acteurDepenseDynamiques() {
       return id => {
         if (id != null && id != "") {
@@ -530,9 +562,7 @@ export default {
     // },
 
     AffichierQuantiteteReel() {
-      const qtereel = this.trieUaImmobilisation.find(
-        qtreel => qtreel.id == this.formData.familleimmo_id
-      );
+      const qtereel = this.trieUaImmobilisation.find(qtreel => qtreel.id == this.formData.familleimmo_id);
 
       if (qtereel) {
         return qtereel.quantite;
@@ -549,30 +579,25 @@ export default {
     //   }
     // },
 
-    AffichierprixUnitaire() {
-      const prixUnitaire = this.trieUaImmobilisation.find(
-        prixUnitaire => prixUnitaire.id == this.formData.familleimmo_id
-      );
-
-      if (prixUnitaire) {
-        return prixUnitaire.prix_unitaire;
-      }
+    AffichierprixUnitaire(){const prixUnitaire = this.trieUaImmobilisation.find(prixUnitaire => prixUnitaire.id == this.formData.familleimmo_id);
+      if (prixUnitaire) {return prixUnitaire.prix_unitaire;}
     },
-    AffichierTotalReel() {
-      const totalreel = this.trieUaImmobilisation.find(
-        totalreel => totalreel.id == this.formData.familleimmo_id
-      );
-
+    AffichierTotalReel(){const totalreel = this.trieUaImmobilisation.find(totalreel => totalreel.id == this.formData.familleimmo_id);
       if (totalreel) {
         return totalreel.montant_total;
       }
     },
     AffichierTotalActuel() {
-      const val =
-        parseFloat(this.AfficheQteActuel) *
-        parseFloat(this.AffichierprixUnitaire);
+      const val = parseFloat(this.AfficheQteActuel) * parseFloat(this.AffichierprixUnitaire);
       return parseFloat(val).toFixed(2);
-    }
+    },
+      AffichierTypeUa() {
+      const typeUniteA = this.trieUaImmobilisation.find(typeUniteA => typeUniteA.id == this.formData.uniteadministrative_id);
+
+      if (typeUniteA) {
+        return typeUniteA.typeuniteadminist_id;
+      }
+    },
     // AffichierTotalActuel() {
     //   const totalactuel = this.trieUaImmobilisation.find(
     //     totalactuel => totalactuel.id == this.formData.total_actuel
@@ -609,52 +634,52 @@ export default {
       //   valeur_origine: this.ValeurOrigine
       // };{}
 
-      // this.modifierQuantiteReel(this.AfficheQteActuel, this.idObjetBesoinImmoAModifierLaQuantite);
-      // var nouvelObjet = {
-      //   ...this.formData,
-      //   qte_reel: this.AffichierQuantiteteReel,
-      //   prixUnitaire: this.AffichierprixUnitaire,
-      //   total_reel: this.AffichierTotalReel,
-      //   total_actuel: this.AffichierTotalActuel,
-      //   qte_actuel: this.AfficheQteActuel
-      // };
+      //this.modifierQuantiteReel(this.AfficheQteActuel, this.idObjetBesoinImmoAModifierLaQuantite);
+      var nouvelObjet = {
+        ...this.formData,
+        qte_reel: this.AffichierQuantiteteReel,
+        prixUnitaire: this.AffichierprixUnitaire,
+        total_reel: this.AffichierTotalReel,
+        total_actuel: this.AffichierTotalActuel,
+        qte_actuel: this.AfficheQteActuel
+      };
 
-      // this.ajouterImmobilisation(nouvelObjet);
+      this.ajouterImmobilisation(nouvelObjet);
 
-      // this.formData = {
-      //   totalreel: "",
-      //   type: "",
-      //   designation: "",
-      //   identification: "",
-      //   etat_immobilisation: "",
-      //   date_acquisition: "",
-      //   date_mise_service: "",
-      //   numero_facture: "",
-      //   qte_reel: "",
-      //   qte_affecte: "",
-      //   qte_actuel: "",
+      this.formData = {
+        totalreel: "",
+        type: "",
+        designation: "",
+        identification: "",
+        etat_immobilisation: "",
+        date_acquisition: "",
+        date_mise_service: "",
+        numero_facture: "",
+        qte_reel: "",
+        qte_affecte: "",
+        qte_actuel: "",
 
-      //   prixUnitaire: "",
-      //   total_actuel: "",
-      //   familleimmo_id: "",
+        prixUnitaire: "",
+        total_actuel: "",
+        familleimmo_id: "",
 
-      //   duree: "",
-      //   numero_CC: "",
-      //   acteur_depense_id: "",
-      //   exercice_budgetaire_id: "",
-      //   service_id: "",
-      //   nature_bien: "",
-      //   nature_dentree: "",
-      //   // acteur_depense_id: "",
-      //   TVA_id: "",
-      //   montant_evaluation: "",
-      //   date_evaluation: "",
-      //   montant_cession: "",
-      //   date_cession: "",
-      //   cause_inactivite: "",
-      //   montant_amortissement_anterieur: "",
-      //   date_amortissement_anterieur: ""
-      // };
+        duree: "",
+        numero_CC: "",
+        acteur_depense_id: "",
+        exercice_budgetaire_id: "",
+        service_id: "",
+        nature_bien: "",
+        nature_dentree: "",
+        // acteur_depense_id: "",
+        TVA_id: "",
+        montant_evaluation: "",
+        date_evaluation: "",
+        montant_cession: "",
+        date_cession: "",
+        cause_inactivite: "",
+        montant_amortissement_anterieur: "",
+        date_amortissement_anterieur: ""
+      };
     },
 
     // // fonction pour vider l'input modification

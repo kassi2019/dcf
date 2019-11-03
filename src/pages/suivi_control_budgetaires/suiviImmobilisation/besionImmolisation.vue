@@ -10,6 +10,21 @@
       <div class="modal-body">
         <table class="table table-bordered table-striped">
           <tr>
+             <td>
+              <div class="control-group">
+                <label class="control-label">Type Unite administrative:</label>
+                <div class="controls">
+                  <select v-model="formData.typeuniteadminist_id" >
+                    <option value>Sélectionner</option>
+                    <option
+                      v-for="ua in type_Unite_admins"
+                      :key="ua.id"
+                      :value="ua.id"
+                    >{{ua.libelle}}</option>
+                  </select>
+                </div>
+              </div>
+            </td>
             <td>
               <div class="control-group">
                 <label class="control-label">Unite administrative:</label>
@@ -17,7 +32,7 @@
                   <select v-model="formData.uniteadmin_id">
                     <option value>Sélectionner</option>
                     <option
-                      v-for="ua in uniteAdministratives"
+                      v-for="ua in uniteAdministrativeDynamiques(formData.typeuniteadminist_id)"
                       :key="ua.id"
                       :value="ua.id"
                     >{{ua.libelle}}</option>
@@ -41,7 +56,10 @@
               </div>
             </td>
 
-            <td>
+           
+          </tr>
+          <tr>
+             <td>
               <div class="control-group">
                 <label class="control-label">Désignation:</label>
                 <div class="controls">
@@ -56,8 +74,6 @@
                 </div>
               </div>
             </td>
-          </tr>
-          <tr>
             <td>
               <div class="control-group">
                 <label class="control-label">Quantité:</label>
@@ -85,7 +101,9 @@
               </div>
             </td>
 
-            <td>
+          </tr>
+          <tr>
+              <td>
               <div class="control-group">
                 <label class="control-label">Montant Total:</label>
                 <div class="controls">
@@ -99,8 +117,6 @@
                 </div>
               </div>
             </td>
-          </tr>
-          <tr>
             <td>
               <div class="control-group">
                 <label class="control-label">Date:</label>
@@ -267,7 +283,8 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>UA</th>
+                     <th>Type Unite administrative</th>
+                    <th>Unite administrative</th>
                     <th>Designation</th>
                     <th>Quantité</th>
                     <th>Prix Unitaire</th>
@@ -282,6 +299,9 @@
                     v-for="(BesoinImmo, index) in trieUaImmobilisation"
                     :key="BesoinImmo.id"
                   >
+                   <td
+                      @dblclick="afficherModalModifierBesoinImmo(index)"
+                    >{{BesoinImmo.typeUniteAdmin.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
                     >{{BesoinImmo.uniteAdminist.libelle || 'Non renseigné'}}</td>
@@ -352,7 +372,8 @@ export default {
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
-        date_jour: ""
+        date_jour: "",
+        typeuniteadminist_id:""
       },
       editBesoinImmo: {
         uniteadmin_id: "",
@@ -361,7 +382,8 @@ export default {
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
-        date_jour: ""
+        date_jour: "",
+        typeuniteadminist_id:""
       },
       search: ""
     };
@@ -374,6 +396,7 @@ export default {
       "familles"
     ]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
+    ...mapGetters("parametreGenerauxAdministratif", ["type_Unite_admins"]),
     fammillesDynamiques() {
       return id => {
         if (id != null && id != "") {
@@ -381,6 +404,17 @@ export default {
         }
       };
     },
+
+uniteAdministrativeDynamiques() {
+      return id => {
+        if (id != null && id != "") {
+          return this.uniteAdministratives.filter(element => element.type_ua_id == id);
+        }
+      };
+    },
+
+
+
     fammillesDynamiques1() {
       return id => {
         if (id != null && id != "") {
@@ -390,7 +424,7 @@ export default {
     },
 
     veifEquipementExist() {
-      return this.formData.epuipement_id == "";
+      return this.formData.epuipement_id == "" && this.formData.typeuniteadmin_id == "" ;
     },
 
     montantTotal() {
@@ -446,7 +480,8 @@ export default {
         quantite: "",
         prix_unitaire: "",
         montant_total: "",
-        date_jour: ""
+        date_jour: "",
+        typeuniteadminist_id:""
       };
     },
     // afficher modal de modification

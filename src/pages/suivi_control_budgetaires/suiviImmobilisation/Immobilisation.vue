@@ -19,7 +19,7 @@
               </div>
             </div>
 
-            <div class="table-responsive text-nowrap" v-if="SuiviImmo.length && familles.length && services.length ">
+            <div class="table-responsive text-nowrap" v-if="familles.length && services.length ">
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -35,7 +35,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="odd gradeX" v-for="(immobilisat) in SuiviImmo" :key="immobilisat.id">
+                  <tr class="odd gradeX" v-for="immobilisat in SuiviImmo" :key="immobilisat.id">
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
                     >{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>  
@@ -133,9 +133,9 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
-      "getPersonnaliseImmobilisation",
+      // "getPersonnaliseImmobilisation",
      
-      "getPersonnaliseSuivImmo"
+      // "getPersonnaliseSuivImmo"
     ])
     // filtre_immobilisation() {
     //   const st = this.search.toLowerCase();

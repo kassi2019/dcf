@@ -271,6 +271,7 @@ export function getAllBesoinImmo({ commit }) {
 export function ajouterBesoinImmo({ commit }, nouveau) {
   axios
     .post("/ajouter_besoin_immo", {
+      typeuniteadminist_id: nouveau.typeuniteadminist_id,
       uniteadmin_id: nouveau.uniteadmin_id,
       famille_id: nouveau.famille_id,
       quantite: nouveau.quantite,
@@ -289,6 +290,7 @@ export function ajouterBesoinImmo({ commit }, nouveau) {
 export function modifierBesoinImmo({ commit }, nouveau) {
   axios
     .put("/modifier_besoin_immo/" + nouveau.id, {
+      typeuniteadminist_id: nouveau.typeuniteadminist_id,
       uniteadmin_id: nouveau.uniteadmin_id,
       famille_id: nouveau.famille_id,
       quantite: nouveau.quantite,

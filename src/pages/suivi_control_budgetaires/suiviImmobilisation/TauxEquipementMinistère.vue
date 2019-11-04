@@ -8,11 +8,11 @@
           <div class="container-fluid">
             <div class="quick-actions_homepage deplaceCarre">
               <ul class="quick-actions">
-                <li class="bg_ls">
+                <li class="bg_lr">
                   <a href="#">
                     {{nomUniteAdministrative(uniteadmin_id)}}
                     <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{nbreacteurEquipeParUA(uniteadmin_id)}}</span> Nbre Acteurs Equipée
+                    <span class="label label-success">{{nbreacteurEquipeParUA(uniteadmin_id)}}</span> Nbre Acteurs Equipée
                   </a>
                 </li>
                  <li class="bg_ls">
@@ -20,10 +20,10 @@
                     <i class="icon-list-ol"></i>
                     <span class="label label-important"></span> Nbre Acteurs non Equipée              </a>
                 </li>
-                 <li class="bg_ls">
+                 <li class="bg_lg">
                   <a href="#">
                     <i class="icon-list-ol"></i>
-                    <span class="label label-important"></span> Taux équipement
+                    <span class="label label-primary">{{nbreTotalacteurEquipeParUA(uniteadmin_id)}}</span> Taux équipement
                   </a>
                 </li>
               </ul>
@@ -131,6 +131,8 @@ export default {
      
     ]),
     ...mapGetters("personnelUA", ["getPersonnaliseActeurEquipeNonEquipe"]),
+    ...mapGetters("personnelUA", ["personnaliseActeurDepense"]),
+
     nbreacteurEquipeParTypeUA() {
       return typeUniteAdmin_id => {
        
@@ -141,7 +143,7 @@ export default {
           ).length;
         }
         
-       
+      
       };
     },
      nomTypeUA(){
@@ -158,6 +160,19 @@ export default {
  if (uniteadmin_id != "") {
           return this.SuiviImmo.filter(
             element => element.uniteAdminist.id == uniteadmin_id
+           
+          ).length;
+        }
+        
+       
+      };
+    },
+    nbreTotalacteurEquipeParUA() {
+      return uniteadmin_id => {
+       
+ if (uniteadmin_id != "") {
+          return this.personnaliseActeurDepense.filter(
+            element => element.uniteAdmin.id == uniteadmin_id
            
           ).length;
         }

@@ -29,14 +29,14 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.familleImmo.reletion__equipement.libelle || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.BesoinImmobilisation.famille.code || 'Non renseigné'}}</td>  
+                    <td>{{immobilisat.BesoinImmobilisation.famille.reletion__equipement.libelle || 'Non renseigné'}}</td>
+                    <td>{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
                   <td>{{immobilisat.qte_reel || 'Non renseigné'}}</td>
                   <td>{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
                   <td>{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.total_actuel || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.prixUnitaire)|| 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.total_actuel) || 'Non renseigné'}}</td>
                 </tr>
               </tbody>
             </table>
@@ -61,7 +61,7 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td v-if="immobilisat.type_immo">Corporelle</td>
+                  <td v-if="immobilisat.type_immo == 1" >Corporelle</td>
                   <td v-else>Incorporelle</td>
                   <td>{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
                   <td>{{immobilisat.duree || 'Non renseigné'}}</td>
@@ -96,14 +96,14 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{immobilisat.montant_evaluation || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.montant_evaluation) || 'Non renseigné'}}</td>
                   <td>{{formaterDate(immobilisat.date_evaluation) || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.montant_cession || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.montant_cession)|| 'Non renseigné'}}</td>
                   <td>{{formaterDate(immobilisat.date_cession) || 'Non renseigné'}}</td>
 
                   <td>{{immobilisat.cause_inactivite || 'Non renseigné'}}</td>
 
-                  <td>{{formaterDate(immobilisat.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
                   <td>{{formaterDate(formaterDate(immobilisat.date_amortissement_anterieur)) || 'Non renseigné'}}</td>
                 </tr>
               </tbody>
@@ -117,6 +117,7 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
+import { formatageSomme } from "../../../Repositories/Repository";
 export default {
   data() {
     return {
@@ -135,7 +136,8 @@ export default {
   methods: {
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
-    }
+    },
+       formatageSomme: formatageSomme,
   }
 };
 </script>

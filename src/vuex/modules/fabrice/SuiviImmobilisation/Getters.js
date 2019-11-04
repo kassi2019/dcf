@@ -35,7 +35,8 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
       element.acteurdepense_id !== null &&
       element.acteurdepense_id !== null &&
       element.uniteadministrative_id !== null &&
-      element.typeuniteadminis_id !== null
+      element.typeuniteadminis_id !== null &&
+      element.besoinimmo_id !== null
     ) {
       element = {
         ...element,
@@ -46,8 +47,9 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
         familleImmo: rootGetters["SuiviImmobilisation/familles"].find(Famileimmo => Famileimmo.id == element.familleimmo_id),
 
         serviceImmo: rootGetters["SuiviImmobilisation/services"].find(servImmo => servImmo.id == element.service_id),
-        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminis_id
-        )
+        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminis_id        
+        ),
+        BesoinImmobilisation: rootGetters["SuiviImmobilisation/trieUaImmobilisation"].find(besoinimmo => besoinimmo.id == element.besoinimmo_id)
       
       };
     }
@@ -134,11 +136,6 @@ export const nbreImmoRealise = state =>
   state.besoinImmobilisations.filter(Immrealise => Immrealise.quantite == 0)
     .length;
 
-export const nbreImmoPrevue = state =>
-  state.immobilisations.filter(
-    Immrealise => Immrealise.date_mise_service == null
-  ).length;
-
 export const NbreImmobilisationPrevue = state =>
   state.besoinImmobilisations.filter(
     immobilisationPrevu => immobilisationPrevu.quantite !== 0
@@ -154,9 +151,9 @@ export const SommeEquipementActuel = (state, getters) =>
   getters.SuiviImmo.reduce(
     (prec, cur) => parseInt(prec) + parseInt(cur.qte_actuel),
     0
-  );
+  ); 
 
-export const SommeEquipementAffecte = (state, getters) =>
+export const SommeEquipementRealise = (state, getters) =>
   getters.SuiviImmo.reduce(
     (prec, cur) => parseInt(prec) + parseInt(cur.qte_affecte),
     0
@@ -164,16 +161,31 @@ export const SommeEquipementAffecte = (state, getters) =>
 
 export const nombreTotalEquipement = (state, getters) => {
   const val = parseInt(
-    getters.SommeEquipementPrevue + getters.SommeEquipementAffecte
+    getters.SommeEquipementPrevue + getters.SommeEquipementRealise
   ).toFixed(0);
   if (isNaN(val)) return null;
   return val;
 };
 
+export const tauxEquipementRealise = (state, getters) => {
+  const val = parseFloat(
+    (getters.SommeEquipementRealise / getters.nombreTotalEquipement) * 100
+  ).toFixed(2);
+  if (isNaN(val)) return null;
+  return val;
+};
 export const tauxEquipementPrevue = (state, getters) => {
-  const val = parseInt(
-    ((getters.SommeEquipementAffecte - getters.SommeEquipementPrevue) / getters.SommeEquipementAffecte) * 100
-  ).toFixed(0);
+  const val = parseFloat(
+    (getters.SommeEquipementPrevue / getters.nombreTotalEquipement) * 100
+  ).toFixed(2);
+  if (isNaN(val)) return null;
+  return val;
+};
+
+export const tauxGlobalEquipement = (state, getters) => {
+  const val = parseFloat(
+    (getters.tauxEquipementRealise - getters.tauxEquipementPrevue) 
+  ).toFixed(2);
   if (isNaN(val)) return null;
   return val;
 };

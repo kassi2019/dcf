@@ -38,13 +38,13 @@
                   <tr class="odd gradeX" v-for="immobilisat in SuiviImmo" :key="immobilisat.id">
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>  
+                    >{{immobilisat.BesoinImmobilisation.famille.code || 'Non renseigné'}}</td>  
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.familleImmo.reletion__equipement.libelle || 'Non renseigné'}}</td>
+                    >{{immobilisat.BesoinImmobilisation.famille.reletion__equipement.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
+                    >{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
                     >{{immobilisat.qte_reel || 'Non renseigné'}}</td>
@@ -56,10 +56,10 @@
                     >{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
+                    >{{formatageSomme(immobilisat.prixUnitaire) || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.total_actuel || 'Non renseigné'}}</td>
+                    >{{formatageSomme(immobilisat.total_actuel) || 'Non renseigné'}}</td>
                     <td>
                       <router-link
                         :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immobilisat.id}}"
@@ -70,7 +70,7 @@
                           <i class="icon icon-folder-open"></i>
                         </span>
                       </router-link>
-                      <button class="btn btn-danger" @click="supprimerFamille(immobilisat.id)">
+                      <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)">
                         <span>
                           <i class="icon icon-trash"></i>
                         </span>

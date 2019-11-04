@@ -31,7 +31,10 @@
                         <a data-toggle="tab" href="#tab2">Descriptif</a>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#tab3">Autres Information</a>
+                        <a data-toggle="tab" href="#tab3">Info Montant et Date Immo</a>
+                      </li>
+                       <li>
+                        <a data-toggle="tab" href="#tab4">Autres Information</a>
                       </li>
                     </ul>
                   </div>
@@ -88,12 +91,12 @@
                           <div class="control-group">
                             <label class="control-label">Désignation:</label>
                             <div class="controls">
-                              <select v-model="formData.familleimmo_id" :readOnly="veifEquipementExist">
+                              <select v-model="formData.besoinimmo_id" :readOnly="veifEquipementExist">
                                 <option value>Sélectionner</option>
                                 <option
                                   v-for="desig in designationDynamiques(formData.uniteadministrative_id)"
-                                  :key="desig.familleimmo_id"
-                                  :value="desig.familleimmo_id"
+                                  :key="desig.id"
+                                  :value="desig.id"
                                 >{{desig.famille.libelle}}</option>
                               </select>
                             </div>
@@ -193,33 +196,30 @@
                               >
                                 <option value>Sélectionner</option>
                                 <option
-                                  v-for="acteurDep in all_acteur_depense"
+                                  v-for="acteurDep in acteurDepenseDynamiques(formData.uniteadministrative_id)"
                                   :key="acteurDep.id"
                                   :value="acteurDep.id"
                                 >{{acteurDep.matricule}}</option>
                               </select>
-                              EQUIPE:&nbsp;&nbsp;
-                              <input
-                                type="radio"
-                                name="b"
-                                checked
-                                :value="1"
-                                v-model="formData.decision_equipe"
-                              />OUI&nbsp;&nbsp;
-                              <input type="radio" name="b"  :value="2" v-model="formData.decision_equipe"/>
-                              NON
+                        
+                              
                             </div>
                           </div>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">N Identification:</label>
+                            <label class="control-label">Service:</label>
                             <div class="controls">
-                              <input
-                                type="text"
-                                class="span"
-                                placeholder="Saisir Num identification"
-                                v-model="formData.identification"
-                              />
+                              <select
+                                v-model="formData.service_id"
+                              
+                              >
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="serviceimmo in services"
+                                  :key="serviceimmo.id"
+                                  :value="serviceimmo.id"
+                                >{{serviceimmo.libelle}}</option>
+                              </select>
                             </div>
                           </div>
                         </td>
@@ -249,30 +249,34 @@
                           </div>
                         </td>
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Type Immobilisation</label>
-                            <div class="controls">
-                              <select v-model="formData.type_immo">
-                              
-    <option value="1">Corporelle</option>
-    <option value="2">Incorporelle</option>
-                              </select>
-                            </div>
+
+<label class="control-label">Taux:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Taux"
+                              v-model="formData.TVA_id"
+                            />
                           </div>
+
+
+
+                 
                         </td>
                        
                       </tr>
 
                       <tr>
-                         <td>
+                          <td>
                           <div class="control-group">
-                            <label class="control-label">Nature du Bien:</label>
+                            <label class="control-label">N Identification:</label>
                             <div class="controls">
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Saisir la Nature"
-                                v-model="formData.nature_bien"
+                                placeholder="Saisir Num identification"
+                                v-model="formData.identification"
                               />
                             </div>
                           </div>
@@ -289,14 +293,15 @@
                           </div>
                         </td>
                         <td>
-                          <label class="control-label">Taux:</label>
-                          <div class="controls">
-                            <input
-                              type="text"
-                              class="span"
-                              placeholder="Saisir le Taux"
-                              v-model="formData.TVA_id"
-                            />
+                                   <div class="control-group">
+                            <label class="control-label">Type Immobilisation</label>
+                            <div class="controls">
+                              <select v-model="formData.type_immo">
+                              
+    <option value="1">Corporelle</option>
+    <option value="0">Incorporelle</option>
+                              </select>
+                            </div>
                           </div>
                         </td>
                         <td>
@@ -329,19 +334,7 @@
                     <!--ongle 3 -->
                     <div id="tab3" class="tab-pane">
                       <tr>
-                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Nature d'Entree:</label>
-                            <div class="controls">
-                              <input
-                                type="text"
-                                class="span"
-                                placeholder="Saisir Nature entree"
-                                v-model="formData.nature_dentree"
-                              />
-                            </div>
-                          </div>
-                        </td>
+                         
                         <td>
                           <div class="control-group">
                             <label class="control-label">Montant Amorti:</label>
@@ -435,9 +428,62 @@
                             </div>
                           </div>
                         </td>
-                       
+                        
                       </tr>
                     </div>
+
+
+
+<!--ongle 4-->
+                    <div id="tab4" class="tab-pane">
+                      <tr>
+                         <td>
+                          <div class="control-group">
+                            <label class="control-label">Nature d'Entree:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir Nature entree"
+                                v-model="formData.nature_dentree"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                       <td>
+                            <div class="control-group">
+                            <label class="control-label">Nature du Bien:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir la Nature"
+                                v-model="formData.nature_bien"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                          <td>
+                          <div class="control-group">
+                            <label class="control-label">Equipément:</label>
+                            <div class="controls">
+                              <select
+                                v-model="formData.decision_equipe"
+                              
+                              >
+                                <option value>Sélectionner</option>
+                                <option value="1">Equipé</option>
+                                <option value="0">Pas Equipé</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </div>
+
+
+
+
                   </div>
                   <br />
                   <div align="right">
@@ -476,8 +522,11 @@ export default {
         // valeur_origine = this.ValeurOrigine(),
 
         exercice_budgetaire_id: "",
-        familleimmo_id: "",
-        uniteadministrative_id: ""
+        besoinimmo_id: "",
+        uniteadministrative_id: "",
+        decision_equipe:"",
+        acteurdepense_id:""
+
       },
 
       // stats: ["neuf(ve)", "Seconde Main", "Bon"],
@@ -505,7 +554,7 @@ export default {
 
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires","type_Unite_admins"]),
     ...mapGetters("parametreGenerauxProgrammeUnite", ["unites"]),
-    ...mapGetters("personnelUA", ["all_acteur_depense"]),
+    ...mapGetters("personnelUA", ["all_acteur_depense","personnaliseActeurDepense"]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
     AfficheQteActuel() {
@@ -546,7 +595,7 @@ typeUniteAdministrativeDynamiques() {
     acteurDepenseDynamiques() {
       return id => {
         if (id != null && id != "") {
-          return this.SuiviImmo.filter(element => element.uniteadmin_id == id);
+          return this.all_acteur_depense.filter(element => element.unite_administrative_id == id);
         }
       };
     },
@@ -562,27 +611,45 @@ typeUniteAdministrativeDynamiques() {
     // },
 
     AffichierQuantiteteReel() {
-      const qtereel = this.trieUaImmobilisation.find(qtreel => qtreel.id == this.formData.familleimmo_id);
+      const qtereel = this.trieUaImmobilisation.find(qtreel => qtreel.id == this.formData.besoinimmo_id);
 
       if (qtereel) {
         return qtereel.quantite;
       }
     },
 
-    // idObjetBesoinImmoAModifierLaQuantite() {
-    //   const qtereel = this.trieUaImmobilisation.find(
-    //     qtreel => qtreel.id == this.formData.familleimmo_id
+    idObjetBesoinImmoAModifierLaQuantite() {
+      const qtereel = this.trieUaImmobilisation.find(
+        qtreel => qtreel.id == this.formData.besoinimmo_id,
+      );
+
+      if (qtereel) {
+        return qtereel.id;
+      }
+    },
+    idObjetBesoinImmoAModifierMontantActuel() {
+      const montantActuel = this.trieUaImmobilisation.find(
+        totalActuel => totalActuel.id == this.formData.besoinimmo_id,
+      );
+
+      if (montantActuel) {
+        return montantActuel.id;
+      }
+    },
+    // idObjetEquipementModifierActeurDepense() {
+    //   const equipImmo = this.personnaliseActeurDepense.find(
+    //     equipement => equipement.id == this.formData.acteurdepense_id
     //   );
 
-    //   if (qtereel) {
-    //     return qtereel.id;
+    //   if (equipImmo) {
+    //     return equipImmo.id;
     //   }
     // },
 
-    AffichierprixUnitaire(){const prixUnitaire = this.trieUaImmobilisation.find(prixUnitaire => prixUnitaire.id == this.formData.familleimmo_id);
+    AffichierprixUnitaire(){const prixUnitaire = this.trieUaImmobilisation.find(prixUnitaire => prixUnitaire.id == this.formData.besoinimmo_id);
       if (prixUnitaire) {return prixUnitaire.prix_unitaire;}
     },
-    AffichierTotalReel(){const totalreel = this.trieUaImmobilisation.find(totalreel => totalreel.id == this.formData.familleimmo_id);
+    AffichierTotalReel(){const totalreel = this.trieUaImmobilisation.find(totalreel => totalreel.id == this.formData.besoinimmo_id);
       if (totalreel) {
         return totalreel.montant_total;
       }
@@ -611,7 +678,9 @@ typeUniteAdministrativeDynamiques() {
   methods: {
     ...mapActions("SuiviImmobilisation", [
       "ajouterImmobilisation",
-      "modifierQuantiteReel"
+      "modifierQuantiteReel",
+      "modifierMontantActuel"
+      // "modifierActeurDepenses"
     ]),
 
     // changerUniteAdmin(event) {
@@ -629,12 +698,25 @@ typeUniteAdministrativeDynamiques() {
     // fonction pour vider l'input ajouter
 
     ajouterImmobilisationLocal() {
-      // var nouvelObjet = {
-      //   ...this.formData,
-      //   valeur_origine: this.ValeurOrigine
-      // };{}
+    
+      var objetPourModifierQuantiteReel = {
+        id: this.idObjetBesoinImmoAModifierLaQuantite,
+        qte_actu: this.AfficheQteActuel
+      }
+      var objetPourModifierMontantActuel = {
+        id: this.idObjetBesoinImmoAModifierMontantActuel,
+        montant_actu: this.AffichierTotalActuel
+      }
+      // var objetPourModifierpersoEquipe = {
+      //   id: this.idObjetEquipementModifierActeurDepense,
+      //   equipemt: this.formData.decision_equipe
+      // }
 
-      //this.modifierQuantiteReel(this.AfficheQteActuel, this.idObjetBesoinImmoAModifierLaQuantite);
+      //console.log(objetPourModifierpersoEquipe)
+
+     this.modifierQuantiteReel(objetPourModifierQuantiteReel);
+     this.modifierMontantActuel(objetPourModifierMontantActuel);
+     // this.modifierActeurDepenses(objetPourModifierpersoEquipe);
       var nouvelObjet = {
         ...this.formData,
         qte_reel: this.AffichierQuantiteteReel,
@@ -658,19 +740,20 @@ typeUniteAdministrativeDynamiques() {
         qte_reel: "",
         qte_affecte: "",
         qte_actuel: "",
+decision_equipe:"",
 
         prixUnitaire: "",
         total_actuel: "",
-        familleimmo_id: "",
+        besoinimmo_id: "",
 
         duree: "",
         numero_CC: "",
-        acteur_depense_id: "",
+        acteurdepense_id: "",
         exercice_budgetaire_id: "",
         service_id: "",
         nature_bien: "",
         nature_dentree: "",
-        // acteur_depense_id: "",
+        // acteurdepense_id: "",
         TVA_id: "",
         montant_evaluation: "",
         date_evaluation: "",

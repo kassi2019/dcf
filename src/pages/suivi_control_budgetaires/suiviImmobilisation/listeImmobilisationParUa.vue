@@ -15,7 +15,7 @@
               <h5>Liste des Immobilisations</h5>
               <div align="right">
                 Recherche:
-                <input type="search" placeholder="Unite d'administrative" v-model="search" />
+                <input type="search" placeholder="UA ou Matricule ou Service" v-model="search" />
               </div>
             </div>
 
@@ -24,8 +24,9 @@
                 <thead>
                   <tr>
                        <th>Unite administrative</th>
+                       <th>Service</th>
+                       <th>Acteur Depense</th>
                     <th>Classe</th>
-                    <!-- <th>type equipement</th> -->
                     <th>Designation</th>
                     <th>Quantité Réel</th>
                     <th>Quantité afféctée</th>
@@ -37,21 +38,13 @@
                 </thead>
                 <tbody>
                   <tr class="odd gradeX" v-for="immobilisat in filtre_immobilisation" :key="immobilisat.id">
-                       <td
-                      
-                    >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
-                    <!-- <td
-                      
-                    >{{immobilisat.equipementImmo.libelle || 'Non renseigné'}}</td> -->
-                    <td
-                      
-                    >{{immobilisat.familleImmo.code || 'Non renseigné'}}</td>
-                    <!-- <td
-                      
-                    >{{immobilisat.reletion_famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>-->
-                    <td
-                      
-                    >{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
+                       <td>{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
+                   <td>{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
+                    <td>{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
+                    <td>{{immobilisat.BesoinImmobilisation.famille.code || 'Non renseigné'}}</td>  
+                   
+                    <td>{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
+                    
                     <td
                       
                     >{{immobilisat.qte_reel || 'Non renseigné'}}</td>
@@ -143,7 +136,9 @@ export default {
     filtre_immobilisation() {
       const st = this.search.toLowerCase();
       return this.SuiviImmo.filter(immo => {
-        return immo.uniteAdminist.libelle.toLowerCase().includes(st);
+        return immo.uniteAdminist.libelle.toLowerCase().includes(st)||
+          immo.acteurDepense.matricule.toLowerCase().includes(st)||
+          immo.BesoinImmobilisation.famille.libelle.toLowerCase().includes(st);
       });
     }
   },

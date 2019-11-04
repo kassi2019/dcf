@@ -149,15 +149,37 @@ const MODIFIER_BESOIN_IMMO = (state, objetModifie) => {
 };
 
 //modifier QUANTITE REEL
-const MODIFIER_QUANTITE_REEL = (state, {id_besoinImmo_a_modifier, qte_actu}) => {
+const MODIFIER_QUANTITE_REEL = (state, objet) => {
   state.besoinImmobilisations = state.besoinImmobilisations.map(besoin_immo => {
-    if (besoin_immo.id == id_besoinImmo_a_modifier) {
-      besoin_immo.quantite = qte_actu;
+    if (besoin_immo.id == objet.id) {
+      besoin_immo.quantite = objet.qte_actu;
+      // besoin_immo.montant_total = objet.montant_actu;
     }
 
     return besoin_immo;
   });
 };
+//modifier QUANTITE REEL
+const MODIFIER_MONTANT_ACTUEL = (state, objet) => {
+  state.besoinImmobilisations = state.besoinImmobilisations.map(besoin_immobil => {
+    if (besoin_immobil.id == objet.id) {
+      // besoin_immo.montant_total = objet.qte_actu;
+      besoin_immobil.montant_total = objet.montant_actu;
+    }
+
+    return besoin_immobil;
+  });
+};
+// const MODIFIER_ACT_PERSONNEL = (state, objet) => {
+//   state.acte_personnels = state.acte_personnels.map(acte_personnel => {
+//     if (acte_personnel.id == objet.id) {
+//       acte_personnel.equipe_immo = objet.equipemt;
+//     }
+//     return acte_personnel
+//   })
+// }
+
+
 
 // supprimer FAMILLE
 const SUPPRIMER_BESOIN_IMMO = (state, id) => {
@@ -201,6 +223,8 @@ const SUPPRIMER_EQUIPEMENT = (state, id) => {
 /*fin mutation EQUIPEMENT */
 
 export {
+  // MODIFIER_ACT_PERSONNEL,
+  MODIFIER_MONTANT_ACTUEL,
   MODIFIER_QUANTITE_REEL,
   /* mutation EQUIPEMENT*/
   GET_ALL_EQUIPEMENT,

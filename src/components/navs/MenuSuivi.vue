@@ -249,15 +249,15 @@
           <li>
             <router-link :to="{name:'listeImmobilisationParUa'}" tag="a" title>
               <i class="icon-key"></i>
-              <span class="text">Immo Par Unite d'administrative</span>
+              <span class="text">Recherche Immobilisation</span>
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link :to="{name:'listeImmoParServiceParAgent'}" tag="a" title>
               <i class="icon-key"></i>
               <span class="text">Acteur Depense Equipé</span>
             </router-link>
-          </li>
+          </li> -->
           <!-- <li>
             <router-link :to="{name:'listeActeurEquipe'}" tag="a" title>
               <i class="icon-key"></i>
@@ -325,19 +325,17 @@
       <!-- Généraux
       -->
 
-      <li class="dropdown" id="bord4">
-        <a
-          title="Tableau de Bord"
-          href="#"
-          data-toggle="dropdown"
-          data-target="#bord4"
-          class="dropdown-toggle"
-        >
+      <li>
+        <router-link
+              :to="{name:'TableauBordImmo'}"
+              tag="a"
+              title="Tableau de Bord Immobilisation"
+            >
           <i class="icon icon-user"></i>
           <span class="text">Tableau de Bord</span>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
+          
+        </router-link>
+        <!-- <ul class="dropdown-menu">
           <li class="divider"></li>
           <li>
             <router-link
@@ -349,7 +347,7 @@
               <span class="text">Immobilisation</span>
             </router-link>
           </li>
-        </ul>
+        </ul> -->
       </li>
     </ul>
   </div>

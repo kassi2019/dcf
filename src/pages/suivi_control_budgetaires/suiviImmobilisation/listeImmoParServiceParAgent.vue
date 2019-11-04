@@ -41,19 +41,15 @@
                     <td
                       
                     >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
-                    <td
-                   
-                    >{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
-                    <td
-                      
-                    >{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
+                    <td>{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
+                    <td>{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
                     <td
                     
-                    >{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
+                    >{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
                     
                     <td
                       @dblclick="afficherModalModifierFamille(immobilisat.id)"
-                    >{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
+                    >{{formatageSomme(immobilisat.prixUnitaire) || 'Non renseigné'}}</td>
                     
                     <td>
                       <router-link
@@ -151,41 +147,7 @@ export default {
     },
 
     formatageSomme: formatageSomme,
-    // fonction pour vider l'input ajouter
-    ajouterImmobilisationLocal() {
-      this.ajouterImmobilisation(this.formData);
-
-      this.formData = {
-        code: "",
-        type_immo: "",
-        designation: "",
-        identification: "",
-        etat_immobilisation: "",
-        date_acquisition: "",
-        date_mise_service: "",
-        numero_facture: "",
-        quantite: "",
-        Prix_unitaire: "",
-        famille_id: "",
-        valeur_origine: "",
-        duree: "",
-        numero_CC: "",
-        acteur_depense_id: "",
-        exercice_budgetaire_id: "",
-        service_id: "",
-        nature_bien: "",
-        nature_dentree: "",
-        unite_id: "",
-        TVA_id: "",
-        montant_evaluation: "",
-        date_evaluation: "",
-        montant_cession: "",
-        date_cession: "",
-        cause_inactivite: "",
-        montant_amortissement_anterieur: "",
-        date_amortissement_anterieur: ""
-      };
-    },
+   
     // afficher modal de modification
     afficherModalModifierImmobilisation(id) {
       this.$router.push({

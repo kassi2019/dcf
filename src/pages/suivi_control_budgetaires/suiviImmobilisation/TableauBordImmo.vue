@@ -22,10 +22,10 @@
             <span class="label label-success">{{nombreAmortissement}}</span> Nbre Amortissement
           </a>
         </li>-->
-         <li class="bg_ls" title="Total equipement">
+         <li class="bg_lb" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{nombreTotalEquipement}}</span> Nbre Total d'équipement
+            <span class="label label-important">{{nombreTotalEquipement}}</span> Nbre Total d'équipement
           </a>
         </li> 
 
@@ -39,25 +39,25 @@
         <li class="bg_ls" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{SommeEquipementAffecte}}</span> Nbre Equipement Réalise
+            <span class="label label-important">{{SommeEquipementRealise}}</span> Nbre Equipement Réalise
           </a>
         </li> 
-        <!-- <li class="bg_lg" title="volume d'immobilisation réalise">
+        <li class="bg_lg" title="volume d'immobilisation réalise">
           <a href="#">
             <i class="icon-th"></i>
-            <span class="label label-success">{{volumeImmoRealise}}</span>Volume équipement réalisé
+            <span class="label label-warning">{{tauxEquipementRealise}}%</span>Taux équipement réalisé
           </a>
-        </li>-->
+        </li>
         <li class="bg_lg">
           <a href="#">
             <i class="icon-th"></i>
-            <span class="label label-success">{{volumeImmoPrevu}}</span>Volume équipement prévue
+            <span class="label label-warning">{{tauxEquipementPrevue}}%</span>Taux équipement prévue
           </a>
         </li>
         <li class="bg_lr" >
           <a href="#">
             <i class="icon-info-sign"></i>
-            <span class="label label-success">{{}}%</span>Taux Equipement prévue
+            <span class="label label-success">{{tauxGlobalEquipement}}%</span>Taux Global d'equipement
           </a>
         </li>
         <!-- <li class="bg_lr" title="Taux immobilisation de UA">
@@ -94,23 +94,17 @@ export default {
 
   computed: {
     ...mapGetters("SuiviImmobilisation", [
-      "nombreFamilleArticle",
-      "nombreServices",
-      "nombreAmortissement",
-      "nombreImmobilisation",
-      "nbreImmoRealise",
-      "nbreImmoPrevue",
-      // "volumeImmoRealise",
-      "volumeImmoPrevu",
-      "tauximmobilisationUa",
-      "NbreImmobilisationPrevue",
+    
       "tauxbesoinimmoUa",
       "SommeEquipementPrevue",
       "SommeEquipementActuel",
-      "SommeEquipementRealise",
+      
       "nombreTotalEquipement",
-      "SommeEquipementAffecte",
-      "tauxEquipementPrevue"
+      "SommeEquipementRealise",
+      "tauxEquipementPrevue",
+      "tauxEquipementRealise",
+      "tauxEquipementPrevue",
+      "tauxGlobalEquipement"
 
       // "nbreArchivageNotes"
     ]),

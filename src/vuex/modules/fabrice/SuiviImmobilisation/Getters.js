@@ -55,6 +55,7 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
     return element;
   });
 
+
 //////////////////////////////////////fin///////////////
 
 
@@ -155,16 +156,27 @@ export const SommeEquipementActuel = (state, getters) =>
     0
   );
 
+export const SommeEquipementAffecte = (state, getters) =>
+  getters.SuiviImmo.reduce(
+    (prec, cur) => parseInt(prec) + parseInt(cur.qte_affecte),
+    0
+  );
 
-
-export const nombreEquipement = (state, getters) => {
+export const nombreTotalEquipement = (state, getters) => {
   const val = parseInt(
-    getters.SommeEquipementPrevue + getters.SommeEquipementActuel
+    getters.SommeEquipementPrevue + getters.SommeEquipementAffecte
   ).toFixed(0);
   if (isNaN(val)) return null;
   return val;
 };
 
+export const tauxEquipementPrevue = (state, getters) => {
+  const val = parseInt(
+    ((getters.SommeEquipementAffecte - getters.SommeEquipementPrevue) / getters.SommeEquipementAffecte) * 100
+  ).toFixed(0);
+  if (isNaN(val)) return null;
+  return val;
+};
 
 ////////////////////getter calcul pourcentage///////////////
 // export const volumeImmoPrevu = (state, getters) => {

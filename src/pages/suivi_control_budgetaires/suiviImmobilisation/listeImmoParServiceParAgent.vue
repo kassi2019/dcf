@@ -14,57 +14,58 @@
               </span>
               <h5>Liste des Immobilisations</h5>
               <div align="right">
-                Recherche:
-                <input type="search" placeholder="Service ou Matricule" v-model="search" />
+                Search:
+                <input type="search" placeholder v-model="search" />
               </div>
             </div>
 
-            <div class="table-responsive text-nowrap" v-if="SuiviImmo.length && familles.length && services.length ">
+            <div class="table-responsive text-nowrap" v-if="familles.length && services.length ">
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                     <th>type equipement</th> 
-                       <th>Unite administrative</th>
-                    
-                    <th>Acteur depense</th>
+                    <th>Type unite administrative</th> 
+                    <th>Unite administrative</th> 
                     <th>Service</th>
-                   
+                    <th>Matricule acteur</th>
                     <th>Designation</th>
-                    
                     <th>Prix Unitaire</th>
-                  
-                    <th>Action</th>
+                    
+                    
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="odd gradeX" v-for="immobilisat in filtre_immobilisation" :key="immobilisat.id">
-                      <td
+                    <td
                      
-                    >{{immobilisat.familleImmo.reletion__equipement.libelle || 'Non renseigné'}}</td>
-                       <td
+                    >{{immobilisat.typeUniteAdministrative.libelle || 'Non renseigné'}}</td>  
+                    <td
                       
                     >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
                     <td
+                   
+                    >{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
+                    <td
                       
                     >{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
-                     <td
-                      
-                    >{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
+                    <td
                     
-                    <!-- <td
-                      
-                    >{{immobilisat.reletion_famille.reletion_Equipement.libelle || 'Non renseigné'}}</td>-->
-                    <td
-                      
                     >{{immobilisat.familleImmo.libelle || 'Non renseigné'}}</td>
-                   
+                    
                     <td
-                      
+                      @dblclick="afficherModalModifierFamille(immobilisat.id)"
                     >{{immobilisat.prixUnitaire || 'Non renseigné'}}</td>
-                   
+                    
                     <td>
-                     <button  class="btn btn-success">Equipé</button>
-                     
+                      <router-link
+                        :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immobilisat.id}}"
+                        class="btn btn-default"
+                        title="Detail Immobilisation"
+                      >
+                        <span>
+                          <i class="icon icon-folder-open"></i>
+                        </span>
+                      </router-link>
+                    
                     </td>
                   </tr>
                 </tbody>
@@ -82,7 +83,7 @@
       </div>
     </div>
 
-    <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab> -->
+   
   </div>
 </template>
   
@@ -123,14 +124,15 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
-      "getPersonnaliseImmobilisation"
+      // "getPersonnaliseImmobilisation",
      
+      // "getPersonnaliseSuivImmo"
     ]),
     filtre_immobilisation() {
       const st = this.search.toLowerCase();
       return this.SuiviImmo.filter(immo => {
-        return immo.acteurDepense.matricule.toLowerCase().includes(st) ||
-          immo.serviceImmo.libelle.toLowerCase().includes(st);
+        return immo.serviceImmo.libelle.toLowerCase().includes(st)||
+          immo.acteurDepense.matricule.toLowerCase().includes(st);
       });
     }
   },
@@ -150,8 +152,46 @@ export default {
 
     formatageSomme: formatageSomme,
     // fonction pour vider l'input ajouter
- 
-    
+    ajouterImmobilisationLocal() {
+      this.ajouterImmobilisation(this.formData);
+
+      this.formData = {
+        code: "",
+        type_immo: "",
+        designation: "",
+        identification: "",
+        etat_immobilisation: "",
+        date_acquisition: "",
+        date_mise_service: "",
+        numero_facture: "",
+        quantite: "",
+        Prix_unitaire: "",
+        famille_id: "",
+        valeur_origine: "",
+        duree: "",
+        numero_CC: "",
+        acteur_depense_id: "",
+        exercice_budgetaire_id: "",
+        service_id: "",
+        nature_bien: "",
+        nature_dentree: "",
+        unite_id: "",
+        TVA_id: "",
+        montant_evaluation: "",
+        date_evaluation: "",
+        montant_cession: "",
+        date_cession: "",
+        cause_inactivite: "",
+        montant_amortissement_anterieur: "",
+        date_amortissement_anterieur: ""
+      };
+    },
+    // afficher modal de modification
+    afficherModalModifierImmobilisation(id) {
+      this.$router.push({
+        path: "/Modifier_immobilisation/" + id
+      });
+    },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     }

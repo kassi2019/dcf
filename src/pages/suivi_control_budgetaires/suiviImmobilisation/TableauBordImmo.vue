@@ -22,25 +22,26 @@
             <span class="label label-success">{{nombreAmortissement}}</span> Nbre Amortissement
           </a>
         </li>-->
-        <li class="bg_ls" title="Total equipement">
+         <li class="bg_ls" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{nombreEquipement}}</span> Nbre Total d'équipement
+            <span class="label label-success">{{nombreTotalEquipement}}</span> Nbre Total d'équipement
           </a>
-        </li>
+        </li> 
 
-        <!-- <li class="bg_lo" title="nombre d'immobilisation réalise">
-          <a href="#">
-            <i class="icon-list-ol"></i>
-            <span class="label label-success">{{SommeEquipementRealise}}</span>Equipement réalisé
-          </a>
-        </li>-->
+        
         <li class="bg_ly" title="nombre immobilisation prévue">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{SommeEquipementPrevue}}</span>Equipement prévue
+            <span class="label label-success">{{SommeEquipementPrevue}}</span>Nbre Equipement prévue
           </a>
         </li>
+        <li class="bg_ls" title="Total equipement">
+          <a href="#">
+            <i class="icon-list-ol"></i>
+            <span class="label label-success">{{SommeEquipementAffecte}}</span> Nbre Equipement Réalise
+          </a>
+        </li> 
         <!-- <li class="bg_lg" title="volume d'immobilisation réalise">
           <a href="#">
             <i class="icon-th"></i>
@@ -53,12 +54,12 @@
             <span class="label label-success">{{volumeImmoPrevu}}</span>Volume équipement prévue
           </a>
         </li>
-        <!-- <li class="bg_lr" title="Taux immobilisation de UA">
+        <li class="bg_lr" >
           <a href="#">
             <i class="icon-info-sign"></i>
-            <span class="label label-success">{{tauximmobilisationUa}}%</span>Taux immobilisation de ua
+            <span class="label label-success">{{}}%</span>Taux Equipement prévue
           </a>
-        </li>-->
+        </li>
         <!-- <li class="bg_lr" title="Taux immobilisation de UA">
           <a href="#">
             <i class="icon-info-sign"></i>
@@ -107,7 +108,9 @@ export default {
       "SommeEquipementPrevue",
       "SommeEquipementActuel",
       "SommeEquipementRealise",
-      "nombreEquipement"
+      "nombreTotalEquipement",
+      "SommeEquipementAffecte",
+      "tauxEquipementPrevue"
 
       // "nbreArchivageNotes"
     ]),

@@ -255,15 +255,15 @@
           <li>
             <router-link :to="{name:'listeImmoParServiceParAgent'}" tag="a" title>
               <i class="icon-key"></i>
-              <span class="text">Liste des Agents équipé</span>
+              <span class="text">Acteur Depense Equipé</span>
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <router-link :to="{name:'listeActeurEquipe'}" tag="a" title>
               <i class="icon-key"></i>
               <span class="text">Agents équipé</span>
             </router-link>
-          </li>
+          </li> -->
           <!-- <li>
             <router-link
               :to="{name:'ListeImmoRealise'}"
@@ -297,7 +297,7 @@
         </a>
         <ul class="dropdown-menu">
           <li class="divider"></li>
-          <li>
+          <!-- <li>
             <router-link
               :to="{name:'RechercheTauxUniteAd'}"
               tag="a"
@@ -306,7 +306,7 @@
               <i class="icon-key"></i>
               <span class="text">Taux Immobilisation Par UA</span>
             </router-link>
-          </li>
+          </li> -->
            <li>
             <router-link
               :to="{name:'TauxEquipementMinistère'}"

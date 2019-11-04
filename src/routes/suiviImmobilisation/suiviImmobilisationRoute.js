@@ -22,7 +22,7 @@ import listeActeurEquipe from "../../pages/suivi_control_budgetaires/suiviImmobi
 
 const suiviImmobilisationRoutes = [
   {
-    path: "/listeActeurEquipe",
+    path: "/listeActeurEquipe", 
     name: "listeActeurEquipe",
     component: listeActeurEquipe
   },

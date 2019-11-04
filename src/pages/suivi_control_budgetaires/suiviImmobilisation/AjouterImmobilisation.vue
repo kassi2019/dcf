@@ -92,8 +92,8 @@
                                 <option value>Sélectionner</option>
                                 <option
                                   v-for="desig in designationDynamiques(formData.uniteadministrative_id)"
-                                  :key="desig.id"
-                                  :value="desig.id"
+                                  :key="desig.familleimmo_id"
+                                  :value="desig.familleimmo_id"
                                 >{{desig.famille.libelle}}</option>
                               </select>
                             </div>

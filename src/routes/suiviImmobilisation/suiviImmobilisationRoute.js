@@ -19,8 +19,19 @@ import listeImmobilisationParUa from "../../pages/suivi_control_budgetaires/suiv
 import listeImmoParServiceParAgent from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmoParServiceParAgent.vue";
 import TauxEquipementMinistère from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TauxEquipementMinistère.vue";
 import listeActeurEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeActeurEquipe.vue";
-
+import listeStructurePlusEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeStructurePlusEquipe.vue";
+import listeStructureMoinEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeStructureMoinEquipe.vue";
 const suiviImmobilisationRoutes = [
+  {
+    path: "/liste-Structure-Moin-Equipe",
+    name: "listeStructureMoinEquipe",
+    component: listeStructureMoinEquipe
+  },
+  {
+    path: "/liste-Structure-Plus-Equipe",
+    name: "listeStructurePlusEquipe",
+    component: listeStructurePlusEquipe
+  },
   {
     path: "/listeActeurEquipe", 
     name: "listeActeurEquipe",

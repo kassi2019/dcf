@@ -269,15 +269,82 @@ export const getPersonnaliseImmobilisation = (
     return element;
   });
 
+// afficher les structure les moin equipe
+
+export const StructureMoinEquipe = getters =>
+  getters.immobilisations.filter(
+    structureMoin => structureMoin.qte_reel !== 0
+  );
+
+
+export const afficheStructureMoinEquipe = (state, getters, rootState, rootGetters) =>
+  getters.StructureMoinEquipe.map(element => {
+    if (
+      element.familleimmo_id !== null &&
+      element.acteurdepense_id !== null &&
+      element.acteurdepense_id !== null &&
+      element.uniteadministrative_id !== null &&
+      element.typeuniteadminis_id !== null &&
+      element.besoinimmo_id !== null
+    ) {
+      element = {
+        ...element,
+        exoBudgetaire: rootGetters["parametreGenerauxAdministratif/exercices_budgetaires"].find(exercice => exercice.id == element.exercice_budgetaire_id),
+        acteurDepense: rootGetters["personnelUA/personnaliseActeurDepense"].find(auteurDep => auteurDep.id == element.acteurdepense_id),
+        uniteAdminist: rootGetters["uniteadministrative/uniteAdministratives"].find(uniteAdm => uniteAdm.id == element.uniteadministrative_id),
+
+        familleImmo: rootGetters["SuiviImmobilisation/familles"].find(Famileimmo => Famileimmo.id == element.familleimmo_id),
+
+        serviceImmo: rootGetters["SuiviImmobilisation/services"].find(servImmo => servImmo.id == element.service_id),
+        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminis_id
+        ),
+        BesoinImmobilisation: rootGetters["SuiviImmobilisation/trieUaImmobilisation"].find(besoinimmo => besoinimmo.id == element.besoinimmo_id)
+
+      };
+    }
+
+    return element;
+  });
 
 
 
+// afficher les structure les plus équipe
+
+export const StructurePlusEquipe = getters =>
+  getters.immobilisations.filter(
+    structureMoin => structureMoin.qte_reel == 0
+  );
 
 
 
+export const afficheStructurePlusEquipe = (state, getters, rootState, rootGetters) =>
+  getters.StructurePlusEquipe.map(element => {
+    if (
+      element.familleimmo_id !== null &&
+      element.acteurdepense_id !== null &&
+      element.acteurdepense_id !== null &&
+      element.uniteadministrative_id !== null &&
+      element.typeuniteadminis_id !== null &&
+      element.besoinimmo_id !== null
+    ) {
+      element = {
+        ...element,
+        exoBudgetaire: rootGetters["parametreGenerauxAdministratif/exercices_budgetaires"].find(exercice => exercice.id == element.exercice_budgetaire_id),
+        acteurDepense: rootGetters["personnelUA/personnaliseActeurDepense"].find(auteurDep => auteurDep.id == element.acteurdepense_id),
+        uniteAdminist: rootGetters["uniteadministrative/uniteAdministratives"].find(uniteAdm => uniteAdm.id == element.uniteadministrative_id),
 
+        familleImmo: rootGetters["SuiviImmobilisation/familles"].find(Famileimmo => Famileimmo.id == element.familleimmo_id),
 
+        serviceImmo: rootGetters["SuiviImmobilisation/services"].find(servImmo => servImmo.id == element.service_id),
+        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminis_id
+        ),
+        BesoinImmobilisation: rootGetters["SuiviImmobilisation/trieUaImmobilisation"].find(besoinimmo => besoinimmo.id == element.besoinimmo_id)
 
+      };
+    }
+
+    return element;
+  });
 
 
 

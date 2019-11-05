@@ -8,7 +8,7 @@
       <div class="row-fluid">
         <div class="span12">
           
-            <div class="quick-actions_homepage deplac">
+            <!-- <div class="quick-actions_homepage deplaceCarre">
               <ul class="quick-actions">
                 <li class="bg_lr">
                   <a href="#">
@@ -26,10 +26,10 @@
                 
               </ul>
             </div>
-          
+           -->
           <div class="widget-box">
            
- <div class="widget-title">
+ <!-- <div class="widget-title">
              
               <div align="right">
                
@@ -58,7 +58,7 @@
                   ></model-list-select>
                 </div>
               </div>
-            </div>
+            </div> -->
             <br>
              
               
@@ -66,7 +66,7 @@
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
-              <h5>Liste des Immobilisations</h5>
+              <h5>Liste structures plus équipé</h5>
               
                  
             </div>
@@ -74,43 +74,43 @@
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Classe</th> 
+                    <th>type Unité Administrative</th> 
+                    <th>Unité Administrative</th> 
+                    <th>type equipement</th> 
                     <th>type equipement</th> 
                     <th>Designation</th>
-                    <th>Quantité Réel</th>
-                    <th>Quantité afféctée</th>
-                    <th>Quantité actuel</th>
-                    <th>Prix Unitaire</th>
-                    <th>Total Actuel</th>
-                    <th>Action</th>
+                    <th>Quantité Prévue</th>
+                    <th>Quantité Réalisé</th>
+                    <th>Quantité Restant</th>
+                   <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="odd gradeX" v-for="immobilisat in SuiviImmo" :key="immobilisat.id">
+                  <tr class="odd gradeX" v-for="immobilisat in afficheStructurePlusEquipe" :key="immobilisat.id">
+                   
+                   <td
+                      
+                    >{{immobilisat.typeUniteAdministrative.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
-                    >{{immobilisat.BesoinImmobilisation.famille.code || 'Non renseigné'}}</td>  
+                      
+                    >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
+                      
                     >{{immobilisat.BesoinImmobilisation.famille.reletion__equipement.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
+                      
                     >{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
-                    >{{immobilisat.qte_reel || 'Non renseigné'}}</td>
+                      
+                    >{{immobilisat.qte_reel}}</td>
                     <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
+                      
                     >{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
                     <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
+                      
                     >{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
-                    >{{formatageSomme(immobilisat.prixUnitaire) || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
-                    >{{formatageSomme(immobilisat.total_actuel) || 'Non renseigné'}}</td>
+                    
+                  
                     <td>
                       <router-link
                         :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immobilisat.id}}"
@@ -121,11 +121,7 @@
                           <i class="icon icon-folder-open"></i>
                         </span>
                       </router-link>
-                      <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)">
-                        <span>
-                          <i class="icon icon-trash"></i>
-                        </span>
-                      </button>
+                     
                     </td>
                   </tr>
                 </tbody>
@@ -136,14 +132,14 @@
               </div>-->
             </div>
             <div v-else>
-              <p style="text-align:center;font-size:20px;color:red;">Pas d'Immobilisation</p>
+              <p style="text-align:center;font-size:20px;color:red;">Pas de structure Equipé pour le moment</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+  
   </div>
 </template>
   
@@ -191,6 +187,7 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
+      "afficheStructurePlusEquipe"
       // "getPersonnaliseImmobilisation",
      
       // "getPersonnaliseSuivImmo"
@@ -198,82 +195,6 @@ export default {
      ...mapGetters("parametreGenerauxAdministratif", ["type_Unite_admins"]),
      ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
-     // nombre enregistrement par type unite administrative
-
-    nbreTypeUniteAdministrative() {
-      return typeUniteAdmin_id => {
-       
- if (typeUniteAdmin_id != "") {
-          return this.SuiviImmo.filter(
-            element => element.typeUniteAdministrative.id == typeUniteAdmin_id
-           
-          ).length;
-        }
-       
-      
-      };
-    },
-    //taux equipement par type unite administrative
-TauxEquipementParTypeUniteAdministrative() {
- 
-      return typeUniteAdmin_id => {
-    const val = parseFloat((1 / this.nbreTypeUniteAdministrative(typeUniteAdmin_id)) * 100 );
-  if (isNaN(val)) return null;
-
-  
-
-  
-   return val;
-
- }
-
-    },
-    // afficher le nom type unite administrative
-      nomTypeUniteAdministrative(){
-  return typeUniteAdmin_id =>{
-    if(typeUniteAdmin_id !=""){
-      var ObjetUA = this.type_Unite_admins.find(element => element.id == typeUniteAdmin_id)
-      return ObjetUA.libelle
-    }
-    
-  }
-    },
-
-    // nombre enregistrement par  unite administrative
-
-    nbreUniteAdministrative() {
-      return uniteadmin_id => {
-       
- if (uniteadmin_id != "") {
-          return this.SuiviImmo.filter(
-            element => element.uniteAdminist.id == uniteadmin_id
-           
-          ).length;
-        }
-        
-      
-      };
-    },
-    //taux equipement par type unite administrative
-TauxEquipementParUniteAdministrative() {
- 
-      return uniteadmin_id => {
-    const val = parseFloat((1 / this.nbreUniteAdministrative(uniteadmin_id)) * 100 );
-  if (isNaN(val)) return null;
-  return val;
-   
- }
-
-    },
-    // afficher le nom unite administrative
-      nomUniteAdministrative(){
-  return uniteadmin_id =>{
-    if(uniteadmin_id !=""){
-      var ObjetUA = this.uniteAdministratives.find(element => element.id == uniteadmin_id)
-      return ObjetUA.libelle
-    }
-  }
-    },
 
   },
   methods: {
@@ -283,49 +204,6 @@ TauxEquipementParUniteAdministrative() {
       "supprimerImmobilisation"
     ]),
 
-    //afiicher modal ajouter
-    afficherModalAjouterTitre() {
-      this.$router.push({
-        name: "formulaireimmobilisation"
-      });
-    },
-
-    formatageSomme: formatageSomme,
-    // fonction pour vider l'input ajouter
-    ajouterImmobilisationLocal() {
-      this.ajouterImmobilisation(this.formData);
-
-      this.formData = {
-        code: "",
-        type_immo: "",
-        designation: "",
-        identification: "",
-        etat_immobilisation: "",
-        date_acquisition: "",
-        date_mise_service: "",
-        numero_facture: "",
-        quantite: "",
-        Prix_unitaire: "",
-        famille_id: "",
-        valeur_origine: "",
-        duree: "",
-        numero_CC: "",
-        acteur_depense_id: "",
-        exercice_budgetaire_id: "",
-        service_id: "",
-        nature_bien: "",
-        nature_dentree: "",
-        unite_id: "",
-        TVA_id: "",
-        montant_evaluation: "",
-        date_evaluation: "",
-        montant_cession: "",
-        date_cession: "",
-        cause_inactivite: "",
-        montant_amortissement_anterieur: "",
-        date_amortissement_anterieur: ""
-      };
-    },
     // afficher modal de modification
     afficherModalModifierImmobilisation(id) {
       this.$router.push({
@@ -339,7 +217,7 @@ TauxEquipementParUniteAdministrative() {
 };
 </script>
 <style>
-.deplac{
-  margin: 0 80px;
+.deplaceCarre{
+  margin: 0 250px;
 }
 </style>

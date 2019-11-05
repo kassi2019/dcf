@@ -57,7 +57,7 @@
                             </div>
                           </div>
                         </td>
- <td>
+                        <td>
                           <div class="control-group">
                             <label class="control-label">Type Unite administrative:</label>
                             <div class="controls">
@@ -270,7 +270,7 @@
                       <tr>
                           <td>
                           <div class="control-group">
-                            <label class="control-label">N Identification:</label>
+                            <label class="control-label">N°Identification:</label>
                             <div class="controls">
                               <input
                                 type="text"
@@ -464,19 +464,7 @@
                           </div>
                         </td>
                           <td>
-                          <div class="control-group">
-                            <label class="control-label">Equipément:</label>
-                            <div class="controls">
-                              <select
-                                v-model="formData.decision_equipe"
-                              
-                              >
-                                <option value>Sélectionner</option>
-                                <option value="1">Equipé</option>
-                                <option value="0">Pas Equipé</option>
-                              </select>
-                            </div>
-                          </div>
+                         
                         </td>
                       </tr>
                     </div>
@@ -740,7 +728,7 @@ typeUniteAdministrativeDynamiques() {
         qte_reel: "",
         qte_affecte: "",
         qte_actuel: "",
-decision_equipe:"",
+
 
         prixUnitaire: "",
         total_actuel: "",

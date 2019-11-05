@@ -1,7 +1,7 @@
 
 <template>
   <div class="container-fluid">
-    <div class="quick-actions_homepage deplaceCarre">
+    <div class="quick-actions_homepage">
       <ul class="quick-actions">
         <li class="bg_ls">
           <a href="#">
@@ -75,13 +75,6 @@ export default {
 
 
 <style>
-.nbre {
-  background-color: #27a9e3;
-}
-.center1 {
-  margin: 5px 270px 5px;
-}
-.deplaceCarre {
-  margin: 0 80px;
-}
+
+
 </style>

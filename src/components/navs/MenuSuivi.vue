@@ -227,18 +227,7 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
-          <!-- <li class="divider"></li>
-          <li>
-            <router-link
-              :to="{name:'RechercheImmoParService'}"
-              tag="a"
-              title="par Service,Ua,acteur depense,famille"
-            >
-              <i class="icon-key"></i>
-              <span class="text">Recherche Immobilisation</span>
-            </router-link>
-          </li>-->
-         
+        
           <li>
             <router-link :to="{name:'listeBesoinParUniteAdmin'}" tag="a" title>
               <i class="icon-key"></i>
@@ -252,73 +241,22 @@
               <span class="text">Recherche Immobilisation</span>
             </router-link>
           </li>
-          <!-- <li>
-            <router-link :to="{name:'listeImmoParServiceParAgent'}" tag="a" title>
+          <li>
+            <router-link :to="{name:'listeStructureMoinEquipe'}" tag="a" title>
               <i class="icon-key"></i>
-              <span class="text">Acteur Depense Equipé</span>
+              <span class="text">Structure Moin équipé</span>
             </router-link>
-          </li> -->
-          <!-- <li>
-            <router-link :to="{name:'listeActeurEquipe'}" tag="a" title>
-              <i class="icon-key"></i>
-              <span class="text">Agents équipé</span>
-            </router-link>
-          </li> -->
-          <!-- <li>
-            <router-link
-              :to="{name:'ListeImmoRealise'}"
-              tag="a"
-              title="Listes Immobilisation Réalisé"
-            >
-              <i class="icon-key"></i>
-              <span class="text">Listes des Immo Réalisés</span>
-            </router-link>
-          </li>-->
-          <!-- <li>
-            <router-link :to="{name:'ListeImmoPrevu'}" tag="a" title="Liste Immobilisation Prévue">
-              <i class="icon-key"></i>
-              <span class="text">Listes des Immo Prévu</span>
-            </router-link>
-          </li>-->
-        </ul>
-      </li>
-
-      <li class="dropdown" id="indicatImmo">
-        <a
-          title="Out Put"
-          href="#"
-          data-toggle="dropdown"
-          data-target="#indicatImmo"
-          class="dropdown-toggle"
-        >
-          <i class="icon icon-user"></i>
-          <span class="text">Indicateur</span>
-          <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li class="divider"></li>
-          <!-- <li>
-            <router-link
-              :to="{name:'RechercheTauxUniteAd'}"
-              tag="a"
-              title="Recherche de taux par UA"
-            >
-              <i class="icon-key"></i>
-              <span class="text">Taux Immobilisation Par UA</span>
-            </router-link>
-          </li> -->
+          </li>
            <li>
-            <router-link
-              :to="{name:'TauxEquipementMinistère'}"
-              tag="a"
-              title="Recherche de taux par UA"
-            >
+            <router-link :to="{name:'listeStructurePlusEquipe'}" tag="a" title>
               <i class="icon-key"></i>
-              <span class="text">Taux Equipement Par UA</span>
+              <span class="text">Structure Plus équipé</span>
             </router-link>
           </li>
         </ul>
       </li>
+
+      
       <!-- indicateur
       -->
 

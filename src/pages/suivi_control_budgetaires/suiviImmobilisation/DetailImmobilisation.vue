@@ -23,7 +23,7 @@
                   <th>Quantité afféctée</th>
                   <th>Quantité actuel</th>
                   <th>Prix Unitaire</th>
-                  <th>Total Actuel</th>
+                 
                   <!-- <th>Acteur Depense</th> -->
                 </tr>
               </thead>
@@ -36,7 +36,7 @@
                   <td>{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
                   <td>{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
                   <td>{{formatageSomme(immobilisat.prixUnitaire)|| 'Non renseigné'}}</td>
-                  <td>{{formatageSomme(immobilisat.total_actuel) || 'Non renseigné'}}</td>
+                  
                 </tr>
               </tbody>
             </table>
@@ -45,6 +45,7 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
+                   <th>Total Actuel</th>
                   <th>Type immobilisation</th>
                   <th>Service</th>
                   <th>Durée</th>
@@ -53,14 +54,13 @@
                   <th>Acteur Depense</th>
 
                   <th title="Exercice Budgetaire">Exercice Budget</th>
-                  <th>Nature de Bien</th>
-                  <th>Nature Entrée</th>
-                  <!-- <th>Unite</th> -->
-                  <th>Tva</th>
+                 
+                 
                 </tr>
               </thead>
               <tbody>
                 <tr class="odd gradeX">
+                  <td>{{formatageSomme(immobilisat.total_actuel) || 'Non renseigné'}}</td>
                   <td v-if="immobilisat.type_immo == 1" >Corporelle</td>
                   <td v-else>Incorporelle</td>
                   <td>{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
@@ -70,11 +70,10 @@
                   <td>{{immobilisat.acteurDepense.matricule|| 'Non renseigné'}}</td>
 
                   <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.nature_bien || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.nature_dentree || 'Non renseigné'}}</td>
+                 
 
                   <!-- <td>{{immobilisat.unitePara.libelle || 'Non renseigné'}}</td> -->
-                  <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>
+                 
                 </tr>
               </tbody>
             </table>
@@ -83,11 +82,37 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
+                   <th>Nature de Bien</th>
+                  <th>Nature Entrée</th>
+                  <!-- <th>Unite</th> -->
+                   <th>Tva</th>
                   <th>Montant Evaluation</th>
                   <th>Date Evaluation</th>
                   <th>Montant Cession</th>
                   <th>Date Cession</th>
 
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="odd gradeX">
+                   <td>{{immobilisat.nature_bien || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.nature_dentree || 'Non renseigné'}}</td>
+                   <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.montant_evaluation) || 'Non renseigné'}}</td>
+                  <td>{{formaterDate(immobilisat.date_evaluation) || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.montant_cession)|| 'Non renseigné'}}</td>
+                  <td>{{formaterDate(immobilisat.date_cession) || 'Non renseigné'}}</td>
+
+                 
+                </tr>
+              </tbody>
+            </table>
+             <!---/////////////////////// 4 PARTIES ///////////////////////--->
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                    <th>Etat Immobilisation</th>
                   <th>Cause Inactive</th>
 
                   <th title="montant amortissement anterieur">Montant Amorti Anteri</th>
@@ -96,12 +121,15 @@
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{formatageSomme(immobilisat.montant_evaluation) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immobilisat.date_evaluation) || 'Non renseigné'}}</td>
-                  <td>{{formatageSomme(immobilisat.montant_cession)|| 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immobilisat.date_cession) || 'Non renseigné'}}</td>
 
-                  <td>{{immobilisat.cause_inactivite || 'Non renseigné'}}</td>
+ <td v-if="immobilisat.etat_immobilisation == 1" >neuf(ve)</td>
+                  <td v-else-if="immobilisat.etat_immobilisation == 2">Seconde Main</td>
+ <td v-else>Bon</td>
+                 <td v-if="immobilisat.cause_inactivite == 1" >Vendue</td>
+                  <td v-else>Mise en hors service</td>
+ 
+                   
+                   
 
                   <td>{{formatageSomme(immobilisat.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
                   <td>{{formaterDate(formaterDate(immobilisat.date_amortissement_anterieur)) || 'Non renseigné'}}</td>

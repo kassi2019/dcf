@@ -18,7 +18,7 @@
             <div class="table-responsive text-nowrap">
               <table class="table table-bordered table-striped">
                 <div class="widget-box">
-                  <div class="widget-title">
+                 <div class="widget-title">
                     <ul class="nav nav-tabs">
                       <li class="active">
                         <a data-toggle="tab" href="#tab1">Identification</a>
@@ -27,7 +27,10 @@
                         <a data-toggle="tab" href="#tab2">Descriptif</a>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#tab3">Autres Information</a>
+                        <a data-toggle="tab" href="#tab3">Info Montant et Date Immo</a>
+                      </li>
+                       <li>
+                        <a data-toggle="tab" href="#tab4">Autres Information</a>
                       </li>
                     </ul>
                   </div>
@@ -454,8 +457,8 @@ export default {
       causeInactivite: ["Vendue", "Mise en hors service"]
     };
   },
-
-  mounted() {
+ 
+  created() {
     this.editImmobilisation = this.immobilisations.find(
       immo => immo.id == this.$route.params.id
     );

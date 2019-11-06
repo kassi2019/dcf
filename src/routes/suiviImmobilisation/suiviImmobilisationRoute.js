@@ -10,7 +10,7 @@ import VoirImmoParService from "../../pages/suivi_control_budgetaires/suiviImmob
 import TableauBordImmo from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TableauBordImmo.vue";
 import RechercheTauxParUniteAdm from "../../pages/suivi_control_budgetaires/suiviImmobilisation/RechercheTauxParUniteAdm.vue";
 
-import amortissementLineaire from "../../pages/suivi_control_budgetaires/suiviImmobilisation/amortissementLineaire.vue";
+
 import DetailImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/DetailImmobilisation.vue";
 import besionImmolisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/besionImmolisation.vue";
 import listeEquipement from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeEquipement.vue";
@@ -78,7 +78,7 @@ const suiviImmobilisationRoutes = [
     component: Service
   },
   {
-    path: "/amortissement",
+    path: "/amortissement/:id",
     name: "amortissement",
     component: Amortissement
   },
@@ -120,11 +120,7 @@ const suiviImmobilisationRoutes = [
     component: RechercheTauxParUniteAdm
   },
   
-  {
-    path: "/amortissement-Lineaire",
-    name: "amortissementLineaire",
-    component: amortissementLineaire
-  },
+  
   //detail immobilisation
   {
     path: "/Detail-Immobilisation/:id_immobilisation",

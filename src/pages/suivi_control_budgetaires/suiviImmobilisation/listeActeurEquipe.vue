@@ -12,33 +12,40 @@
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
-              <h5>Liste des Immobilisations</h5>
+              <h5>Liste des acteurs de depenses équipés</h5>
               <div align="right">
                 Recherche:
-                <input type="search" placeholder="Service ou Matricule" v-model="search" />
+                <input type="search" placeholder="" v-model="search" />
               </div>
             </div>
 
-            <div class="table-responsive text-nowrap" v-if="SuiviImmo.length && familles.length && services.length ">
+            <div class="table-responsive text-nowrap" v-if="SuiviImmo.length && familles.length && services.length && personnaliseActeurDepense.length ">
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
+                    <th>Année Budgetaire</th> 
                      <th>Matricule</th> 
                        <th>Nom</th>
-                     <th>Prenoms</th> 
+                     <th>Prénoms</th> 
+                      <th>Type unite administrative</th> 
                        <th>Unite administrative</th>
-                    
+                    <th>Service</th> 
+                        <th>Designation</th>
+                         <th>Dure</th> 
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="odd gradeX" v-for="immobilisat in personnaliseActeurDepense" :key="immobilisat.id">
+                  <tr class="odd gradeX" v-for="immobilisat in SuiviImmo" :key="immobilisat.id">
                       
-                      <td>{{immobilisat.matricule || 'Non renseigné'}}</td>
-                      <td>{{immobilisat.nom || 'Non renseigné'}}</td>
-                      <td>{{immobilisat.prenom || 'Non renseigné'}}</td>
-                       <td>{{immobilisat.uniteAdmin.libelle || 'Non renseigné'}}</td>
-                   
-                   
+                      <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.acteurDepense.matricule || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.acteurDepense.nom || 'Non renseigné'}}</td>
+                       <td>{{immobilisat.acteurDepense.prenom || 'Non renseigné'}}</td>
+                   <td>{{immobilisat.typeUniteAdministrative.libelle || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
+                      <td>{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
+                       <td>{{immobilisat.BesoinImmobilisation.famille.libelle|| 'Non renseigné'}}</td>
+                   <td>{{immobilisat.duree || 'Non renseigné'}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -95,8 +102,8 @@ export default {
     ...mapGetters("SuiviImmobilisation", [
       "SuiviImmo",
       "familles",
-      "services",
-      "getPersonnaliseImmobilisation"
+      "services"
+     
      
     ]),
     ...mapGetters("personnelUA", ["personnaliseActeurDepense"]),
@@ -104,7 +111,9 @@ export default {
       const st = this.search.toLowerCase();
       return this.SuiviImmo.filter(immo => {
         return immo.acteurDepense.matricule.toLowerCase().includes(st) ||
-          immo.serviceImmo.libelle.toLowerCase().includes(st);
+          immo.serviceImmo.libelle.toLowerCase().includes(st)||
+          immo.uniteAdminist.libelle.toLowerCase().includes(st)||
+          immo.BesoinImmobilisation.famille.reletion__equipement.libelle.toLowerCase().includes(st)
       });
     },
     

@@ -134,20 +134,6 @@
                         </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Total réel:</label>
-                            <div class="controls">
-                              <input
-                                type="number"
-                                class="span"
-                                :value="AffichierTotalReel"
-                                readonly
-                              />
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <div class="control-group">
                             <label class="control-label">Qté Afféctée:</label>
                             <div class="controls">
                               <input
@@ -159,6 +145,21 @@
                             </div>
                           </div>
                         </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Valeur d'origine:</label>
+                            <div class="controls">
+                              <input
+                                type="number"
+                                class="span"
+                                :value="valeurOrigine"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                        </td>
+
+                        
                         <td>
                           <div class="control-group">
                             <label class="control-label">Qté Actuel:</label>
@@ -624,24 +625,18 @@ typeUniteAdministrativeDynamiques() {
         return montantActuel.id;
       }
     },
-    // idObjetEquipementModifierActeurDepense() {
-    //   const equipImmo = this.personnaliseActeurDepense.find(
-    //     equipement => equipement.id == this.formData.acteurdepense_id
-    //   );
+    
 
-    //   if (equipImmo) {
-    //     return equipImmo.id;
-    //   }
-    // },
+    AffichierprixUnitaire(){
+      const prixUnitaire = this.trieUaImmobilisation.find(prixUnitaire => prixUnitaire.id == this.formData.besoinimmo_id)
+      if (prixUnitaire) {return prixUnitaire.prix_unitaire}
+    },
+    
+    valeurOrigine() {
+      const val = parseFloat(this.formData.qte_affecte) * parseFloat(this.AffichierprixUnitaire);
+      return parseFloat(val).toFixed(2);
+    },
 
-    AffichierprixUnitaire(){const prixUnitaire = this.trieUaImmobilisation.find(prixUnitaire => prixUnitaire.id == this.formData.besoinimmo_id);
-      if (prixUnitaire) {return prixUnitaire.prix_unitaire;}
-    },
-    AffichierTotalReel(){const totalreel = this.trieUaImmobilisation.find(totalreel => totalreel.id == this.formData.besoinimmo_id);
-      if (totalreel) {
-        return totalreel.montant_total;
-      }
-    },
     AffichierTotalActuel() {
       const val = parseFloat(this.AfficheQteActuel) * parseFloat(this.AffichierprixUnitaire);
       return parseFloat(val).toFixed(2);
@@ -709,7 +704,7 @@ typeUniteAdministrativeDynamiques() {
         ...this.formData,
         qte_reel: this.AffichierQuantiteteReel,
         prixUnitaire: this.AffichierprixUnitaire,
-        total_reel: this.AffichierTotalReel,
+        valeurorigine: this.valeurOrigine,
         total_actuel: this.AffichierTotalActuel,
         qte_actuel: this.AfficheQteActuel
       };
@@ -717,7 +712,7 @@ typeUniteAdministrativeDynamiques() {
       this.ajouterImmobilisation(nouvelObjet);
 
       this.formData = {
-        totalreel: "",
+        valeurorigine: "",
         type: "",
         designation: "",
         identification: "",

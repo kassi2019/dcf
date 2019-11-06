@@ -54,12 +54,12 @@
             <span class="label label-warning">{{tauxEquipementPrevue}}%</span>Taux équipement prévue
           </a>
         </li>
-        <li class="bg_lr" >
+        <!-- <li class="bg_lr" >
           <a href="#">
             <i class="icon-info-sign"></i>
             <span class="label label-success">{{tauxGlobalEquipement}}%</span>Taux Global d'equipement
           </a>
-        </li>
+        </li> -->
         <!-- <li class="bg_lr" title="Taux immobilisation de UA">
           <a href="#">
             <i class="icon-info-sign"></i>
@@ -104,7 +104,7 @@ export default {
       "tauxEquipementPrevue",
       "tauxEquipementRealise",
       "tauxEquipementPrevue",
-      "tauxGlobalEquipement"
+      // "tauxGlobalEquipement"
 
       // "nbreArchivageNotes"
     ]),

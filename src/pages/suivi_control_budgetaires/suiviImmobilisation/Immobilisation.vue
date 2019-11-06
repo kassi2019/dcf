@@ -61,7 +61,16 @@
             </div>
             <br>
              
-              
+              <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields"
+            title="Liste des Immobilisations"
+            :data="SuiviImmo"
+            name="Liste des Immobilisations"
+          >
+            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
              <div class="widget-title">
               <span class="icon">
                 <i class="icon-th"></i>
@@ -121,6 +130,15 @@
                           <i class="icon icon-folder-open"></i>
                         </span>
                       </router-link>
+                       <router-link
+                        :to="{name : 'amortissement', params: {id:immobilisat.id}}"
+                        class="btn btn-default"
+                        title="Amortissement"
+                      >
+                        <span>
+                          <i class="icon icon-folder-open"></i>
+                        </span>
+                      </router-link>
                       <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)">
                         <span>
                           <i class="icon icon-trash"></i>
@@ -170,6 +188,38 @@ export default {
         //   class: ""
         // }
       ],
+      json_fields: {
+        TYPE_IMMOBILISATION: "type_immo",
+        FAMILLE: "BesoinImmobilisation.famille.reletion__equipement.libelle",
+        TYPE_UNITE_ADMINISTRATIVE: "typeUniteAdministrative.libelle",
+        UNITE_ADMINISTRATIVE: "uniteAdminist.libelle",
+        NUMERO_IDENTIFICATION: "identification",
+        ETAT_IMMOBILISATION: "etat_immobilisation",
+        DATE_ACQUISITION: "date_acquisition",
+        DATE_MISE_SERVICE: "date_mise_service",
+        NUMERO_FACTURE: "numero_facture",
+        QUANTITE_REEL: "qte_reel",
+        QUANTITE_AFFECTE: "qte_affecte",
+        QUANTITE_ACTUEL: "qte_actuel",
+        PRIX_UNITAIRE: "prixUnitaire",
+        TOTAL_ACTUEL: "total_actuel",
+        TOTAL_REEL: "total_reel",
+        DUREE: "duree",
+        NUMERO_CC: "numero_CC",
+        MATRICULE_ACTEUR: "acteurDepense.matricule",
+        ANNEE_BUDGETAIRE: "exoBudgetaire.annee",
+        SERVICE: "serviceImmo.libelle",
+        NATURE_BIEN: "nature_bien",
+        NATURE_ENTRE: "nature_dentree",
+        MONTANT_EVALUATION: "montant_evaluation",
+        DATE_EVALUATION: "date_evaluation",
+        MONTANT_CESSION: "montant_cession",
+        DATE_CESSION: "date_cession",
+        CAUSE_INACTIVITE: "cause_inactivite",
+        TVA: "TVA_id",
+        MONTANT_AMORTISSEMENT: "montant_amortissement_anterieur",
+        DATE_AORTISSEMENT: "date_amortissement_anterieur"
+      },
       formData: {},
 
       editImmobilisation: {},
@@ -179,7 +229,8 @@ export default {
       uniteadmin_id:"",
     };
   },
-  mounted() {
+
+  created() {
     this.formData = this.SuiviImmo.find(
       immobilisat => immobilisat.id == this.$route.params.id
     );
@@ -330,6 +381,11 @@ TauxEquipementParUniteAdministrative() {
     afficherModalModifierImmobilisation(id) {
       this.$router.push({
         path: "/Modifier_immobilisation/" + id
+      });
+    },
+    afficherFenetreAmortissement(id) {
+      this.$router.push({
+        path: "/amortissement/" + id
       });
     },
     formaterDate(date) {

@@ -253,6 +253,12 @@
               <span class="text">Structure Plus équipé</span>
             </router-link>
           </li>
+           <li>
+            <router-link :to="{name:'listeActeurEquipe'}" tag="a" title>
+              <i class="icon-key"></i>
+              <span class="text">Acteur équipé</span>
+            </router-link>
+          </li>
         </ul>
       </li>
 

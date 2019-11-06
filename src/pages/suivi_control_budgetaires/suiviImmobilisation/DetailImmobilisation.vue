@@ -117,6 +117,7 @@
 
                   <th title="montant amortissement anterieur">Montant Amorti Anteri</th>
                   <th title="date amortissement anterieur">Date Amort Anter</th>
+                   <th title="">Valeur origine</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,6 +134,7 @@
 
                   <td>{{formatageSomme(immobilisat.montant_amortissement_anterieur) || 'Non renseigné'}}</td>
                   <td>{{formaterDate(formaterDate(immobilisat.date_amortissement_anterieur)) || 'Non renseigné'}}</td>
+                   <td>{{immobilisat.valeurorigine || 'Non renseigné'}}</td>
                 </tr>
               </tbody>
             </table>
@@ -153,15 +155,23 @@ export default {
     };
   },
   created() {
-    this.immobilisat = this.SuiviImmo.find(
-      immobilisat => immobilisat.id == this.$route.params.id_immobilisation
-    );
+    this.getDetail()
   },
+
+  watch: {
+    '$route' : 'getDetail'
+  },
+  
 
   computed: {
     ...mapGetters("SuiviImmobilisation", ["SuiviImmo"])
   },
   methods: {
+    getDetail(){
+        this.immobilisat = this.SuiviImmo.find(
+      immobilisat => immobilisat.id == this.$route.params.id_immobilisation
+    );
+    },
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },

@@ -13,9 +13,10 @@
                   <!-- <th>Code</th> -->
                   <th>Annee budgetaire</th>
                   <th>Taux</th>
+                  <th>Duree</th>
                   <th>Designation</th>
                   <th>Valeur Origine</th>
-                  <th>Date service</th>
+                  <th>Date de mise en service</th>
                   
                  
                   <!-- <th>Acteur Depense</th> -->
@@ -25,6 +26,7 @@
                 <tr class="odd gradeX">
                   <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td> 
                   <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.duree || 'Non renseigné'}}</td>
                     <td>{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
                   <td>{{immobilisat.valeurorigine || 'Non renseigné'}}</td>
                   <td>{{formaterDate(immobilisat.date_mise_service) || 'Non renseigné'}}</td>

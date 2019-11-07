@@ -1,6 +1,6 @@
 
 <template>
-  <div>
+  
     <!-- End Page Header -->
     <!-- Default Light Table -->
     <div class="container-fluid">
@@ -31,11 +31,9 @@
                         <a data-toggle="tab" href="#tab2">Descriptif</a>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#tab3">Info Montant et Date Immo</a>
+                        <a data-toggle="tab" href="#tab3">Autres Information</a>
                       </li>
-                       <li>
-                        <a data-toggle="tab" href="#tab4">Autres Information</a>
-                      </li>
+                     
                     </ul>
                   </div>
                   <div class="widget-content tab-content">
@@ -188,6 +186,7 @@
                     <!--ongle descriptif-->
                     <div id="tab2" class="tab-pane">
                       <tr>
+                         <td>
                          <div class="control-group">
                             <label class="control-label">Acteur Depense:</label>
                             <div class="controls">
@@ -206,6 +205,7 @@
                               
                             </div>
                           </div>
+                           </td>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Service:</label>
@@ -319,7 +319,7 @@
                           </div>
                         </td>
                         <td>
-                          <label class="control-label">Numero facture:</label>
+                          <label class="control-label">N°facture:</label>
                           <div class="controls">
                             <input
                               type="text"
@@ -429,16 +429,7 @@
                             </div>
                           </div>
                         </td>
-                        
-                      </tr>
-                    </div>
-
-
-
-<!--ongle 4-->
-                    <div id="tab4" class="tab-pane">
-                      <tr>
-                         <td>
+                          <td>
                           <div class="control-group">
                             <label class="control-label">Nature d'Entree:</label>
                             <div class="controls">
@@ -473,6 +464,10 @@
 
 
 
+
+
+
+
                   </div>
                   <br />
                   <div align="right">
@@ -500,7 +495,8 @@
 
     <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" bg-color="green"></fab> -->
     <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
-  </div>
+  
+  
 </template>
  <script>
 import { mapGetters, mapActions } from "vuex";
@@ -513,7 +509,7 @@ export default {
         exercice_budgetaire_id: "",
         besoinimmo_id: "",
         uniteadministrative_id: "",
-        decision_equipe:"",
+        
         acteurdepense_id:""
 
       },
@@ -538,7 +534,8 @@ export default {
       "trieUaImmobilisation",
       "besoinImmobilisations",
       "groupTriUaImmo",
-      "SuiviImmo"
+      "SuiviImmo",
+      "groupTriUa"
     ]),
 
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires","type_Unite_admins"]),
@@ -628,8 +625,11 @@ typeUniteAdministrativeDynamiques() {
     
 
     AffichierprixUnitaire(){
-      const prixUnitaire = this.trieUaImmobilisation.find(prixUnitaire => prixUnitaire.id == this.formData.besoinimmo_id)
-      if (prixUnitaire) {return prixUnitaire.prix_unitaire}
+      const prixUnitaire = this.trieUaImmobilisation.find(prixUnit => prixUnit.id == this.formData.besoinimmo_id)
+      if (prixUnitaire) 
+      {
+        return prixUnitaire.prix_unitaire
+        }
     },
     
     valeurOrigine() {
@@ -642,21 +642,13 @@ typeUniteAdministrativeDynamiques() {
       return parseFloat(val).toFixed(2);
     },
       AffichierTypeUa() {
-      const typeUniteA = this.trieUaImmobilisation.find(typeUniteA => typeUniteA.id == this.formData.uniteadministrative_id);
+      const typeUniteA = this.trieUaImmobilisation.find(typeUa=> typeUa.id == this.formData.uniteadministrative_id);
 
       if (typeUniteA) {
         return typeUniteA.typeuniteadminist_id;
       }
     },
-    // AffichierTotalActuel() {
-    //   const totalactuel = this.trieUaImmobilisation.find(
-    //     totalactuel => totalactuel.id == this.formData.total_actuel
-    //   );
-
-    //   if (totalactuel) {
-    //     return totalactuel.montant_total;
-    //   }
-    // }
+    
   },
   methods: {
     ...mapActions("SuiviImmobilisation", [
@@ -713,8 +705,8 @@ typeUniteAdministrativeDynamiques() {
 
       this.formData = {
         valeurorigine: "",
-        type: "",
-        designation: "",
+        type_immo: "",
+       
         identification: "",
         etat_immobilisation: "",
         date_acquisition: "",

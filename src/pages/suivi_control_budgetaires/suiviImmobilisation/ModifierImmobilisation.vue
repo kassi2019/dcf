@@ -1,6 +1,5 @@
-
 <template>
-  <div>
+  
     <!-- End Page Header -->
     <!-- Default Light Table -->
     <div class="container-fluid">
@@ -13,12 +12,16 @@
                 <i class="icon-th"></i>
               </span>
               <h5>Modifier Immobilisation</h5>
+              <!-- <div align="right">
+                Search:
+                <input type="search" placeholder />
+              </div>-->
             </div>
 
             <div class="table-responsive text-nowrap">
               <table class="table table-bordered table-striped">
                 <div class="widget-box">
-                 <div class="widget-title">
+                  <div class="widget-title">
                     <ul class="nav nav-tabs">
                       <li class="active">
                         <a data-toggle="tab" href="#tab1">Identification</a>
@@ -27,11 +30,9 @@
                         <a data-toggle="tab" href="#tab2">Descriptif</a>
                       </li>
                       <li>
-                        <a data-toggle="tab" href="#tab3">Info Montant et Date Immo</a>
+                        <a data-toggle="tab" href="#tab3">Autres Information</a>
                       </li>
-                       <li>
-                        <a data-toggle="tab" href="#tab4">Autres Information</a>
-                      </li>
+                     
                     </ul>
                   </div>
                   <div class="widget-content tab-content">
@@ -43,6 +44,7 @@
                             <label class="control-label">Exercice Budgetaire</label>
                             <div class="controls">
                               <select v-model="editImmobilisation.exercice_budgetaire_id">
+                                <option value>Sélectionner</option>
                                 <option
                                   v-for="exoBudget in exercices_budgetaires"
                                   :key="exoBudget.id"
@@ -52,215 +54,254 @@
                             </div>
                           </div>
                         </td>
-
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Code:</label>
+                            <label class="control-label">Type Unite administrative:</label>
                             <div class="controls">
-                              <input
-                                type="text"
-                                class="span"
-                                placeholder="Saisir le Code"
-                                v-model="editImmobilisation.code"
-                              />
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Type:</label>
-                            <div class="controls">
-                              <select v-model="editImmobilisation.type_immo">
-                                <option v-for="immo in typeImmo" :key="immo.id">{{immo}}</option>
+                              <select v-model="editImmobilisation.typeuniteadminis_id">
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="typeua in groupTriUaImmo"
+                                  :key="typeua[0].id"
+                                  :value="typeua[0].typeUniteAdmin.id"
+                                >{{typeua[0].typeUniteAdmin.libelle}}</option>
                               </select>
                             </div>
                           </div>
                         </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Numéro facture:</label>
+                            <label class="control-label">Unite administrative:</label>
                             <div class="controls">
-                              <input
-                                type="text"
-                                class="span"
-                                placeholder="Saisir Numéro de la facture "
-                                v-model="editImmobilisation.numero_facture"
-                              />
+                              <select v-model="editImmobilisation.uniteadministrative_id">
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="ua in trieUaImmobilisation"
+                                  :key="ua.id"
+                                  :value="ua.uniteAdminist.id"
+                                >{{ua.uniteAdminist.libelle}}</option>
+                              </select>
                             </div>
                           </div>
                         </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Numero CC:</label>
+                            <label class="control-label">Désignation:</label>
+                            <div class="controls">
+                              <select v-model="editImmobilisation.besoinimmo_id" >
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="desig in trieUaImmobilisation"
+                                  :key="desig.id"
+                                  :value="desig.id"
+                                >{{desig.famille.libelle}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Qté Réel:</label>
                             <div class="controls">
                               <input
-                                type="text"
+                                type="number"
                                 class="span"
-                                placeholder="Saisir le Numero CC"
-                                v-model="editImmobilisation.numero_CC"
+                                 v-model="editImmobilisation.qte_reel"
+                                readonly
                               />
                             </div>
                           </div>
                         </td>
+                       
                       </tr>
 
                       <tr>
+                         <td>
+                          <div class="control-group">
+                            <label class="control-label">Prix unitaire:</label>
+                            <div class="controls">
+                              <input
+                                type="number"
+                                class="span"
+                              v-model="editImmobilisation.prixUnitaire"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                        </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Matricule Acteurs:</label>
+                            <label class="control-label">Qté Afféctée:</label>
                             <div class="controls">
-                              <select v-model="editImmobilisation.acteurdepense_id">
-                                <option
-                                  v-for="actePersso in all_acteur_depense"
-                                  :key="actePersso.id"
-                                  :value="actePersso.id"
-                                >{{actePersso.matricule}}</option>
-                              </select>
+                              <input
+                                type="number"
+                                class="span"
+                                
+                                v-model="editImmobilisation.qte_affecte"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Valeur d'origine:</label>
+                            <div class="controls">
+                              <input
+                                type="number"
+                                class="span"
+                                 v-model="editImmobilisation.valeurorigine"
+                                readonly
+                              />
+                            </div>
+                          </div>
+                        </td>
+
+                        
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Qté Actuel:</label>
+                            <div class="controls">
+                              <input type="number" class="span"  v-model="editImmobilisation.qte_actuel" readonly />
                             </div>
                           </div>
                         </td>
 
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Service:</label>
+                            <label class="control-label">Total Actuel:</label>
                             <div class="controls">
-                              <select v-model="editImmobilisation.service_id">
-                                <option
-                                  v-for="Service in services"
-                                  :key="Service.id"
-                                  :value="Service.id"
-                                >{{Service.libelle}}</option>
-                              </select>
+                              <input
+                                type="number"
+                                class="span"
+                              v-model="editImmobilisation.total_actuel"
+                                readonly
+                              />
                             </div>
                           </div>
                         </td>
-
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Famille:</label>
-                            <div class="controls">
-                              <select v-model="editImmobilisation.famille_id">
-                                <option
-                                  v-for="Famille in familles"
-                                  :key="Famille.id"
-                                  :value="Famille.id"
-                                >{{Famille.libelle}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Unité:</label>
-                            <div class="controls">
-                              <select v-model="editImmobilisation.unite_id">
-                                <option
-                                  v-for="united in unites"
-                                  :key="united.id"
-                                  :value="united.id"
-                                >{{united.libelle}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
+                       
                       </tr>
                     </div>
                     <!--ongle descriptif-->
                     <div id="tab2" class="tab-pane">
                       <tr>
-                        <div class="control-group">
-                          <td>
-                            <div class="control-group">
-                              <label class="control-label">Désignation:</label>
-                              <div class="controls">
-                                <input
-                                  type="text"
-                                  class="span"
-                                  placeholder="Saisir la Désignation"
-                                  v-model="editImmobilisation.designation"
-                                />
-                              </div>
+                         <td>
+                         <div class="control-group">
+                            <label class="control-label">Acteur Depense:</label>
+                            <div class="controls">
+                              <select
+                                v-model="editImmobilisation.acteurdepense_id"
+                               
+                              >
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="acteurDep in all_acteur_depense"
+                                  :key="acteurDep.id"
+                                  :value="acteurDep.id"
+                                >{{acteurDep.matricule}}</option>
+                              </select>
+                        
+                              
                             </div>
-                          </td>
-                        </div>
+                          </div>
+                           </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Service:</label>
+                            <div class="controls">
+                              <select
+                                v-model="editImmobilisation.service_id"
+                              
+                              >
+                                <option value>Sélectionner</option>
+                                <option
+                                  v-for="serviceimmo in services"
+                                  :key="serviceimmo.id"
+                                  :value="serviceimmo.id"
+                                >{{serviceimmo.libelle}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </td>
 
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Quantité:</label>
+                            <label class="control-label">Etat Immobilisation</label>
                             <div class="controls">
-                              <input
-                                type="number"
-                                class="span"
-                                placeholder="Saisir la Quantité"
-                                v-model="editImmobilisation.quantite"
-                              />
+                              <select v-model="editImmobilisation.etat_immobilisation">
+                              <option value="1">neuf(ve)</option>
+    <option value="2">Seconde Main</option>
+    <option value="3">Bon</option>
+    </select>
                             </div>
                           </div>
                         </td>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Prix Unitaire:</label>
+                            <label class="control-label">Cause inactivite:</label>
                             <div class="controls">
-                              <input
-                                type="number"
-                                class="span"
-                                placeholder="Saisir le Prix Unitaire"
-                                v-model="editImmobilisation.prix_unitaire"
-                              />
+                              <select v-model="editImmobilisation.cause_inactivite">
+                            
+    <option value="1">Vendue</option>
+    <option value="2">Mise en hors service</option>
+                              </select>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Valeur d'Origine:</label>
-                            <div class="controls">
-                              <input
-                                type="number"
-                                class="span"
-                                readonly
-                                v-model="editImmobilisation.valeur_origine"
-                              />
-                            </div>
+
+<label class="control-label">Taux:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Taux"
+                              v-model="editImmobilisation.TVA_id"
+                            />
                           </div>
+
+
+
+                 
                         </td>
-                        <td>
+                       
+                      </tr>
+
+                      <tr>
+                          <td>
                           <div class="control-group">
-                            <label class="control-label">Taux:</label>
+                            <label class="control-label">N°Identification:</label>
                             <div class="controls">
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Saisir le Taux"
-                                v-model="editImmobilisation.TVA_id"
-                              />
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Date d'acquisition:</label>
-                            <div class="controls">
-                              <input
-                                type="date"
-                                class="span"
-                                v-model="editImmobilisation.date_acquisition"
+                                placeholder="Saisir Num identification"
+                                v-model="editImmobilisation.identification"
                               />
                             </div>
                           </div>
                         </td>
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Date de mise en service:</label>
+                          <label class="control-label">Numero CC:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Numero CC"
+                              v-model="editImmobilisation.numero_CC"
+                            />
+                          </div>
+                        </td>
+                        <td>
+                                   <div class="control-group">
+                            <label class="control-label">Type Immobilisation</label>
                             <div class="controls">
-                              <input
-                                type="date"
-                                class="span"
-                                v-model="editImmobilisation.date_mise_service"
-                              />
+                              <select v-model="editImmobilisation.type_immo">
+                              
+    <option value="1">Corporelle</option>
+    <option value="0">Incorporelle</option>
+                              </select>
                             </div>
                           </div>
                         </td>
@@ -268,47 +309,42 @@
                           <div class="control-group">
                             <label class="control-label">Duree:</label>
                             <div class="controls">
-                              <input type="text" class="span" v-model="editImmobilisation.duree" />
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Numero Identification:</label>
-                            <div class="controls">
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Saisir la Désignation"
-                                v-model="editImmobilisation.identification"
+                                v-model="editImmobilisation.duree"
+                                placeholder="Saisir durée"
                               />
                             </div>
                           </div>
                         </td>
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Etat de l'Immobilisation</label>
-                            <div class="controls">
-                              <select v-model="editImmobilisation.etat_immobilisation">
-                                <option v-for="statut in stats" :key="statut.id">{{statut}}</option>
-                              </select>
-                            </div>
+                          <label class="control-label">N°facture:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Numero facture"
+                              v-model="editImmobilisation.numero_facture"
+                            />
                           </div>
                         </td>
+                        
                       </tr>
                     </div>
                     <!--ongle 3 -->
                     <div id="tab3" class="tab-pane">
                       <tr>
+                         
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Nature d'Entree:</label>
+                            <label class="control-label">Montant Amorti:</label>
                             <div class="controls">
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Saisir la Nature d' entree"
-                                v-model="editImmobilisation.nature_dentree"
+                                placeholder="Saisir le Montant amortissement anterieur"
+                                v-model="editImmobilisation.montant_amortissement_anterieur"
                               />
                             </div>
                           </div>
@@ -320,12 +356,39 @@
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Montant dernière evaluation"
+                                placeholder="Saisir le Montant amortissement anterieur"
                                 v-model="editImmobilisation.montant_evaluation"
                               />
                             </div>
                           </div>
                         </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Montant Cession:</label>
+                            <div class="controls">
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir le Montant Cession"
+                                v-model="editImmobilisation.montant_cession"
+                              />
+                            </div>
+                          </div>
+                        </td>
+                        <div class="control-group">
+                          <td>
+                            <div class="control-group">
+                              <label class="control-label">Date Amort Anterieur:</label>
+                              <div class="controls">
+                                <input
+                                  type="date"
+                                  class="span"
+                                  v-model="editImmobilisation.date_amortissement_anterieur"
+                                />
+                              </div>
+                            </div>
+                          </td>
+                        </div>
                         <td>
                           <div class="control-group">
                             <label class="control-label">Date Evaluation:</label>
@@ -339,91 +402,72 @@
                             </div>
                           </div>
                         </td>
-                        <div class="control-group">
-                          <td>
-                            <div class="control-group">
-                              <label class="control-label">Montant Cession:</label>
-                              <div class="controls">
-                                <input
-                                  type="text"
-                                  class="span"
-                                  placeholder="Saisir le Montant Cession"
-                                  v-model="editImmobilisation.montant_cession"
-                                />
-                              </div>
-                            </div>
-                          </td>
-                        </div>
-                        <td>
+                       
+                      </tr>
+                      <tr>
+                         <td>
                           <div class="control-group">
                             <label class="control-label">Date cession:</label>
                             <div class="controls">
-                              <input
-                                type="date"
-                                class="span"
-                                v-model="editImmobilisation.date_cession"
-                              />
+                              <input type="date" class="span" v-model="editImmobilisation.date_cession" />
                             </div>
                           </div>
                         </td>
-                      </tr>
-
-                      <tr>
                         <td>
                           <div class="control-group">
-                            <label class="control-label">Montant Amort Anterieur:</label>
+                            <label class="control-label">Date de mise en service:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="editImmobilisation.date_mise_service" />
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="control-group">
+                            <label class="control-label">Date d'acquisition:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="editImmobilisation.date_acquisition" />
+                            </div>
+                          </div>
+                        </td>
+                          <td>
+                          <div class="control-group">
+                            <label class="control-label">Nature d'Entree:</label>
                             <div class="controls">
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Saisir le Montant amortissement anterieur"
-                                v-model="editImmobilisation.montant_amortissement_anterieur"
+                                placeholder="Saisir Nature entree"
+                                v-model="editImmobilisation.nature_dentree"
                               />
                             </div>
                           </div>
                         </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Date Amort Anterieur:</label>
-                            <div class="controls">
-                              <input
-                                type="date"
-                                class="span"
-                                v-model="editImmobilisation.date_amortissement_anterieur"
-                              />
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Cause inactivite:</label>
-                            <div class="controls">
-                              <select v-model="editImmobilisation.cause_inactivite">
-                                <option
-                                  v-for="inactivite in causeInactivite"
-                                  :key="inactivite.id"
-                                >{{inactivite}}</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-
-                        <td>
-                          <div class="control-group">
+                       <td>
+                            <div class="control-group">
                             <label class="control-label">Nature du Bien:</label>
                             <div class="controls">
                               <input
                                 type="text"
                                 class="span"
-                                placeholder="Saisir la Nature du bien"
+                                placeholder="Saisir la Nature"
                                 v-model="editImmobilisation.nature_bien"
                               />
                             </div>
                           </div>
                         </td>
+                          <td>
+                         
+                        </td>
                       </tr>
                     </div>
+
+
+
+
+
+
+
+
                   </div>
                   <br />
                   <div align="right">
@@ -444,17 +488,20 @@
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" bg-color="green"></fab> -->
+    <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+  
+  
 </template>
+ 
  <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
       editImmobilisation: {},
-      stats: ["neuf(ve)", "Seconde Main", "Bon"],
-      typeImmo: ["Corporelle", "Incorporelle"],
-      causeInactivite: ["Vendue", "Mise en hors service"]
+     
     };
   },
  
@@ -470,17 +517,38 @@ export default {
     ...mapGetters("SuiviImmobilisation", [
       "immobilisations",
       "familles",
-      "services"
+      "services",
+    "trieUaImmobilisation",
+      "besoinImmobilisations",
+      "groupTriUaImmo",
+      "SuiviImmo"
+      
     ]),
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires"]),
     ...mapGetters("parametreGenerauxProgrammeUnite", ["unites"]),
     ...mapGetters("personnelUA", ["all_acteur_depense"]),
 
+
+
+
+typeUniteAdministrativeDynamiques() {
+     return id => {
+        if (id != null && id != "") {
+          return this.trieUaImmobilisation.filter(
+            element => element.typeuniteadminist_id == id
+          );
+        }
+      };
+    },
+
+
+
+
     ValeurOrigine() {
       const val =
         parseFloat(this.editImmobilisation.quantite) *
         parseFloat(this.editImmobilisation.Prix_unitaire);
-      // parseFloat(this.formData.TVA_id);
+      // parseFloat(this.editImmobilisation.TVA_id);
       return parseFloat(val).toFixed(2);
     }
   },

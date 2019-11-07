@@ -136,34 +136,35 @@ export function ajouterImmobilisation({ commit }, formData) {
 export function modifierImmobilisation({ commit }, nouveau) {
   axios
     .put("/modifier_immobilisation/" + nouveau.id, {
-      // code: nouveau.code,
-      // type_immo: nouveau.type_immo,
-      // designation: nouveau.designation,
-      // identification: nouveau.identification,
-      // etat_immobilisation: nouveau.etat_immobilisation,
-      // date_acquisition: nouveau.date_acquisition,
-      // date_mise_service: nouveau.date_mise_service,
-      // numero_facture: nouveau.numero_facture,
-      // quantite: nouveau.quantite,
-      // Prix_unitaire: nouveau.Prix_unitaire,
-      // famille_id: nouveau.famille_id,
-      // valeur_origine: nouveau.valeur_origine,
-      // duree: nouveau.duree,
-      // numero_CC: nouveau.numero_CC,
-      // acteurdepense_id: nouveau.acteurdepense_id,
-      // exercice_budgetaire_id: nouveau.exercice_budgetaire_id,
-      // service_id: nouveau.service_id,
-      // nature_bien: nouveau.nature_bien,
-      // nature_dentree: nouveau.nature_dentree,
-      // // acteur_depense_id: nouveau,
-      // TVA_id: nouveau.TVA_id,
-      // montant_evaluation: nouveau.montant_evaluation,
-      // date_evaluation: nouveau.date_evaluation,
-      // montant_cession: nouveau.montant_cession,
-      // date_cession: nouveau.date_cession,
-      // cause_inactivite: nouveau.cause_inactivite,
-      // montant_amortissement_anterieur: nouveau.montant_amortissement_anterieur,
-      // date_amortissement_anterieur: nouveau.date_amortissement_anterieur
+      
+      type_immo: nouveau.type_immo,
+      besoinimmo_id: nouveau.besoinimmo_id,
+      identification: nouveau.identification,
+      etat_immobilisation: nouveau.etat_immobilisation,
+      date_acquisition: nouveau.date_acquisition,
+      date_mise_service: nouveau.date_mise_service,
+      numero_facture: nouveau.numero_facture,
+      qte_reel: nouveau.qte_reel,
+      qte_affecte: nouveau.qte_affecte,
+      prixUnitaire: nouveau.prixUnitaire,
+      total_actuel: nouveau.total_actuel,
+      valeurorigine: nouveau.valeurorigine,
+      duree: nouveau.duree,
+      numero_CC: nouveau.numero_CC,
+      acteurdepense_id: nouveau.acteurdepense_id,
+      exercice_budgetaire_id: nouveau.exercice_budgetaire_id,
+      service_id: nouveau.service_id,
+      nature_bien: nouveau.nature_bien,
+      nature_dentree: nouveau.nature_dentree,
+      acteur_depense_id: nouveau.acteur_depense_id,
+      TVA_id: nouveau.TVA_id,
+      montant_evaluation: nouveau.montant_evaluation,
+      date_evaluation: nouveau.date_evaluation,
+      montant_cession: nouveau.montant_cession,
+      date_cession: nouveau.date_cession,
+      cause_inactivite: nouveau.cause_inactivite,
+      montant_amortissement_anterieur: nouveau.montant_amortissement_anterieur,
+      date_amortissement_anterieur: nouveau.date_amortissement_anterieur
     })
     .then(response => {
       commit("MODIFIER_IMMOBILISATION", response.data);
@@ -277,7 +278,8 @@ export function ajouterBesoinImmo({ commit }, nouveau) {
       quantite: nouveau.quantite,
       prix_unitaire: nouveau.prix_unitaire,
       montant_total: nouveau.montant_total,
-      date_jour: nouveau.date_jour
+      date_jour: nouveau.date_jour,
+      historiqueqte: nouveau.historiqueqte
     })
     .then(response => {
       if (response.status == 201) {
@@ -296,7 +298,8 @@ export function modifierBesoinImmo({ commit }, nouveau) {
       quantite: nouveau.quantite,
       prix_unitaire: nouveau.prix_unitaire,
       montant_total: nouveau.montant_total,
-      date_jour: nouveau.date_jour
+      date_jour: nouveau.date_jour,
+      historiqueqte: nouveau.historiqueqte
     })
     .then(response => {
       commit("MODIFIER_BESOIN_IMMO", response.data);

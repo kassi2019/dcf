@@ -10,20 +10,31 @@
           
             <div class="quick-actions_homepage deplac">
               <ul class="quick-actions">
-                <li class="bg_lr">
+                <li class="bg_lr" title="Taux équipement Réalisé par type UA">
                   <a href="#">
                     {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
                     <i class="icon-list-ol"></i>
-                   <span class="label label-success">{{TauxEquipementParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span> Taux Equipement par type UA
+                   <span class="label label-success">{{TauxEquipementRealiseParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span> Taux Réalisé par type UA
                   </a>
                 </li>
-                 <li class="bg_ls">
+                 <!-- <li class="bg_ls" title="Taux équipement Prévue par type UA">
+                  <a href="#">
+                    {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
+                    <i class="icon-list-ol"></i>
+                    <span class="label label-important">{{TauxEquipementPrevueParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span> Taux Prévue par type UA          </a>
+                </li> -->
+                  <li class="bg_ls" title="Taux équipement Réalisé par UA">
                   <a href="#">
                     {{nomUniteAdministrative(uniteadmin_id)}}
                     <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{TauxEquipementParUniteAdministrative(uniteadmin_id)}}%</span> Taux Equipement par UA          </a>
+                    <span class="label label-important">{{TauxEquipementRealiseParUniteAdministrative(uniteadmin_id)}}%</span> Taux Réalisé par UA          </a>
                 </li>
-                
+                                 <li class="bg_ly" title="Taux équipement Prévue par type UA">
+                  <a href="#">
+                    {{nomUniteAdministrative(uniteadmin_id)}}
+                    <i class="icon-list-ol"></i>
+                    <span class="label label-important">{{TauxEquipementPrevueParUniteAdministrative(uniteadmin_id)}}%</span> Taux Prévue par UA          </a>
+                </li>
               </ul>
             </div>
           
@@ -113,7 +124,7 @@
                     >{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
-                    >{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
+                    >{{immobilisat.qte_actuel }}</td>
                     <td
                       @dblclick="afficherModalModifierImmobilisation(immobilisat.id)"
                     >{{formatageSomme(immobilisat.prixUnitaire) || 'Non renseigné'}}</td>
@@ -242,6 +253,8 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
+      "besoinImmobilisations",
+      "personBesoinImmo"
       // "getPersonnaliseImmobilisation",
      
       // "getPersonnaliseSuivImmo"
@@ -251,67 +264,60 @@ export default {
 
      // nombre enregistrement par type unite administrative
 
-    nbreTypeUniteAdministrative() {
-      return typeUniteAdmin_id => {
-       
- if (typeUniteAdmin_id != "") {
-          return this.SuiviImmo.filter(
-            element => element.typeUniteAdministrative.id == typeUniteAdmin_id
-           
-          ).length;
-        }
-       
-      
-      };
-    },
-    //taux equipement par type unite administrative
-TauxEquipementParTypeUniteAdministrative() {
- 
-      return typeUniteAdmin_id => {
-    const val = parseFloat((1 / this.nbreTypeUniteAdministrative(typeUniteAdmin_id)) * 100 );
-  if (isNaN(val)) return null;
 
-  
 
-  
-   return val;
 
- }
 
-    },
-    // afficher le nom type unite administrative
-      nomTypeUniteAdministrative(){
-  return typeUniteAdmin_id =>{
-    if(typeUniteAdmin_id !=""){
-      var ObjetUA = this.type_Unite_admins.find(element => element.id == typeUniteAdmin_id)
-      return ObjetUA.libelle
-    }
-    
-  }
-    },
+   
+
+   
 
     // nombre enregistrement par  unite administrative
 
-    nbreUniteAdministrative() {
-      return uniteadmin_id => {
-       
- if (uniteadmin_id != "") {
-          return this.SuiviImmo.filter(
-            element => element.uniteAdminist.id == uniteadmin_id
-           
-          ).length;
-        }
+nbreEquipementPrevueParUa(){
+  return uniteadmin_id => {
+    if(uniteadmin_id !=""){
+  
         
+    return this.personBesoinImmo.filter(element => element.uniteAdminist.id == uniteadmin_id).reduce((prec,cur) => parseFloat(prec) + parseFloat(cur.historiqueqte), 0)
       
-      };
-    },
-    //taux equipement par type unite administrative
-TauxEquipementParUniteAdministrative() {
+    }
+    return 0
+  }
+},
+nbreEquipementRealiseParUa(){
+  return uniteadmin_id => {
+    if(uniteadmin_id !=""){
+  
+        
+    return this.SuiviImmo.filter(element => element.uniteAdminist.id == uniteadmin_id).reduce((prec,cur) => parseFloat(prec) + parseFloat(cur.qte_affecte), 0)
+      
+    }
+    return 0
+  }
+},
+
+TauxEquipementRealiseParUniteAdministrative() {
  
       return uniteadmin_id => {
-    const val = parseFloat((1 / this.nbreUniteAdministrative(uniteadmin_id)) * 100 );
+         if(uniteadmin_id !=""){
+    const val = parseFloat(this.nbreEquipementRealiseParUa(uniteadmin_id))/this.nbreEquipementPrevueParUa(uniteadmin_id)*100  ;
   if (isNaN(val)) return null;
   return val;
+    }
+    return 0
+ }
+
+    },
+TauxEquipementPrevueParUniteAdministrative() {
+ 
+      return uniteadmin_id => {
+        if(uniteadmin_id !=""){
+    const val = parseFloat(100-this.TauxEquipementRealiseParUniteAdministrative(uniteadmin_id));
+    if (isNaN(val)) return null;
+  return val;
+    }
+  return 0
    
  }
 
@@ -325,6 +331,80 @@ TauxEquipementParUniteAdministrative() {
     }
   }
     },
+  
+    //taux equipement par type unite administrative
+
+nbreEquipementPrevueParTypeUa(){
+  return typeuniteadminist_id => {
+    if(typeuniteadminist_id !=""){
+  
+        
+    return this.personBesoinImmo.filter(element => element.id == typeuniteadminist_id).reduce((prec,cur) => parseFloat(prec) + parseFloat(cur.historiqueqte), 0)
+      
+    }
+    return 0
+  }
+},
+
+nbreEquipementRealiseParTypeUa(){
+  return typeuniteadminist_id => {
+    if(typeuniteadminist_id !=""){
+  
+        
+    return this.SuiviImmo.filter(element => element.typeUniteAdministrative.id == typeuniteadminist_id).reduce((prec,cur) => parseFloat(prec) + parseFloat(cur.qte_affecte), 0)
+      
+    }
+    return 0
+  }
+},
+
+
+TauxEquipementRealiseParTypeUniteAdministrative() {
+ 
+      return typeuniteadminist_id => {
+         if(typeuniteadminist_id !=""){
+    const val = parseFloat(this.nbreEquipementRealiseParTypeUa(typeuniteadminist_id))/this.nbreEquipementPrevueParTypeUa(typeuniteadminist_id)*100  ;
+  if (isNaN(val)) return null;
+  return val;
+         }
+         return 0
+ }
+
+    },
+// TauxEquipementPrevueParTypeUniteAdministrative() {
+ 
+//       return typeuniteadminist_id => {
+//          if(typeuniteadminist_id !=""){
+//     const val = parseFloat(100-this.TauxEquipementRealiseParTypeUniteAdministrative(typeuniteadminist_id));
+//   if (isNaN(val)) return null;
+//   return val;
+//          }
+//          return 0
+//  }
+
+//     },
+ nomTypeUniteAdministrative(){
+  return typeUniteAdmin_id =>{
+    if(typeUniteAdmin_id !=""){
+      var ObjetUA = this.type_Unite_admins.find(element => element.id == typeUniteAdmin_id)
+      return ObjetUA.libelle
+    }
+    
+  }
+    },
+
+// TauxEquipementParUniteAdministrative() {
+ 
+//       return uniteadmin_id => {
+//     const val = parseFloat((1 / this.nbreUniteAdministrative(uniteadmin_id)) * 100 );
+//   if (isNaN(val)) return null;
+//   return val;
+   
+//  }
+
+//     },
+
+    
 
   },
   methods: {
@@ -394,8 +474,3 @@ TauxEquipementParUniteAdministrative() {
   }
 };
 </script>
-<style>
-.deplac{
-  margin: 0 80px;
-}
-</style>

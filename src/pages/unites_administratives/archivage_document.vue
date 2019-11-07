@@ -29,7 +29,7 @@
           <div class="control-group">
             <label class="control-label">Fichier Join</label>
             <div class="controls">
-              <input type="file" multiple />
+              <input type="file" @change="onFichierChange"/>
             </div>
           </div>
           <div class="control-group">
@@ -256,14 +256,16 @@ export default {
         uniteadministrative_id: "",
         typetexte_id: "",
         fichier_join: "",
-        date_jours: ""
+        date_jours: "",
+        fichier_join:""
       },
       editArchivageDocument: {
         reference: "",
         uniteadministrative_id: "",
         typetexte_id: "",
         fichier_join: "",
-        date_jours: ""
+        date_jours: "",
+        fichier_join:""
       },
       search: "",
       files: []
@@ -297,6 +299,10 @@ export default {
       "supprimerArchivageDocument"
     ]),
 
+    //fichier joint
+ onFichierChange(e){
+      this.formData.fichier_join = e.target.files[0]
+    },
     afficherModalAjouterTitre() {
       this.$("#exampleModal").modal({
         backdrop: "static",

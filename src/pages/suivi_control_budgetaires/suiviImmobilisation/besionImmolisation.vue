@@ -81,6 +81,7 @@
                   <input
                     type="number"
                     v-model="formData.quantite"
+                    
                     class="span"
                     placeholder="Saisir la quantite"
                   />
@@ -130,6 +131,20 @@
                 </div>
               </div>
             </td>
+                        <td>
+              <div class="control-group">
+               
+                <div class="controls">
+                  <input
+                    type="hidden"
+                   :value="Historqte"
+                    
+                    class="span"
+                    placeholder="Saisir la quantite"
+                  />
+                </div>
+              </div>
+            </td>
           </tr>
         </table>
       </div>
@@ -154,13 +169,14 @@
       <div class="modal-body">
         <table class="table table-bordered table-striped">
           <tr>
-            <td>
+             <td>
               <div class="control-group">
-                <label class="control-label">Unite administrative:</label>
+                <label class="control-label">Type Unite administrative:</label>
                 <div class="controls">
-                  <select v-model="editBesoinImmo.uniteadmin_id">
+                  <select v-model="editBesoinImmo.typeuniteadminist_id" >
+                    <option value>Sélectionner</option>
                     <option
-                      v-for="ua in uniteAdministratives"
+                      v-for="ua in type_Unite_admins"
                       :key="ua.id"
                       :value="ua.id"
                     >{{ua.libelle}}</option>
@@ -168,11 +184,27 @@
                 </div>
               </div>
             </td>
-            <!-- <td>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Unite administrative:</label>
+                <div class="controls">
+                  <select v-model="editBesoinImmo.uniteadmin_id">
+                    <option value>Sélectionner</option>
+                    <option
+                      v-for="ua in uniteAdministrativeDynamiques(editBesoinImmo.typeuniteadminist_id)"
+                      :key="ua.id"
+                      :value="ua.id"
+                    >{{ua.libelle}}</option>
+                  </select>
+                </div>
+              </div>
+            </td>
+            <td>
               <div class="control-group">
                 <label class="control-label">Type équipement:</label>
                 <div class="controls">
                   <select v-model="editBesoinImmo.epuipement_id">
+                    <option value>Sélectionner</option>
                     <option
                       v-for="equipe in equipements"
                       :key="equipe.id"
@@ -181,27 +213,19 @@
                   </select>
                 </div>
               </div>
-            </td>-->
-            <td>
-              <div class="control-group">
-                <label class="control-label">Date:</label>
-                <div class="controls">
-                  <input
-                    type="date"
-                    v-model="editBesoinImmo.date_jour"
-                    class="span"
-                    placeholder="Saisir le code"
-                  />
-                </div>
-              </div>
             </td>
-            <td>
+
+           
+          </tr>
+          <tr>
+             <td>
               <div class="control-group">
                 <label class="control-label">Désignation:</label>
                 <div class="controls">
-                  <select v-model="editBesoinImmo.famille_id">
+                  <select :readOnly="veifEquipementExist" v-model="editBesoinImmo.famille_id">
+                    <option value>Sélectionner</option>
                     <option
-                      v-for="famil in fammillesDynamiques1(editBesoinImmo.famille_id)"
+                      v-for="famil in fammillesDynamiques(editBesoinImmo.epuipement_id)"
                       :key="famil.id"
                       :value="famil.id"
                     >{{famil.libelle}}</option>
@@ -209,8 +233,6 @@
                 </div>
               </div>
             </td>
-          </tr>
-          <tr>
             <td>
               <div class="control-group">
                 <label class="control-label">Quantité:</label>
@@ -218,6 +240,7 @@
                   <input
                     type="number"
                     v-model="editBesoinImmo.quantite"
+                    
                     class="span"
                     placeholder="Saisir la quantite"
                   />
@@ -238,7 +261,9 @@
               </div>
             </td>
 
-            <td>
+          </tr>
+          <tr>
+              <td>
               <div class="control-group">
                 <label class="control-label">Montant Total:</label>
                 <div class="controls">
@@ -248,6 +273,33 @@
                     :value="montantTotalmodif"
                     class="span"
                     placeholder="Saisir montant total"
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="control-group">
+                <label class="control-label">Date:</label>
+                <div class="controls">
+                  <input
+                    type="date"
+                    v-model="editBesoinImmo.date_jour"
+                    class="span"
+                    placeholder="Saisir le code"
+                  />
+                </div>
+              </div>
+            </td>
+                        <td>
+              <div class="control-group">
+               
+                <div class="controls">
+                  <input
+                    type="hidden"
+                   :value="Historqtemodifier"
+                    
+                    class="span"
+                    placeholder="Saisir la quantite"
                   />
                 </div>
               </div>
@@ -310,7 +362,7 @@
                     >{{BesoinImmo.famille.libelle || 'Non renseigné'}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
-                    >{{BesoinImmo.quantite || 'Non renseigné'}}</td>
+                    >{{BesoinImmo.quantite}}</td>
                     <td
                       @dblclick="afficherModalModifierBesoinImmo(index)"
                     >{{formatageSomme(parseFloat(BesoinImmo.prix_unitaire)) || 'Non renseigné'}}</td>
@@ -373,7 +425,8 @@ export default {
         prix_unitaire: "",
         montant_total: "",
         date_jour: "",
-        typeuniteadminist_id:""
+        typeuniteadminist_id:"",
+        historiqueqte:""
       },
       editBesoinImmo: {
         uniteadmin_id: "",
@@ -383,7 +436,8 @@ export default {
         prix_unitaire: "",
         montant_total: "",
         date_jour: "",
-        typeuniteadminist_id:""
+        typeuniteadminist_id:"",
+        historiqueqte:""
       },
       search: ""
     };
@@ -413,8 +467,14 @@ uniteAdministrativeDynamiques() {
       };
     },
 
-
-
+ Historqte() {
+      const val = parseInt(this.formData.quantite);
+      return parseInt(val).toFixed(0);
+    },
+Historqtemodifier() {
+      const val = parseInt(this.editBesoinImmo.quantite);
+      return parseInt(val).toFixed(0);
+    },
     fammillesDynamiques1() {
       return id => {
         if (id != null && id != "") {
@@ -470,7 +530,8 @@ uniteAdministrativeDynamiques() {
     ajouterBesoinImmoLocal() {
       var nouvelObjet = {
         ...this.formData,
-        montant_total: this.montantTotal
+        montant_total: this.montantTotal,
+        historiqueqte: this.Historqte
       };
       this.ajouterBesoinImmo(nouvelObjet);
       this.formData = {
@@ -481,7 +542,8 @@ uniteAdministrativeDynamiques() {
         prix_unitaire: "",
         montant_total: "",
         date_jour: "",
-        typeuniteadminist_id:""
+        typeuniteadminist_id:"",
+        historiqueqte:""
       };
     },
     // afficher modal de modification

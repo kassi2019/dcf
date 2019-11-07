@@ -95,13 +95,13 @@ export const personBesoinImmo = (state, getters, rootState, rootGetters) =>
     return element;
   });
   
-export const trieUaBesoinImmo = state =>
-  state.besoinImmobilisations.filter(
-    trieUaBesoin => trieUaBesoin.quantite !== 0
-  );
+// export const trieUaBesoinImmo = state =>
+//   state.besoinImmobilisations.filter(
+//     trieUaBesoin => trieUaBesoin.quantite !== 0
+//   );
 
 export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
-  getters.trieUaBesoinImmo.map(element => {
+  state.besoinImmobilisations.map(element => {
     if (element.uniteadmin_id !== null && element.famille_id !== null && element.typeuniteadminist_id !==null) {
       element = {
         ...element,
@@ -124,6 +124,12 @@ export const groupTriUaImmo = (state, getters) => {
   //delete getters.trieUaImmobilisation.
   return groupBy(getters.trieUaImmobilisation, "typeuniteadminist_id");
 };
+
+// export const groupTriUa = (state, getters) => {
+//   //delete getters.trieUaImmobilisation.
+//   return groupBy(getters.trieUaImmobilisation, "typeuniteadminist_id");
+// };
+
 
 //////////////// getter calcul des nombre////////////////
 export const nombreTotalBesoinImmoUa = state =>

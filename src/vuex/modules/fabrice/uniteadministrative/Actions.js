@@ -137,7 +137,8 @@ export function ajouterArchivageDocument({ commit }, nouveau) {
       uniteadministrative_id: nouveau.uniteadministrative_id,
       typetexte_id: nouveau.typetexte_id,
       fichier_join: nouveau.fichier_join,
-      date_jours: nouveau.date_jours
+      date_jours: nouveau.date_jours,
+      url_fichier_join: nouveau.url_fichier_join,
     })
     .then(response => {
       if (response.status == 201) {

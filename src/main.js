@@ -17,6 +17,9 @@ import store from "./vuex/store";
 import JsonExcel from "vue-json-excel";
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications)
 // Vue.use(VuejsDialog);
 Vue.use(VuejsDialog, {
   html: true,

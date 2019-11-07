@@ -28,6 +28,11 @@ export function ajouterFamille({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_FAMILLE", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Famille Enregistrée!',
+          type: "success"
+        })
       }
     });
 }
@@ -42,6 +47,11 @@ export function modifierFamille({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_FAMILLE", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Famille Modifiée!',
+        type:"success"
+      })
     });
 }
 //supprimer

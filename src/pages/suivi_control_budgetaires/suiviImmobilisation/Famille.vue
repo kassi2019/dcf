@@ -184,12 +184,14 @@
     </div>
 
     <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <notifications  />
     <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
   </div>
 </template>
   
 <script>
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   data() {
     return {

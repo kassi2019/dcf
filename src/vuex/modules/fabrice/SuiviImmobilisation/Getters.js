@@ -160,13 +160,23 @@ export const SommeEquipementRealise = (state, getters) =>
     0
   );
 
-export const nombreTotalEquipement = (state, getters) => {
-  const val = parseInt(
-    getters.SommeEquipementPrevue + getters.SommeEquipementRealise
-  ).toFixed(0);
-  if (isNaN(val)) return null;
-  return val;
-};
+
+export const nombreTotalEquipement = (state, getters) =>
+  getters.besoinImmobilisations.reduce(
+    (prec, cur) => parseInt(prec) + parseInt(cur.historiqueqte),
+    0
+  );
+
+
+
+
+// export const nombreTotalEquipement = (state, getters) => {
+//   const val = parseInt(
+//     getters.SommeEquipementPrevue + getters.SommeEquipementRealise
+//   ).toFixed(0);
+//   if (isNaN(val)) return null;
+//   return val;
+// };
 
 export const tauxEquipementRealise = (state, getters) => {
   const val = parseFloat(

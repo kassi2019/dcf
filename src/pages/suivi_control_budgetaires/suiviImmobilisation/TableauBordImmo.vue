@@ -25,7 +25,7 @@
          <li class="bg_lb" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-important">{{nombreTotalEquipement}}</span> Nbre Total d'équipement
+            <span class="label label-important">{{nombreTotalEquipement}}</span> Nbre Global d'équipement
           </a>
         </li> 
 
@@ -33,25 +33,25 @@
         <li class="bg_ly" title="nombre immobilisation prévue">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-success">{{SommeEquipementPrevue}}</span>Nbre Equipement prévue
+            <span class="label label-success">{{SommeEquipementPrevue}}</span>Nbre Equipement Global prévue
           </a>
         </li>
         <li class="bg_ls" title="Total equipement">
           <a href="#">
             <i class="icon-list-ol"></i>
-            <span class="label label-important">{{SommeEquipementRealise}}</span> Nbre Equipement Réalise
+            <span class="label label-important">{{SommeEquipementRealise}}</span> Nbre Equipement Global Réalise
           </a>
         </li> 
         <li class="bg_lg" title="volume d'immobilisation réalise">
           <a href="#">
             <i class="icon-th"></i>
-            <span class="label label-warning">{{tauxEquipementRealise}}%</span>Taux équipement réalisé
+            <span class="label label-warning">{{tauxEquipementRealise}}%</span>Taux équipement Global réalisé
           </a>
         </li>
         <li class="bg_lg">
           <a href="#">
             <i class="icon-th"></i>
-            <span class="label label-warning">{{tauxEquipementPrevue}}%</span>Taux équipement prévue
+            <span class="label label-warning">{{tauxEquipementPrevue}}%</span>Taux équipement Global prévue
           </a>
         </li>
         <!-- <li class="bg_lr" >

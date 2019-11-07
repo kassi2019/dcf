@@ -7,10 +7,40 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
-          
-            <div class="quick-actions_homepage deplacement1">
+            <div class="quick-actions_homepage " >
               <ul class="quick-actions">
-                <li class="bg_lr" title="Taux équipement Réalisé par type UA">
+                
+                 <li class="bg_lb" title="Total equipement">
+          <a href="#">
+            <i class="icon-list-ol"></i>
+            <span class="label label-important">{{nombreTotalEquipement}}</span> Nbre Global d'équipement
+          </a>
+        </li> 
+         <li class="bg_ly" title="nombre immobilisation prévue">
+          <a href="#">
+            <i class="icon-list-ol"></i>
+            <span class="label label-success">{{SommeEquipementPrevue}}</span>Nbre Equipement Global prévue
+          </a>
+        </li>
+         <li class="bg_ls" title="Total equipement">
+          <a href="#">
+            <i class="icon-list-ol"></i>
+            <span class="label label-important">{{SommeEquipementRealise}}</span> Nbre Equipement Global Réalise
+          </a>
+        </li> 
+        <li class="bg_lg" title="volume d'immobilisation réalise">
+          <a href="#">
+            <i class="icon-th"></i>
+            <span class="label label-warning">{{tauxEquipementRealise}}%</span>Taux équipement Global réalisé
+          </a>
+        </li>
+         <li class="bg_lg">
+          <a href="#">
+            <i class="icon-th"></i>
+            <span class="label label-warning">{{tauxEquipementPrevue}}%</span>Taux équipement Global prévue
+          </a>
+        </li>
+        <li class="bg_lr" title="Taux équipement Réalisé par type UA" v-show="typeUniteAdmin_id.length !== 0">
                   <a href="#">
                     Taux équipement Réalisé par
                    
@@ -18,25 +48,13 @@
                    <span class="label label-success">{{TauxEquipementRealiseParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span>  {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
                   </a>
                 </li>
-                 <!-- <li class="bg_ls" title="Taux équipement Prévue par type UA">
-                  <a href="#">
-                    {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
-                    <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{TauxEquipementPrevueParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span> Taux Prévue par type UA          </a>
-                </li> -->
-                  <li class="bg_ls" title="Taux équipement Réalisé par UA" >
+                  <li class="bg_ls" title="Taux équipement Réalisé par UA"  v-show="uniteadmin_id.length !== 0" >
                   <a href="#">
                     Taux équipement Réalisé par 
                    
                     <i class="icon-list-ol"></i>
                     <span class="label label-important">{{TauxEquipementRealiseParUniteAdministrative(uniteadmin_id)}}%</span>  {{nomUniteAdministrative(uniteadmin_id)}}         </a>
                 </li>
-                                 <!-- <li class="bg_ly" title="Taux équipement Prévue par type UA">
-                  <a href="#">
-                    {{nomUniteAdministrative(uniteadmin_id)}}
-                    <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{TauxEquipementPrevueParUniteAdministrative(uniteadmin_id)}}%</span> Taux Prévue par UA          </a>
-                </li> -->
               </ul>
             </div>
           
@@ -152,7 +170,7 @@
                           <i class="icon  icon-plus"></i>
                         </span>
                       </router-link>
-                      <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)">
+                      <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)"  title="Supprimer ">
                         <span>
                           <i class="icon icon-trash"></i>
                         </span>
@@ -256,7 +274,17 @@ export default {
       "familles",
       "services",
       "besoinImmobilisations",
-      "personBesoinImmo"
+      "personBesoinImmo",
+
+      "tauxbesoinimmoUa",
+      "SommeEquipementPrevue",
+      "SommeEquipementActuel",
+      
+      "nombreTotalEquipement",
+      "SommeEquipementRealise",
+      "tauxEquipementPrevue",
+      "tauxEquipementRealise",
+      "tauxEquipementPrevue",
       // "getPersonnaliseImmobilisation",
      
       // "getPersonnaliseSuivImmo"
@@ -295,7 +323,7 @@ nbreEquipementRealiseParUa(){
     return this.SuiviImmo.filter(element => element.uniteAdminist.id == uniteadmin_id).reduce((prec,cur) => parseFloat(prec) + parseFloat(cur.qte_affecte), 0)
       
     }
-    return 0
+    
   }
 },
 
@@ -303,11 +331,11 @@ TauxEquipementRealiseParUniteAdministrative() {
  
       return uniteadmin_id => {
          if(uniteadmin_id !=""){
-    const val = parseFloat(this.nbreEquipementRealiseParUa(uniteadmin_id))/this.nbreEquipementPrevueParUa(uniteadmin_id)*100  ;
-  if (isNaN(val)) return null;
-  return val;
+    const val = parseFloat((this.nbreEquipementRealiseParUa(uniteadmin_id))/this.nbreEquipementPrevueParUa(uniteadmin_id)*100 ).toFixed(2); 
+    if (isNaN(val)) return null;
+    return val;
     }
-    return 0
+    
  }
 
     },
@@ -365,7 +393,7 @@ TauxEquipementRealiseParTypeUniteAdministrative() {
  
       return typeUniteAdmin_id => {
          if(typeUniteAdmin_id !=""){
-    const val = parseFloat(this.nbreEquipementRealiseParTypeUa(typeUniteAdmin_id))/this.nbreEquipementPrevueParTypeUa(typeUniteAdmin_id)*100  ;
+    const val = parseFloat((this.nbreEquipementRealiseParTypeUa(typeUniteAdmin_id))/this.nbreEquipementPrevueParTypeUa(typeUniteAdmin_id)*100).toFixed(2);
   if (isNaN(val)) return null;
   return val;
          }

@@ -25,10 +25,10 @@
               <tbody>
                 <tr class="odd gradeX">
                   <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td> 
-                  <td>{{immobilisat.TVA_id || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.duree || 'Non renseigné'}}</td>
+                  <td>{{immobilisat.TVA_id || 'Non renseigné'}} %</td>
+                  <td>{{immobilisat.duree || 'Non renseigné'}} ans</td>
                     <td>{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
-                  <td>{{immobilisat.valeurorigine || 'Non renseigné'}}</td>
+                  <td>{{formatageSomme(immobilisat.valeurorigine) || 'Non renseigné'}}</td>
                   <td>{{formaterDate(immobilisat.date_mise_service) || 'Non renseigné'}}</td>
                  
                   
@@ -45,10 +45,9 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th>Periode</th>
-                  <th>Taux</th>
+                  <th>Année</th>
                   <th>Annuité</th>
-                  <th>Cumul</th>
+                   <th>Cumul</th> 
                   <th>Valeur Net Comptable</th>
                   
                   
@@ -57,7 +56,16 @@
                 </tr>
               </thead>
               <tbody>
-                
+                <tr class="odd gradeX" v-for="amort in Amortissement" :key="amort.annee">
+                  <td>{{amort.annee }}</td> 
+                  <td>{{formatageSomme(amort.anuite) }}</td>
+                    <td>{{formatageSomme(amort.cumul) }}</td>
+
+                  <td>{{formatageSomme(amort.valeurNette) }}</td>
+                  <!-- <td>{{test || 'Non renseigné'}} </td> -->
+                   
+                  
+                </tr>
               </tbody>
             </table>
          
@@ -89,7 +97,55 @@ export default {
   
 
   computed: {
-    ...mapGetters("SuiviImmobilisation", ["SuiviImmo"])
+    ...mapGetters("SuiviImmobilisation", ["SuiviImmo"]),
+
+    calculAnnuite(){
+      const immobilisat = this.immobilisat
+      if(immobilisat != undefined){
+        return  parseFloat(immobilisat.valeurorigine) / parseFloat(immobilisat.duree)
+      }
+      return null
+    },
+
+    getAnnee(){
+        const immobilisat = this.immobilisat
+      if(immobilisat != undefined){
+        var annee = new Date(immobilisat.date_mise_service).getFullYear()
+        return parseFloat(annee) 
+      }
+      return null
+    },
+
+    Amortissement(){
+        const immobilisat = this.immobilisat
+      if(immobilisat != undefined){
+        var tableauAmortissement = []
+        var tailleDuTableau = this.immobilisat.duree
+         var valeurNettActuelle = immobilisat.valeurorigine
+          var cumulActuel = this.calculAnnuite
+
+        for(var i = 0; i < tailleDuTableau; i++){
+          let objet = {
+          annee : this.getAnnee + i,
+         anuite : this.calculAnnuite,
+         valeurNette : parseFloat(valeurNettActuelle) - this.calculAnnuite,
+          cumul: cumulActuel
+          }
+          valeurNettActuelle = objet.valeurNette
+          cumulActuel = this.calculAnnuite + objet.cumul
+          tableau.push(objet)
+         // i++
+
+        }
+
+        return tableauAmortissement
+      }
+      return null
+
+      
+    },
+
+ 
   },
   methods: {
     getDetail(){
@@ -97,9 +153,11 @@ export default {
       immobilisat => immobilisat.id == this.$route.params.id
     );
     },
+    
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
     },
+   
        formatageSomme: formatageSomme,
   }
 };

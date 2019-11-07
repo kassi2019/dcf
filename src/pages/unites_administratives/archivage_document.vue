@@ -29,7 +29,8 @@
           <div class="control-group">
             <label class="control-label">Fichier Join</label>
             <div class="controls">
-              <input type="file" @change="onFichierChange"/>
+              <!-- <input type="file" @change="onFichierChange"/> -->
+                <input type="file" />
             </div>
           </div>
           <div class="control-group">
@@ -256,16 +257,16 @@ export default {
         uniteadministrative_id: "",
         typetexte_id: "",
         fichier_join: "",
-        date_jours: "",
-        fichier_join:""
+        date_jours: ""
+       
       },
       editArchivageDocument: {
         reference: "",
         uniteadministrative_id: "",
         typetexte_id: "",
         fichier_join: "",
-        date_jours: "",
-        fichier_join:""
+        date_jours: ""
+      
       },
       search: "",
       files: []

@@ -90,6 +90,16 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
+           <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields"
+            title="Liste des services"
+            :data="filtre_service"
+            name="Liste des services"
+          >
+            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
           <div class="widget-box">
             <div class="widget-title">
               <span class="icon">
@@ -165,7 +175,11 @@ export default {
         //   class: ""
         // }
       ],
-
+json_fields: {
+       
+        CODE: "code",
+        LIBELLE: "libelle"
+      },
       formData: {
         code: "",
         libelle: ""

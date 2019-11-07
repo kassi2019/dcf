@@ -228,12 +228,12 @@
         </a>
         <ul class="dropdown-menu">
         
-          <li>
+          <!-- <li>
             <router-link :to="{name:'listeBesoinParUniteAdmin'}" tag="a" title>
               <i class="icon-key"></i>
               <span class="text">Besoin Par Unite d'administrative</span>
             </router-link>
-          </li>
+          </li> -->
          
           <li>
             <router-link :to="{name:'listeImmobilisationParUa'}" tag="a" title>

@@ -7,58 +7,20 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
-          
-            <!-- <div class="quick-actions_homepage deplaceCarre">
-              <ul class="quick-actions">
-                <li class="bg_lr">
-                  <a href="#">
-                    {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
-                    <i class="icon-list-ol"></i>
-                   <span class="label label-success">{{TauxEquipementParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span> Taux Equipement par type UA
-                  </a>
-                </li>
-                 <li class="bg_ls">
-                  <a href="#">
-                    {{nomUniteAdministrative(uniteadmin_id)}}
-                    <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{TauxEquipementParUniteAdministrative(uniteadmin_id)}}%</span> Taux Equipement par UA          </a>
-                </li>
-                
-              </ul>
-            </div>
-           -->
+          <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields"
+            title="Liste des Structures plus équipés"
+            :data="afficheStructurePlusEquipe"
+            name="Liste des Structures plus équipés"
+          >
+            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
+           
           <div class="widget-box">
            
- <!-- <div class="widget-title">
-             
-              <div align="right">
-               
-                 <div class="span3">
-                  <model-list-select
-                    v-model="typeUniteAdmin_id"
-                    style="background-color: rgb(222, 222, 222);"
-                    :list="type_Unite_admins"
-                    option-value="id"
-                    option-text="libelle"
-                    placeholder="Type Unite Admin"
-                  ></model-list-select>
-                   
-                </div>
-              </div>
-                 <div align="right ">
-                <div class="span3 ">
-                 
-                   <model-list-select
-                    v-model="uniteadmin_id"
-                    style="background-color: rgb(222, 222, 222);"
-                    :list="uniteAdministratives"
-                    option-value="id"
-                    option-text="libelle"
-                    placeholder="Unite Administrative"
-                  ></model-list-select>
-                </div>
-              </div>
-            </div> -->
+
             <br>
              
               
@@ -67,7 +29,11 @@
                 <i class="icon-th"></i>
               </span>
               <h5>Liste structures plus équipé</h5>
-              
+              <div align="right">
+                Recherche:
+                <input type="search" placeholder v-model="search" />
+               
+              </div>
                  
             </div>
             <div class="table-responsive text-nowrap" v-if="familles.length && services.length ">
@@ -147,12 +113,9 @@
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 import { formatageSomme } from "../../../Repositories/Repository";
-import { ModelListSelect } from "vue-search-select";
-import "vue-search-select/dist/VueSearchSelect.css";
+
 export default {
-   components: {
-    ModelListSelect
-  },
+  
   data() {
     return {
       fabActions: [
@@ -166,6 +129,38 @@ export default {
         //   class: ""
         // }
       ],
+       json_fields: {
+        TYPE_IMMOBILISATION: "type_immo",
+        FAMILLE: "BesoinImmobilisation.famille.reletion__equipement.libelle",
+        TYPE_UNITE_ADMINISTRATIVE: "typeUniteAdministrative.libelle",
+        UNITE_ADMINISTRATIVE: "uniteAdminist.libelle",
+        NUMERO_IDENTIFICATION: "identification",
+        ETAT_IMMOBILISATION: "etat_immobilisation",
+        DATE_ACQUISITION: "date_acquisition",
+        DATE_MISE_SERVICE: "date_mise_service",
+        NUMERO_FACTURE: "numero_facture",
+        QUANTITE_REEL: "qte_reel",
+        QUANTITE_AFFECTE: "qte_affecte",
+        QUANTITE_ACTUEL: "qte_actuel",
+        PRIX_UNITAIRE: "prixUnitaire",
+        TOTAL_ACTUEL: "total_actuel",
+        TOTAL_REEL: "total_reel",
+        DUREE: "duree",
+        NUMERO_CC: "numero_CC",
+        MATRICULE_ACTEUR: "acteurDepense.matricule",
+        ANNEE_BUDGETAIRE: "exoBudgetaire.annee",
+        SERVICE: "serviceImmo.libelle",
+        NATURE_BIEN: "nature_bien",
+        NATURE_ENTRE: "nature_dentree",
+        MONTANT_EVALUATION: "montant_evaluation",
+        DATE_EVALUATION: "date_evaluation",
+        MONTANT_CESSION: "montant_cession",
+        DATE_CESSION: "date_cession",
+        CAUSE_INACTIVITE: "cause_inactivite",
+        TVA: "TVA_id",
+        MONTANT_AMORTISSEMENT: "montant_amortissement_anterieur",
+        DATE_AORTISSEMENT: "date_amortissement_anterieur"
+      },
       formData: {},
 
       editImmobilisation: {},
@@ -194,7 +189,15 @@ export default {
     ]),
      ...mapGetters("parametreGenerauxAdministratif", ["type_Unite_admins"]),
      ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
-
+ filtrestructurePlusEquipe() {
+      const st = this.search.toLowerCase();
+      return this.afficheStructurePlusEquipe.filter(type => {
+        return (
+          type.uniteAdminist.libelle.toLowerCase().includes(st) ||
+          type.typeUniteAdministrative.libelle.toLowerCase().includes(st)
+        );
+      });
+    }
 
   },
   methods: {

@@ -602,6 +602,7 @@ typeUniteAdministrativeDynamiques() {
       if (qtereel) {
         return qtereel.quantite;
       }
+      return 0
     },
 
     idObjetBesoinImmoAModifierLaQuantite() {
@@ -612,6 +613,7 @@ typeUniteAdministrativeDynamiques() {
       if (qtereel) {
         return qtereel.id;
       }
+      return 0
     },
     idObjetBesoinImmoAModifierMontantActuel() {
       const montantActuel = this.trieUaImmobilisation.find(
@@ -621,6 +623,7 @@ typeUniteAdministrativeDynamiques() {
       if (montantActuel) {
         return montantActuel.id;
       }
+      return 0
     },
     
 
@@ -630,6 +633,7 @@ typeUniteAdministrativeDynamiques() {
       {
         return prixUnitaire.prix_unitaire
         }
+        return 0
     },
     
     valeurOrigine() {
@@ -647,6 +651,7 @@ typeUniteAdministrativeDynamiques() {
       if (typeUniteA) {
         return typeUniteA.typeuniteadminist_id;
       }
+      return 0
     },
     
   },

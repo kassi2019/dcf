@@ -133,7 +133,7 @@
               <div align="right">
                 Recherche:
                 <input type="search" placeholder v-model="search" />
-                <button>ok</button>
+               
               </div>
             </div>
 

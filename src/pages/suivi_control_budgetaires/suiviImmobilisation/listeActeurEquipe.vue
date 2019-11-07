@@ -7,6 +7,16 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
+           <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields"
+            title="Liste des acteurs équipés"
+            :data="SuiviImmo"
+            name="Liste des acteurs équipés"
+          >
+            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
           <div class="widget-box">
             <div class="widget-title">
               <span class="icon">
@@ -31,7 +41,7 @@
                        <th>Unite administrative</th>
                     <th>Service</th> 
                         <th>Designation</th>
-                         <th>Dure</th> 
+                         <!-- <th>Dure</th>  -->
                   </tr>
                 </thead>
                 <tbody>
@@ -45,7 +55,7 @@
                       <td>{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
                       <td>{{immobilisat.serviceImmo.libelle || 'Non renseigné'}}</td>
                        <td>{{immobilisat.BesoinImmobilisation.famille.libelle|| 'Non renseigné'}}</td>
-                   <td>{{immobilisat.duree || 'Non renseigné'}}</td>
+                   <!-- <td>{{immobilisat.duree || 'Non renseigné'}}</td> -->
                   </tr>
                 </tbody>
               </table>
@@ -87,7 +97,38 @@ export default {
       formData: {},
 
       editImmobilisation: {},
-
+ json_fields: {
+        // TYPE_IMMOBILISATION: "type_immo",
+        FAMILLE: "BesoinImmobilisation.famille.reletion__equipement.libelle",
+        TYPE_UNITE_ADMINISTRATIVE: "typeUniteAdministrative.libelle",
+        UNITE_ADMINISTRATIVE: "uniteAdminist.libelle",
+        // NUMERO_IDENTIFICATION: "identification",
+        // ETAT_IMMOBILISATION: "etat_immobilisation",
+        // DATE_ACQUISITION: "date_acquisition",
+        // DATE_MISE_SERVICE: "date_mise_service",
+        // NUMERO_FACTURE: "numero_facture",
+        // QUANTITE_REEL: "qte_reel",
+        // QUANTITE_AFFECTE: "qte_affecte",
+        // QUANTITE_ACTUEL: "qte_actuel",
+        // PRIX_UNITAIRE: "prixUnitaire",
+        // TOTAL_ACTUEL: "total_actuel",
+        // TOTAL_REEL: "total_reel",
+        PRENOM_ACTEUR_DEPENSE: "acteurDepense.prenom",
+        NOM_ACTEUR_DEPENSE: "acteurDepense.nom",
+        MATRICULE_ACTEUR: "acteurDepense.matricule",
+        ANNEE_BUDGETAIRE: "exoBudgetaire.annee",
+        SERVICE: "serviceImmo.libelle",
+        // NATURE_BIEN: "nature_bien",
+        // NATURE_ENTRE: "nature_dentree",
+        // MONTANT_EVALUATION: "montant_evaluation",
+        // DATE_EVALUATION: "date_evaluation",
+        // MONTANT_CESSION: "montant_cession",
+        // DATE_CESSION: "date_cession",
+        // CAUSE_INACTIVITE: "cause_inactivite",
+        // TVA: "TVA_id",
+        // MONTANT_AMORTISSEMENT: "montant_amortissement_anterieur",
+        // DATE_AORTISSEMENT: "date_amortissement_anterieur"
+      },
       search: ""
     };
   },

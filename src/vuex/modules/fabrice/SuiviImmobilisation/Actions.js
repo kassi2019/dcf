@@ -324,7 +324,7 @@ export function modifierQuantiteReel({ commit }, objet) {
       // montant_total = objet.montant_actu
     })
     .then(response => {
-      commit("MODIFIER_QUANTITE_REEL", objet);
+      commit("MODIFIER_QUANTITE_REEL", response.objet)
     });
 }
 export function modifierMontantActuel({ commit }, objet) {
@@ -335,7 +335,7 @@ export function modifierMontantActuel({ commit }, objet) {
     // montant_total = objet.montant_actu
   })
     .then(response => {
-      commit("MODIFIER_MONTANT_ACTUEL", objet);
+      commit("MODIFIER_MONTANT_ACTUEL", response.objet);
     });
 }
 // export function modifierActeurDepenses({ commit }, objet) {

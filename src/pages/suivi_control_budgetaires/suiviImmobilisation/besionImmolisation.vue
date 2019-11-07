@@ -319,6 +319,16 @@
       <hr />
       <div class="row-fluid">
         <div class="span12">
+                     <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields"
+            title="Liste de demandes d'immobilisation "
+            :data="trieUaImmobilisation"
+            name="Liste de demandes d'immobilisation"
+          >
+            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
           <div class="widget-box">
             <div class="widget-title">
               <span class="icon">
@@ -348,7 +358,7 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="(BesoinImmo, index) in trieUaImmobilisation"
+                    v-for="(BesoinImmo, index) in filtre_besoinImmo"
                     :key="BesoinImmo.id"
                   >
                    <td
@@ -416,7 +426,15 @@ export default {
         //   class: ""
         // }
       ],
-
+json_fields: {
+        TYPE_UNITE_ADMINISTRATIVE: "typeUniteAdmin.libelle",
+        UNITE_ADMINISTRATIVE: "uniteAdminist.libelle ",
+        DESIGNATION: "famille.libelle",
+        QUANTITE: "quantite",
+        PRIX_UNITAIRE: "prix_unitaire",
+        MONTANT_TOTAL: "montant_total",
+         DATE_DE_DEMANDE: "date_jour",
+      },
       formData: {
         uniteadmin_id: "",
         epuipement_id: "",
@@ -451,6 +469,19 @@ export default {
     ]),
     ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
     ...mapGetters("parametreGenerauxAdministratif", ["type_Unite_admins"]),
+
+
+     filtre_besoinImmo() {
+      const st = this.search.toLowerCase();
+      return this.trieUaImmobilisation.filter(type => {
+        return (
+          type.typeUniteAdmin.libelle.toLowerCase().includes(st) ||
+          type.uniteAdminist.libelle.toLowerCase().includes(st)||
+          type.famille.libelle.toLowerCase().includes(st)
+        );
+      });
+    },
+
     fammillesDynamiques() {
       return id => {
         if (id != null && id != "") {

@@ -116,6 +116,16 @@ export default {
       return null
     },
 
+      getNombreDeMois(){
+        const immobilisat = this.immobilisat
+      if(immobilisat != undefined){
+        var annee = new Date(immobilisat.date_mise_service).getMonth() + 1
+        return 13 - parseFloat(annee) 
+       
+      }
+      return null
+    },
+
     Amortissement(){
         const immobilisat = this.immobilisat
       if(immobilisat != undefined){
@@ -124,19 +134,36 @@ export default {
          var valeurNettActuelle = immobilisat.valeurorigine
           var cumulActuel = this.calculAnnuite
 
-        for(var i = 0; i < tailleDuTableau; i++){
-          let objet = {
-          annee : this.getAnnee + i,
-         anuite : this.calculAnnuite,
-         valeurNette : parseFloat(valeurNettActuelle) - this.calculAnnuite,
-          cumul: cumulActuel
-          }
-          valeurNettActuelle = objet.valeurNette
-          cumulActuel = this.calculAnnuite + objet.cumul
-          tableau.push(objet)
-         // i++
+        if(this.getNombreDeMois ===12){
+              for(var i = 0; i < tailleDuTableau; i++){
+            let objet = {
+            annee : this.getAnnee + i,
+          anuite : this.calculAnnuite,
+          valeurNette : parseFloat(valeurNettActuelle) - this.calculAnnuite,
+            cumul: cumulActuel
+            }
+            valeurNettActuelle = objet.valeurNette
+            cumulActuel = this.calculAnnuite + objet.cumul
+            tableauAmortissement.push(objet)
+          // i++
 
+          }
+        }else{
+                 for(var i = 0; i <= tailleDuTableau; i++){
+            let objet = {
+            annee : this.getAnnee + i,
+          anuite : i == 0 ? ( (valeurNettActuelle * this.getNombreDeMois) / 12 ) / tailleDuTableau : i == tailleDuTableau ? this.calculAnnuite - tableauAmortissement[0].anuite : this.calculAnnuite,
+          valeurNette : i == 0 ?  parseFloat(valeurNettActuelle) - ( ((valeurNettActuelle * this.getNombreDeMois) / 12 ) / tailleDuTableau) : i == tailleDuTableau ? 0 : parseFloat(valeurNettActuelle) - this.calculAnnuite,
+            cumul: i == 0 ? ( (valeurNettActuelle * this.getNombreDeMois) / 12 ) / tailleDuTableau : i == tailleDuTableau ? immobilisat.valeurorigine : cumulActuel
+            }
+            valeurNettActuelle = objet.valeurNette
+            cumulActuel = this.calculAnnuite + objet.cumul
+            tableauAmortissement.push(objet)
+          // i++
+
+          }
         }
+      
 
         return tableauAmortissement
       }

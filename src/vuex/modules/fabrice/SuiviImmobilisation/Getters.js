@@ -73,22 +73,17 @@ export const getPersonnaliseSuivImmo = (state, getters, rootState, rootGetters) 
     return element;
   });
 
-
-
-
-
-
-
-
-
 export const personBesoinImmo = (state, getters, rootState, rootGetters) =>
   state.besoinImmobilisations.map(element => {
-    if (element.uniteadmin_id !== null) {
+    if (element.uniteadmin_id !== null && element.typeuniteadminist_id !== null) {
       element = {
         ...element,
         uniteAdminist: rootGetters[
           "uniteadministrative/uniteAdministratives"
-        ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id)
+        ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id),
+        typeUniteAdmin: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(
+          typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminist_id
+        )
       };
     }
 

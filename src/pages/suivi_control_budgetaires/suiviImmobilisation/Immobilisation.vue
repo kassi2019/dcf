@@ -8,13 +8,14 @@
       <div class="row-fluid">
         <div class="span12">
           
-            <div class="quick-actions_homepage deplac">
+            <div class="quick-actions_homepage deplacement1">
               <ul class="quick-actions">
                 <li class="bg_lr" title="Taux équipement Réalisé par type UA">
                   <a href="#">
-                    {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
+                    Taux équipement Réalisé par
+                   
                     <i class="icon-list-ol"></i>
-                   <span class="label label-success">{{TauxEquipementRealiseParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span> Taux Réalisé par type UA
+                   <span class="label label-success">{{TauxEquipementRealiseParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span>  {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
                   </a>
                 </li>
                  <!-- <li class="bg_ls" title="Taux équipement Prévue par type UA">
@@ -25,9 +26,10 @@
                 </li> -->
                   <li class="bg_ls" title="Taux équipement Réalisé par UA" >
                   <a href="#">
-                    {{nomUniteAdministrative(uniteadmin_id)}}
+                    Taux équipement Réalisé par 
+                   
                     <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{TauxEquipementRealiseParUniteAdministrative(uniteadmin_id)}}%</span> Taux Réalisé par UA          </a>
+                    <span class="label label-important">{{TauxEquipementRealiseParUniteAdministrative(uniteadmin_id)}}%</span>  {{nomUniteAdministrative(uniteadmin_id)}}         </a>
                 </li>
                                  <!-- <li class="bg_ly" title="Taux équipement Prévue par type UA">
                   <a href="#">
@@ -42,9 +44,9 @@
            
  <div class="widget-title">
              
-              <div align="right">
+              <div align="right" class="deplaceme">
                
-                 <div class="span3">
+                 <div class="span3 depla">
                   <model-list-select
                     v-model="typeUniteAdmin_id"
                     style="background-color: rgb(222, 222, 222);"
@@ -56,7 +58,7 @@
                    
                 </div>
               </div>
-                 <div align="right ">
+                 <div align="right" class="deplaceme">
                 <div class="span3 ">
                  
                    <model-list-select
@@ -147,7 +149,7 @@
                         title="Amortissement"
                       >
                         <span>
-                          <i class="icon icon-folder-open"></i>
+                          <i class="icon  icon-plus"></i>
                         </span>
                       </router-link>
                       <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)">

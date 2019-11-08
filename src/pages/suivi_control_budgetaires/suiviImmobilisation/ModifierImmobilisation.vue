@@ -564,6 +564,8 @@ typeUniteAdministrativeDynamiques() {
     // fonction pour vider l'input modification
     modifierImmobilisationLocal() {
       this.modifierImmobilisation(this.editImmobilisation);
+      // this.$("#modificationModal").modal('hide');
+      // this.$router.push({name: "immobilisation"});
     },
     alert() {
       console.log("ok");

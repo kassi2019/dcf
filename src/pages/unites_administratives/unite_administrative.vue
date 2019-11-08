@@ -419,7 +419,7 @@ export default {
     // fonction pour vider l'input modifier
     modifierUniteAdministrativeLocal() {
       this.modifierUniteAdministrative(this.editUniteAdministrative);
-
+this.$("#modificationModal").modal('hide');
       // this.editUniteAdministrative = {
       //   code: "",
       //   libelle: "",

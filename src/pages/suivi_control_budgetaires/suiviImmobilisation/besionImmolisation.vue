@@ -591,6 +591,7 @@ Historqtemodifier() {
     // fonction pour vider l'input modification
     modifierBesoinImmoLocal() {
       this.modifierBesoinImmo(this.editBesoinImmo);
+      this.$("#modificationModal").modal('hide');
     },
     alert() {
       console.log("ok");

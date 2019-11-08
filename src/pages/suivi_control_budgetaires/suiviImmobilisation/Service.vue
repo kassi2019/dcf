@@ -241,11 +241,11 @@ json_fields: {
     // fonction pour vider l'input modification
     modifierServiceLocal() {
       this.modifierService(this.editService);
-
-      this.editService = {
-        code: "",
-        libelle: ""
-      };
+this.$("#modificationModal").modal('hide');
+      // this.editService = {
+      //   code: "",
+      //   libelle: ""
+      // };
     },
     alert() {
       console.log("ok");

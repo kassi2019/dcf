@@ -281,11 +281,11 @@ export default {
     // fonction pour vider l'input modification
     modifierFamilleLocal() {
       this.modifierFamille(this.editFamille);
-
-      this.editFamille = {
-        code: "",
-        libelle: ""
-      };
+this.$("#modificationModal").modal('hide');
+      // this.editFamille = {
+      //   code: "",
+      //   libelle: ""
+      // };
     },
     alert() {
       console.log("ok");

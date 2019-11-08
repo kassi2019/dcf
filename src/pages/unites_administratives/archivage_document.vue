@@ -327,14 +327,14 @@ export default {
     // fonction pour vider l'input modifier
     modifierArchivageDocumentLocal() {
       this.modifierArchivageDocument(this.editArchivageDocument);
-
-      this.editArchivageDocument = {
-        reference: "",
-        uniteadministrative_id: "",
-        typetexte_id: "",
-        fichier_join: "",
-        date_jours: ""
-      };
+      this.$("#modificationModal").modal('hide');
+      // this.editArchivageDocument = {
+      //   reference: "",
+      //   uniteadministrative_id: "",
+      //   typetexte_id: "",
+      //   fichier_join: "",
+      //   date_jours: ""
+      // };
     },
     // afficher modal de modification
     afficherArchivageDocumentLocal(index) {

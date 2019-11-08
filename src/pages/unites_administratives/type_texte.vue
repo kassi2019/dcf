@@ -95,7 +95,7 @@
             style="cursor:pointer;"
             :fields="json_fields"
             title="Liste type texte"
-            :data="filtre_archivage_document"
+            :data="filtre_type_teste"
             name="Liste type texte"
             worksheet="Liste type texte"
           >
@@ -233,16 +233,18 @@ export default {
         keyboard: false
       });
 
+     
       this.editTypeTexte = this.typeTextes[index];
     },
     // fonction pour vider l'input modification
     modifierTypeTexteLocal() {
       this.modifierTypeTexte(this.editTypeTexte);
-
-      this.editTypeTexte = {
-        code: "",
-        libelle: ""
-      };
+this.$("#modificationModal").modal('hide');
+      // this.editTypeTexte = {
+      //   code: "",
+      //   libelle: ""
+      // };
+       
     },
     alert() {
       console.log("ok");

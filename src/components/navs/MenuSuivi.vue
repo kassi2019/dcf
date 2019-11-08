@@ -196,6 +196,13 @@
             </router-link>
           </li>
 
+           <li>
+            <router-link :to="{name:'simulationAmortissement'}" tag="a">
+              <i class="icon-table"></i>
+              <span class="text">Simulateur Amortissement</span>
+            </router-link>
+          </li>
+
           <!-- <li>
             <router-link :to="{name:'amortissement'}" tag="a">
               <i class="icon-key"></i>

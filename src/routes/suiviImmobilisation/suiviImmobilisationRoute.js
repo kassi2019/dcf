@@ -21,7 +21,13 @@ import TauxEquipementMinistère from "../../pages/suivi_control_budgetaires/suiv
 import listeActeurEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeActeurEquipe.vue";
 import listeStructurePlusEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeStructurePlusEquipe.vue";
 import listeStructureMoinEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeStructureMoinEquipe.vue";
+import simulationAmortissement from "../../pages/suivi_control_budgetaires/suiviImmobilisation/simulationAmortissement.vue";
 const suiviImmobilisationRoutes = [
+  {
+    path: "/simulationAmortissement",
+    name: "simulationAmortissement",
+    component: simulationAmortissement
+  },
   {
     path: "/liste-Structure-Moin-Equipe",
     name: "listeStructureMoinEquipe",

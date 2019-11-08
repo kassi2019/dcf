@@ -225,7 +225,9 @@
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <fab :actions="fabActions" @cache="afficherModalAjouterArchivage" main-icon="apps" bg-color="green"></fab>
+     <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterArchivage()">Open</button>
+     <notifications  />
   </div>
 </template>
   
@@ -304,7 +306,7 @@ export default {
  onFichierChange(e){
       this.formData.fichier_join = e.target.files[0]
     },
-    afficherModalAjouterTitre() {
+    afficherModalAjouterArchivage() {
       this.$("#exampleModal").modal({
         backdrop: "static",
         keyboard: false

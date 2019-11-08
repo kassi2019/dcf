@@ -11,26 +11,38 @@
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th>Annee budgetaire</th>
-                  <!-- <th>Taux</th> -->
-                  <th>Duree</th>
-                  <th>Designation</th>
                   <th>Valeur Origine</th>
+                
+                  <th>Duree</th>
+                 
                   <th>Date de mise en service</th>
-                  
                  
                   <!-- <th>Acteur Depense</th> -->
                 </tr>
               </thead>
               <tbody>
                 <tr class="odd gradeX">
-                  <td>{{immobilisat.exoBudgetaire.annee || 'Non renseigné'}}</td> 
-                  <!-- <td>{{immobilisat.TVA_id || 'Non renseigné'}} %</td> -->
-                  <td>{{immobilisat.duree || 'Non renseigné'}} ans</td>
-                    <td>{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
-                  <td>{{formatageSomme(immobilisat.valeurorigine) || 'Non renseigné'}}</td>
-                  <td>{{formaterDate(immobilisat.date_mise_service) || 'Non renseigné'}}</td>
-                 
+                  <td> <div class="control-group">
+           
+            <div class="controls">
+              <input type="number" v-model="immobilisat.valeurorigine" class="span" placeholder="Saisir la Valeur Origine" />
+            </div>
+          </div>
+          </td> 
+                  <td> <div class="control-group">
+           
+            <div class="controls">
+              <input type="number" v-model="immobilisat.duree"  class="span" placeholder="Saisir le Duree" />
+            </div>
+          </div></td>
+                  <td><div class="control-group">
+           
+            <div class="controls">
+              <input type="date" v-model="immobilisat.date_mise_service"  class="span"  />
+            </div>
+          </div></td>
+                   
+        
                   
                 </tr>
               </tbody>
@@ -39,23 +51,23 @@
             <span class="icon">
               <i class="icon-th"></i>
             </span>
-            <h5>Amortissement</h5>
+            <h5>Simulation Amortissement</h5>
           </div>
-            <ul class="nav nav-tabs">
+          <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#tab1">Amortissement linéaire simple</a></li>
-              <li v-if="getNombreDeMois != 12"><a data-toggle="tab" href="#tab2">Amortissement linéaire au prorata temporis</a></li>
+              <li v-if="immobilisat.date_mise_service != '' && getNombreDeMois != 12"><a data-toggle="tab" href="#tab2">Amortissement linéaire au prorata temporis</a></li>
               
             </ul>
-             <div class="widget-content tab-content">
+            <div class="widget-content tab-content">
                 <div id="tab1" class="tab-pane active">
-                   <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th>Année</th>
-                  <th>Annuité</th>
-                   <th>Cumul</th> 
-                  <th>Valeur Net Comptable</th>
+                  <th>Année </th>
+                  <th>Montant de l'amortissement (Annuité)</th>
+                   <th>Cumul des annuités</th> 
+                  <th>Valeur Net Comptable au 31/12</th>
                   
                   
                  
@@ -69,24 +81,26 @@
                     <td>{{formatageSomme(Number(amort.cumul) ) }}</td>
 
                   <td>{{formatageSomme( Number (amort.valeurNette) ) }}</td>
-                  <!-- <td>{{test || 'Non renseigné'}} </td> -->
                    
                   
                 </tr>
+               
               </tbody>
             </table>
                 </div>
-            <!--  prorata -->
-                 <div id="tab2" class="tab-pane">
-                   <table class="table table-bordered table-striped">
+                <div id="tab2" class="tab-pane">
+                       <table class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
-                  <th>Année</th>
-                  <th>Annuité</th>
-                   <th>Cumul</th> 
-                  <th>Valeur Net Comptable</th>
+                  <th>Année </th>
+                  <th>Montant de l'amortissement (Annuité)</th>
+                   <th>Cumul des annuités</th> 
+                  <th>Valeur Net Comptable au 31/12</th>
                   
+                  
+                 
+                  <!-- <th>Acteur Depense</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -96,16 +110,16 @@
                     <td>{{formatageSomme(Number(amort.cumul) ) }}</td>
 
                   <td>{{formatageSomme( Number (amort.valeurNette) ) }}</td>
-                  <!-- <td>{{test || 'Non renseigné'}} </td> -->
                    
                   
                 </tr>
+               
               </tbody>
             </table>
                 </div>
-                <!-- fin prorata -->
-             </div>
-         
+                
+            </div>
+          
          
          
            
@@ -116,30 +130,28 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import moment from "moment";
 import { formatageSomme } from "../../../Repositories/Repository";
+
 export default {
   data() {
     return {
-      immobilisat: undefined
+        immobilisat: {
+            valeurorigine: "",
+            duree: "",
+            date_mise_service: ""
+        }
     };
   },
-  created() {
-    this.getDetail()
+created() {
+   // this.getDetail()
   },
 
-  watch: {
-    '$route' : 'getDetail'
-  },
-  
-
-  computed: {
-    ...mapGetters("SuiviImmobilisation", ["SuiviImmo"]),
+ 
+   computed: {
 
     calculAnnuite(){
       const immobilisat = this.immobilisat
-      if(immobilisat != undefined){
+      if(immobilisat.duree != "" && immobilisat.date_mise_service != "" && immobilisat.valeurorigine != ""){
         return  parseFloat(immobilisat.valeurorigine) / parseFloat(immobilisat.duree)
       }
       return null
@@ -147,7 +159,7 @@ export default {
 
     getAnnee(){
         const immobilisat = this.immobilisat
-      if(immobilisat != undefined){
+      if(immobilisat.duree != "" && immobilisat.date_mise_service != "" && immobilisat.valeurorigine != ""){
         var annee = new Date(immobilisat.date_mise_service).getFullYear()
         return parseFloat(annee) 
       }
@@ -156,7 +168,7 @@ export default {
 
       getNombreDeMois(){
         const immobilisat = this.immobilisat
-      if(immobilisat != undefined){
+      if(immobilisat.duree != "" && immobilisat.date_mise_service != "" && immobilisat.valeurorigine != ""){
         var annee = new Date(immobilisat.date_mise_service).getMonth() + 1
         return 13 - parseFloat(annee) 
        
@@ -164,7 +176,7 @@ export default {
       return null
     },
 
-  Amortissement(){
+    Amortissement(){
         const immobilisat = this.immobilisat
       if(immobilisat.duree != "" && immobilisat.date_mise_service != "" && immobilisat.valeurorigine != ""){
         var tableauAmortissement = []
@@ -238,21 +250,12 @@ export default {
       
     },
 
-
  
   },
   methods: {
-    getDetail(){
-        this.immobilisat = this.SuiviImmo.find(
-      immobilisat => immobilisat.id == this.$route.params.id
-    );
-    },
-    
-    formaterDate(date) {
-      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
-    },
-   
-       formatageSomme: formatageSomme,
+    formatageSomme: formatageSomme,
+
   }
 };
 </script>
+

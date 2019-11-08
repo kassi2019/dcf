@@ -491,6 +491,7 @@
           </div>
         </div>
       </div>
+      <notifications/>
     </div>
 
     <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" bg-color="green"></fab> -->
@@ -534,8 +535,8 @@ export default {
       "trieUaImmobilisation",
       "besoinImmobilisations",
       "groupTriUaImmo",
-      "SuiviImmo",
-      "groupTriUa"
+      "SuiviImmo"
+      
     ]),
 
     ...mapGetters("parametreGenerauxAdministratif", ["exercices_budgetaires","type_Unite_admins"]),
@@ -625,7 +626,16 @@ typeUniteAdministrativeDynamiques() {
       }
       return 0
     },
-    
+    idObjetBesoinImmoAModifierQteRealise() {
+      const qte_affecte = this.trieUaImmobilisation.find(
+        quantRealise => quantRealise.id == this.formData.besoinimmo_id,
+      );
+
+      if (qte_affecte) {
+        return qte_affecte.id;
+      }
+      return 0
+    },
 
     AffichierprixUnitaire(){
       const prixUnitaire = this.trieUaImmobilisation.find(prixUnit => prixUnit.id == this.formData.besoinimmo_id)
@@ -687,16 +697,16 @@ typeUniteAdministrativeDynamiques() {
         id: this.idObjetBesoinImmoAModifierMontantActuel,
         montant_actu: this.AffichierTotalActuel
       }
-      // var objetPourModifierpersoEquipe = {
-      //   id: this.idObjetEquipementModifierActeurDepense,
-      //   equipemt: this.formData.decision_equipe
-      // }
+    //  var objetPourModifierQteRealise = {
+    //     id: this.idObjetBesoinImmoAModifierQteRealise,
+    //     qte_real: this.formData.qte_affecte
+    //   }
 
       //console.log(objetPourModifierpersoEquipe)
 
      this.modifierQuantiteReel(objetPourModifierQuantiteReel);
      this.modifierMontantActuel(objetPourModifierMontantActuel);
-     // this.modifierActeurDepenses(objetPourModifierpersoEquipe);
+    //  this.modifierQteRealisebesoin(objetPourModifierQteRealise);
       var nouvelObjet = {
         ...this.formData,
         qte_reel: this.AffichierQuantiteteReel,

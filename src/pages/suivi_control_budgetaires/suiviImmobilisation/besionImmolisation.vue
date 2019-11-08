@@ -402,8 +402,10 @@
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <fab :actions="fabActions" @cache="afficherModalAjouterBesoinImmobilisation" main-icon="apps" bg-color="green"></fab>
+    <notifications  />
     <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+     <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterBesoinImmobilisation()">Open</button>
   </div>
 </template>
   
@@ -551,7 +553,7 @@ Historqtemodifier() {
     formatageSomme: formatageSomme,
 
     //afiicher modal ajouter
-    afficherModalAjouterTitre() {
+    afficherModalAjouterBesoinImmobilisation() {
       this.$("#exampleModal").modal({
         backdrop: "static",
         keyboard: false

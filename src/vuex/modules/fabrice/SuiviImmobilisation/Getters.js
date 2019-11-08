@@ -57,7 +57,7 @@ export const SuiviImmo = (state, getters, rootState, rootGetters) =>
     return element;
   });
 
-
+groupTriUaImmo
 //////////////////////////////////////fin///////////////
 
 
@@ -90,10 +90,10 @@ export const personBesoinImmo = (state, getters, rootState, rootGetters) =>
     return element;
   });
   
-// export const trieUaBesoinImmo = state =>
-//   state.besoinImmobilisations.filter(
-//     trieUaBesoin => trieUaBesoin.quantite !== 0
-//   );
+export const trieUaBesoinImmo = state =>
+  state.besoinImmobilisations.filter(
+    trieUaBesoin => trieUaBesoin.quantite !== 0
+  );
 
 export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
   state.besoinImmobilisations.map(element => {
@@ -114,10 +114,29 @@ export const trieUaImmobilisation = (state, getters, rootState, rootGetters) =>
 
     return element;
   });
+export const trieUaImmo = (state, getters, rootState, rootGetters) =>
+  getters.trieUaBesoinImmo.map(element => {
+    if (element.uniteadmin_id !== null && element.famille_id !== null && element.typeuniteadminist_id !== null) {
+      element = {
+        ...element,
+        uniteAdminist: rootGetters[
+          "uniteadministrative/uniteAdministratives"
+        ].find(uniteAdm => uniteAdm.id == element.uniteadmin_id),
+        famille: rootGetters["SuiviImmobilisation/familles"].find(
+          equipefamille => equipefamille.id == element.famille_id
+        ),
+        typeUniteAdmin: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(
+          typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminist_id
+        )
+      };
+    }
+
+    return element;
+  });
 
 export const groupTriUaImmo = (state, getters) => {
   //delete getters.trieUaImmobilisation.
-  return groupBy(getters.trieUaImmobilisation, "typeuniteadminist_id");
+  return groupBy(getters.trieUaImmo, "typeuniteadminist_id");
 };
 
 // export const groupTriUa = (state, getters) => {
@@ -283,33 +302,30 @@ export const getPersonnaliseImmobilisation = (
 // afficher les structure les moin equipe
 
 export const StructureMoinEquipe = getters =>
-  getters.immobilisations.filter(
-    structureMoin => structureMoin.qte_reel !== 0
+  getters.besoinImmobilisations.filter(
+    structureMoin => structureMoin.quantite !== 0
   );
 
 
 export const afficheStructureMoinEquipe = (state, getters, rootState, rootGetters) =>
   getters.StructureMoinEquipe.map(element => {
     if (
-      element.familleimmo_id !== null &&
+      element.famille_id !== null &&
       element.acteurdepense_id !== null &&
-      element.acteurdepense_id !== null &&
-      element.uniteadministrative_id !== null &&
-      element.typeuniteadminis_id !== null &&
-      element.besoinimmo_id !== null
+     
+      element.uniteadmin_id !== null &&
+      element.typeuniteadminist_id !== null
     ) {
       element = {
         ...element,
-        exoBudgetaire: rootGetters["parametreGenerauxAdministratif/exercices_budgetaires"].find(exercice => exercice.id == element.exercice_budgetaire_id),
-        acteurDepense: rootGetters["personnelUA/personnaliseActeurDepense"].find(auteurDep => auteurDep.id == element.acteurdepense_id),
-        uniteAdminist: rootGetters["uniteadministrative/uniteAdministratives"].find(uniteAdm => uniteAdm.id == element.uniteadministrative_id),
+       
+        uniteAdminist: rootGetters["uniteadministrative/uniteAdministratives"].find(uniteAdm => uniteAdm.id == element.uniteadmin_id),
 
-        familleImmo: rootGetters["SuiviImmobilisation/familles"].find(Famileimmo => Famileimmo.id == element.familleimmo_id),
+        famillebesoin: rootGetters["SuiviImmobilisation/familles"].find(FamileB => FamileB.id == element.famille_id),
 
-        serviceImmo: rootGetters["SuiviImmobilisation/services"].find(servImmo => servImmo.id == element.service_id),
-        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminis_id
-        ),
-        BesoinImmobilisation: rootGetters["SuiviImmobilisation/trieUaImmobilisation"].find(besoinimmo => besoinimmo.id == element.besoinimmo_id)
+        
+        typeUniteAdministrative: rootGetters["parametreGenerauxAdministratif/type_Unite_admins"].find(typeUniteAdmin => typeUniteAdmin.id == element.typeuniteadminist_id
+        )
 
       };
     }
@@ -319,11 +335,19 @@ export const afficheStructureMoinEquipe = (state, getters, rootState, rootGetter
 
 
 
+
+
+
+
+
+
+
+
 // afficher les structure les plus équipe
 
 export const StructurePlusEquipe = getters =>
   getters.immobilisations.filter(
-    structureMoin => structureMoin.qte_reel == 0
+    structureMoin => structureMoin.qte_actuel == 0
   );
 
 

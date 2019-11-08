@@ -17,9 +17,9 @@ import store from "./vuex/store";
 import JsonExcel from "vue-json-excel";
 import VuejsDialog from 'vuejs-dialog';
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
-import Notifications from 'vue-notification'
 
-Vue.use(Notifications)
+
+
 // Vue.use(VuejsDialog);
 Vue.use(VuejsDialog, {
   html: true,
@@ -41,6 +41,12 @@ Vue.component("no-sidebar-layout", NoSidebar);
 
 import fab from "vue-fab";
 Vue.component("fab", fab);
+
+import Notifications from 'vue-notification'
+Vue.use(Notifications)
+Vue.use(require('vue-shortkey'))
+
+
 
 const app = new Vue({
   el: '#app',

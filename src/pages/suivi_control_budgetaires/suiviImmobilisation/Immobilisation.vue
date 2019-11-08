@@ -170,6 +170,7 @@
                           <i class="icon  icon-plus"></i>
                         </span>
                       </router-link>
+                   
                       <button class="btn btn-danger" @click="supprimerImmobilisation(immobilisat.id)"  title="Supprimer ">
                         <span>
                           <i class="icon icon-trash"></i>
@@ -192,7 +193,8 @@
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <fab :actions="fabActions" @cache="afficherModalAjouterImmobilisation" main-icon="apps" bg-color="green"></fab>
+     <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterImmobilisation()">Open</button>
   </div>
 </template>
   
@@ -434,7 +436,7 @@ TauxEquipementRealiseParTypeUniteAdministrative() {
     ]),
 
     //afiicher modal ajouter
-    afficherModalAjouterTitre() {
+    afficherModalAjouterImmobilisation() {
       this.$router.push({
         name: "formulaireimmobilisation"
       });
@@ -485,6 +487,11 @@ TauxEquipementRealiseParTypeUniteAdministrative() {
     afficherFenetreAmortissement(id) {
       this.$router.push({
         path: "/amortissement/" + id
+      });
+    },
+     afficherFenetreSimulationAmortissement(id) {
+      this.$router.push({
+        path: "/simulationAmortissement/" + id
       });
     },
     formaterDate(date) {

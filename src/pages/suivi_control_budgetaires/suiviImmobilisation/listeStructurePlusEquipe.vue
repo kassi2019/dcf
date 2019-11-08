@@ -43,12 +43,12 @@
                     <th>type Unité Administrative</th> 
                     <th>Unité Administrative</th> 
                     <th>type equipement</th> 
-                    <th>type equipement</th> 
+                   
                     <th>Designation</th>
                     <th>Quantité Prévue</th>
                     <th>Quantité Réalisé</th>
-                    <th>Quantité Restant</th>
-                   <th>Action</th>
+                    
+                 
                   </tr>
                 </thead>
                 <tbody>
@@ -68,27 +68,14 @@
                     >{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
                     <td
                       
-                    >{{immobilisat.qte_reel}}</td>
+                    >{{immobilisat.BesoinImmobilisation.historiqueqte}}</td>
                     <td
                       
-                    >{{immobilisat.qte_affecte || 'Non renseigné'}}</td>
-                    <td
-                      
-                    >{{immobilisat.qte_actuel || 'Non renseigné'}}</td>
+                    >{{immobilisat.BesoinImmobilisation.historiqueqte || 'Non renseigné'}}</td>
+                    
                     
                   
-                    <td>
-                      <router-link
-                        :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immobilisat.id}}"
-                        class="btn btn-default"
-                        title="Detail Immobilisation"
-                      >
-                        <span>
-                          <i class="icon icon-folder-open"></i>
-                        </span>
-                      </router-link>
-                     
-                    </td>
+                   
                   </tr>
                 </tbody>
               </table>
@@ -112,7 +99,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
-import { formatageSomme } from "../../../Repositories/Repository";
+// import { formatageSomme } from "../../../Repositories/Repository";
 
 export default {
   

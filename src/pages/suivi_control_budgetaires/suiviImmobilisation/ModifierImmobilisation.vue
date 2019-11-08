@@ -487,6 +487,7 @@
           </div>
         </div>
       </div>
+      <notifications  />
     </div>
 
     <!-- <fab :actions="fabActions" @cache="afficherModalAjouterTitre" bg-color="green"></fab> -->

@@ -30,7 +30,7 @@ export function ajouterFamille({ commit }, nouveau) {
         commit("AJOUTER_FAMILLE", response.data);
         this.$app.$notify({
           title: 'Success',
-          text: 'Famille Enregistrée!',
+          text: 'Enregistrement Effectué avec Succès!',
           type: "success"
         })
       }
@@ -49,8 +49,8 @@ export function modifierFamille({ commit }, nouveau) {
       commit("MODIFIER_FAMILLE", response.data);
       this.$app.$notify({
         title: 'Success',
-        text: 'Famille Modifiée!',
-        type:"success"
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
       })
     });
 }
@@ -91,6 +91,11 @@ export function ajouterService({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_SERVICE", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Enregistrement Effectué avec Succès!',
+          type: "success"
+        })
       }
     });
 }
@@ -104,6 +109,11 @@ export function modifierService({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_SERVICE", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer
@@ -138,6 +148,11 @@ export function ajouterImmobilisation({ commit }, formData) {
   axios.post("/ajouter_immobilisation", formData).then(response => {
     if (response.status == 201) {
       commit("AJOUTER_IMMOBILISATION", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Enregistrement Effectué avec Succès!',
+        type: "success"
+      })
     }
   });
 }
@@ -178,6 +193,11 @@ export function modifierImmobilisation({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_IMMOBILISATION", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer
@@ -231,6 +251,11 @@ export function ajouterAmortissement({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_AMORTISSEMENT", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Enregistrement Effectué avec Succès!',
+          type: "success"
+        })
       }
     });
 }
@@ -252,6 +277,11 @@ export function modifierAmortissement({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_AMORTISSEMENT", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer
@@ -294,6 +324,11 @@ export function ajouterBesoinImmo({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_BESOIN_IMMO", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Enregistrement Effectué avec Succès!',
+          type: "success"
+        })
       }
     });
 }
@@ -313,6 +348,11 @@ export function modifierBesoinImmo({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_BESOIN_IMMO", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 
@@ -338,6 +378,17 @@ export function modifierMontantActuel({ commit }, objet) {
       commit("MODIFIER_MONTANT_ACTUEL", response.objet);
     });
 }
+// export function modifierQteRealisebesoin({ commit }, objet) {
+//   // console.log(id_besoinImmo_a_modifier, qte_actu);
+//   axios.put("/modifier_besoin_immo/" + objet.id, {
+//     qterealise: objet.qte_real
+//     // ,
+//     // montant_total = objet.montant_actu
+//   })
+//     .then(response => {
+//       commit("MODIFIER_QUE_REALISE_BESOIN", response.objet)
+//     });
+// }
 // export function modifierActeurDepenses({ commit }, objet) {
 //    axios.put("/update_act_personnel/" + objet.id, {
 //      equipe_immo: objet.equipemt
@@ -382,6 +433,11 @@ export function ajouterEquipement({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_EQUIPEMENT", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Enregistrement Effectué avec Succès!',
+          type: "success"
+        })
       }
     });
 }
@@ -395,6 +451,11 @@ export function modifierEquipement({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_EQUIPEMENT", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer

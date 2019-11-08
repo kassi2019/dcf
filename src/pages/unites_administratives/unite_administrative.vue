@@ -316,7 +316,9 @@
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
+    <fab :actions="fabActions" @cache="afficherModalAjouterUniteAdministrative" main-icon="apps" bg-color="green"></fab>
+        <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterUniteAdministrative()">Open</button>
+  <notifications  />
   </div>
 </template>
   
@@ -395,7 +397,7 @@ export default {
       "supprimerUniteAdministrative"
     ]),
 
-    afficherModalAjouterTitre() {
+    afficherModalAjouterUniteAdministrative() {
       this.$("#exampleModal").modal({
         backdrop: "static",
         keyboard: false

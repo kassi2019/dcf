@@ -43,7 +43,7 @@
                     <th>Quantité Prévue</th>
                     <th>Quantité Réalisé</th>
                     <th>Quantité Restant</th>
-                   <th>Action</th>
+                  
                   </tr>
                 </thead>
                 <tbody>
@@ -57,33 +57,22 @@
                     >{{immobilisat.uniteAdminist.libelle || 'Non renseigné'}}</td>
                     <td
                       
-                    >{{immobilisat.BesoinImmobilisation.famille.reletion__equipement.libelle || 'Non renseigné'}}</td>
+                    >{{immobilisat.famillebesoin.reletion__equipement.libelle || 'Non renseigné'}}</td>
                     <td
                       
-                    >{{immobilisat.BesoinImmobilisation.famille.libelle || 'Non renseigné'}}</td>
+                    >{{immobilisat.famillebesoin.libelle || 'Non renseigné'}}</td>
                     <td
                       
-                    >{{immobilisat.qte_reel}}</td>
+                    >{{immobilisat.historiqueqte}}</td>
                     <td
                       
-                    >{{immobilisat.qte_affecte}}</td>
+                    >{{immobilisat.qterealise}}</td>
                     <td
                       
-                    >{{immobilisat.qte_actuel}}</td>
+                    >{{immobilisat.quantite}}</td>
                     
                   
-                    <td>
-                      <router-link
-                        :to="{name : 'Detailimmobilisation', params: {id_immobilisation:immobilisat.id}}"
-                        class="btn btn-default"
-                        title="Detail Immobilisation"
-                      >
-                        <span>
-                          <i class="icon icon-folder-open"></i>
-                        </span>
-                      </router-link>
-                     
-                    </td>
+                   
                   </tr>
                 </tbody>
               </table>
@@ -107,13 +96,13 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
-import { formatageSomme } from "../../../Repositories/Repository";
-import { ModelListSelect } from "vue-search-select";
-import "vue-search-select/dist/VueSearchSelect.css";
+// import { formatageSomme } from "../../../Repositories/Repository";
+// import { ModelListSelect } from "vue-search-select";
+// import "vue-search-select/dist/VueSearchSelect.css";
 export default {
-   components: {
-    ModelListSelect
-  },
+  //  components: {
+  //   ModelListSelect
+  // },
   data() {
     return {
       fabActions: [
@@ -180,7 +169,8 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
-      "afficheStructureMoinEquipe"
+      "afficheStructureMoinEquipe",
+      
       // "getPersonnaliseImmobilisation",
      
       // "getPersonnaliseSuivImmo"

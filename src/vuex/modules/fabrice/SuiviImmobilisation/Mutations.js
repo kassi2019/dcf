@@ -170,6 +170,19 @@ const MODIFIER_MONTANT_ACTUEL = (state, objet) => {
     return besoin_immobil;
   });
 };
+
+
+//modifier QUANTITE REEL
+// const MODIFIER_QUE_REALISE_BESOIN = (state, objet) => {
+//   state.besoinImmobilisations = state.besoinImmobilisations.map(besoinRealise => {
+//     if (besoinRealise.id == objet.id) {
+//       // besoin_immo.montant_total = objet.qte_actu;
+//       besoinRealise.qterealise = objet.qte_real;
+//     }
+
+//     return besoinRealise;
+//   });
+// };
 // const MODIFIER_ACT_PERSONNEL = (state, objet) => {
 //   state.acte_personnels = state.acte_personnels.map(acte_personnel => {
 //     if (acte_personnel.id == objet.id) {
@@ -223,6 +236,7 @@ const SUPPRIMER_EQUIPEMENT = (state, id) => {
 /*fin mutation EQUIPEMENT */
 
 export {
+  // MODIFIER_QUE_REALISE_BESOIN,
   // MODIFIER_ACT_PERSONNEL,
   MODIFIER_MONTANT_ACTUEL,
   MODIFIER_QUANTITE_REEL,

@@ -26,6 +26,11 @@ export function ajouterTypeTexte({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_TYPE_TEXTE", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Enregistrement Effectué avec Succès!',
+          type: "success"
+        })
       }
     });
 }
@@ -39,6 +44,11 @@ export function modifierTypeTexte({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_TYPE_TEXTES", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer
@@ -82,6 +92,11 @@ export function ajouterUniteAdministrative({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_UNITE_ADMINISTRATIVE", response.data);
+        this.$app.$notify({
+          title: 'Success',
+          text: 'Enregistrement Effectué avec Succès!',
+          type: "success"
+        })
       }
     });
 }
@@ -99,6 +114,11 @@ export function modifierUniteAdministrative({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_UNITE_ADMINISTRATIVE", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer Unite administrative
@@ -158,6 +178,11 @@ export function modifierArchivageDocument({ commit }, nouveau) {
     })
     .then(response => {
       commit("MODIFIER_ARCHIVAGE_DOCUMENT", response.data);
+      this.$app.$notify({
+        title: 'Success',
+        text: 'Modification Effectué avec Succès!',
+        type: "success"
+      })
     });
 }
 //supprimer archivage note se service

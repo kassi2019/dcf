@@ -98,7 +98,7 @@
             :data="filtre_service"
             name="Liste des services"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
@@ -154,9 +154,11 @@
       </div>
     </div>
 
-    <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
-    <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
-  </div>
+    <fab :actions="fabActions" @cache="afficherModalAjouterService" main-icon="apps" bg-color="green"></fab>
+     <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterService()">Open</button>
+      <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
+<notifications  />
+ </div>
 </template>
   
 <script>
@@ -212,7 +214,7 @@ json_fields: {
       "supprimerService"
     ]),
     //afiicher modal ajouter
-    afficherModalAjouterTitre() {
+    afficherModalAjouterService() {
       this.$("#exampleModal").modal({
         backdrop: "static",
         keyboard: false
@@ -247,7 +249,15 @@ json_fields: {
     },
     alert() {
       console.log("ok");
+    },
+
+    ExporterEnExel(){
+      this.$refs.excel.click()
     }
+  },
+
+  created(){
+    console.log(this.$refs)
   }
 };
 </script>

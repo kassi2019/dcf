@@ -129,7 +129,7 @@
               <span class="icon">
                 <i class="icon-th"></i>
               </span>
-              <h5>Liste des Familles</h5>
+              <h5>Liste des Articles</h5>
               <div align="right">
                 Recherche:
                 <input type="search" placeholder v-model="search" />
@@ -138,45 +138,21 @@
             </div>
 
             <div class="widget-content nopadding" v-if="equipements.length && persoEquipement.length">
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>Type équipement</th>
-                    <th>Classe</th>
-                    <th>Libelle</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    class="odd gradeX"
-                    v-for="(famille, index) in filtre_famille"
-                    :key="famille.id"
-                  >
-                    <td
-                      @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.equipemt.libelle || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.code || 'Non renseigné'}}</td>
-                    <td
-                      @dblclick="afficherModalModifierFamille(index)"
-                    >{{famille.libelle || 'Non renseigné'}}</td>
+              <ArticleItemComponent v-for="equipement in equipements"
+               :key="equipement.id"
+                :groupe="equipement"
+                @modification="afficherModalModifierFamille" 
+                @suppression="supprimerArticle"
+                >
+              </ArticleItemComponent>
 
-                    <td>
-                      <button class="btn btn-danger" @click="supprimerFamille(famille.id)">
-                        <span>
-                          <i class="icon icon-trash"></i>
-                        </span>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
               <div v-if="filtre_famille.length"></div>
               <div v-else>
                 <p style="text-align:center;font-size:20px;color:red;">Aucune Famille Article</p>
               </div>
+
+            
+              
             </div>
           </div>
         </div>
@@ -192,11 +168,19 @@
   </div>
 
 </template>
+
+
+
+
   
 <script>
 import { mapGetters, mapActions } from "vuex";
-
+import ArticleItemComponent from './ArticleItemComponent'
 export default {
+  name: 'Famille',
+ components: {
+      ArticleItemComponent
+  },
   data() {
     return {
       fabActions: [
@@ -254,6 +238,10 @@ export default {
       "modifierFamille",
       "supprimerFamille"
     ]),
+
+    supprimerArticle(id){
+      this.supprimerFamille(id)
+    },
     
     //afiicher modal ajouter
     afficherModalAjouterTitre() {
@@ -272,13 +260,13 @@ export default {
       };
     },
     // afficher modal de modification
-    afficherModalModifierFamille(index) {
+    afficherModalModifierFamille(article) {
       this.$("#modificationModal").modal({
         backdrop: "static",
         keyboard: false
       });
 
-      this.editFamille = this.familles[index];
+      this.editFamille = article;
     },
     // fonction pour vider l'input modification
     modifierFamilleLocal() {

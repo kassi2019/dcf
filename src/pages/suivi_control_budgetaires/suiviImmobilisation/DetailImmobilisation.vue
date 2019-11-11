@@ -149,6 +149,7 @@ import { mapGetters } from "vuex";
 import moment from "moment";
 import { formatageSomme } from "../../../Repositories/Repository";
 export default {
+  
   data() {
     return {
       immobilisat: undefined

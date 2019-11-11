@@ -8,7 +8,7 @@ const services = state =>
 const amortissements = state =>
   state.amortissements.sort((a, b) => (a.code > b.code ? 1 : -1));
 const immobilisations = state =>
-  state.immobilisations.sort((a, b) => (a.code > b.code ? 1 : -1));
+  state.immobilisations.sort((a, b) => (a.id > b.id ? 1 : -1));
 const besoinImmobilisations = state =>
   state.besoinImmobilisations.sort((a, b) =>
     a.quantite > b.quantite ? 1 : -1

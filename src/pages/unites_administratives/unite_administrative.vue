@@ -232,7 +232,7 @@
             <div class="widget-title">
               <div align="right">
                 Recherche:
-                <input type="search" v-model="search" />
+                <input type="search" placeholder="Saisie section ou libelle" v-model="search" />
 
                 <!-- <div class="span3">
                   <model-list-select
@@ -272,7 +272,7 @@
                 <tbody>
                   <tr
                     class="odd gradeX"
-                    v-for="(uniteadministrative, index) in jointureUaChapitreSection"
+                    v-for="(uniteadministrative, index) in filtre_unite_admin"
                     :key="uniteadministrative.id"
                   >
                     <td
@@ -379,16 +379,16 @@ export default {
       "chapitres",
       "sections",
       "type_Unite_admins"
-    ])
-    // filtre_unite_admin() {
-    //   const st = this.search.toLowerCase();
-    //   return this.jointureUaChapitreSection.filter(items => {
-    //     return (
-    //       items.code.toLowerCase().includes(st) ||
-    //       items.libelle.toLowerCase().includes(st)
-    //     );
-    //   });
-    // }
+    ]),
+    filtre_unite_admin() {
+      const st = this.search.toLowerCase();
+      return this.jointureUaChapitreSection.filter(items => {
+        return (
+          items.secti.nom_section.toLowerCase().includes(st) ||
+          items.libelle.toLowerCase().includes(st)
+        );
+      });
+    }
   },
   methods: {
     ...mapActions("uniteadministrative", [

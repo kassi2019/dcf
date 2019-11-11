@@ -18,7 +18,7 @@ export function getAllFamille({ commit }) {
 }
 
 // ajouter
-export function ajouterFamille({ commit }, nouveau) {
+export function ajouterFamille({ commit, dispatch }, nouveau) {
   axios
     .post("/ajouter_famille", {
       code: nouveau.code,
@@ -28,6 +28,7 @@ export function ajouterFamille({ commit }, nouveau) {
     .then(response => {
       if (response.status == 201) {
         commit("AJOUTER_FAMILLE", response.data);
+        dispatch('getAllEquipement')
         this.$app.$notify({
           title: 'Success',
           text: 'Enregistrement Effectué avec Succès!',
@@ -55,11 +56,13 @@ export function modifierFamille({ commit }, nouveau) {
     });
 }
 //supprimer
-export function supprimerFamille({ commit }, id) {
+export function supprimerFamille({ commit, dispatch }, id) {
   this.$app.$dialog
     .confirm("Voulez vouz vraiment supprimer ?.")
     .then(dialog => {
       commit("SUPPRIMER_FAMILLE", id);
+      dispatch('getAllEquipement')
+
       // // dialog.loading(false) // stops the proceed button's loader
       axios.delete("/supprimer_famille/" + id).then(() => dialog.close());
     });

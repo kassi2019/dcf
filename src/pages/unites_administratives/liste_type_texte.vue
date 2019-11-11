@@ -25,8 +25,8 @@
               </span>
               <h5>Liste des type text</h5>
               <div align="right">
-                Search:
-                <input type="search" placeholder="Code ou libelle" v-model="search" />
+                Recherche:
+                <input type="search" placeholder="Saisie Code ou libelle" v-model="search" />
               </div>
             </div>
 

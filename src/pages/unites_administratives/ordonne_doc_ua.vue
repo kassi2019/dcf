@@ -8,11 +8,13 @@
           <div class="container-fluid">
             <div class="quick-actions_homepage deplaceCarre">
               <ul class="quick-actions">
-                <li class="bg_ls" v-show="typeText_id.length !== 0">
+               
+                 <li class="bg_ls" title="Nombre de document par type text"  v-show="typeText_id.length !== 0" >
                   <a href="#">
-                    <i class="icon-list-ol"></i>
-                    <span class="label label-important">{{nbreDocumentParTypeTexte(typeText_id)}}</span> Nbre de Document
-                  </a>
+                    Nombre de Document
+                   
+                    <i class="icon-th"></i>
+                    <span class="label label-important">{{nbreDocumentParTypeTexte(typeText_id)}}</span>  {{nomTypeText(typeText_id)}}         </a>
                 </li>
               </ul>
             </div>
@@ -131,8 +133,15 @@ export default {
           ).length;
         }
       };
+    },
+    nomTypeText(){
+  return typeText_id =>{
+    if(typeText_id !=""){
+      var ObjetTypetext = this.typeTextes.find(element => element.id == typeText_id)
+      return ObjetTypetext.libelle
     }
-  
+  }
+    },
   },
   methods: {
     formaterDate(date) {

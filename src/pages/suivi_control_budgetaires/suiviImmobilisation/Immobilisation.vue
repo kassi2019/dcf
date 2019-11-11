@@ -12,20 +12,20 @@
                 
                  <li class="bg_lb" title="Total equipement">
           <a href="#">
-            <i class="icon-list-ol"></i>
+            <i class="icon-th-large"></i>
             <span class="label label-important">{{nombreTotalEquipement}}</span> Nbre Global d'équipement
           </a>
         </li> 
          <li class="bg_ly" title="nombre immobilisation prévue">
           <a href="#">
-            <i class="icon-list-ol"></i>
+            <i class=" icon-list-alt"></i>
             <span class="label label-success">{{SommeEquipementPrevue}}</span>Nbre Equipement Global prévue
           </a>
         </li>
-         <li class="bg_ls" title="Total equipement">
+         <li class="bg_ly" title="Total equipement">
           <a href="#">
-            <i class="icon-list-ol"></i>
-            <span class="label label-important">{{SommeEquipementRealise}}</span> Nbre Equipement Global Réalise
+            <i class=" icon-list-alt"></i>
+            <span class="label label-success">{{SommeEquipementRealise}}</span> Nbre Equipement Global Réalise
           </a>
         </li> 
         <li class="bg_lg" title="volume d'immobilisation réalise">
@@ -44,7 +44,7 @@
                   <a href="#">
                     Taux équipement Réalisé par
                    
-                    <i class="icon-list-ol"></i>
+                    <i class="icon-th"></i>
                    <span class="label label-success">{{TauxEquipementRealiseParTypeUniteAdministrative(typeUniteAdmin_id)}}%</span>  {{nomTypeUniteAdministrative(typeUniteAdmin_id)}}
                   </a>
                 </li>
@@ -52,9 +52,16 @@
                   <a href="#">
                     Taux équipement Réalisé par 
                    
-                    <i class="icon-list-ol"></i>
+                    <i class="icon-th"></i>
                     <span class="label label-important">{{TauxEquipementRealiseParUniteAdministrative(uniteadmin_id)}}%</span>  {{nomUniteAdministrative(uniteadmin_id)}}         </a>
                 </li>
+                 <!-- <li class="bg_ls" title="Taux équipement Réalisé par UA"  v-show="uniteadmin_id.length !== 0" >
+                  <a href="#">
+                    Taux équipement Prévue par 
+                   
+                    <i class="icon-th"></i>
+                    <span class="label label-important">{{TauxEquipementPrevueParUniteAdministrative(uniteadmin_id)}}%</span>  {{nomUniteAdministrative(uniteadmin_id)}}         </a>
+                </li> -->
               </ul>
             </div>
           
@@ -346,7 +353,7 @@ TauxEquipementRealiseParUniteAdministrative() {
  
 //       return uniteadmin_id => {
 //         if(uniteadmin_id !=""){
-//     const val = parseFloat(100-this.TauxEquipementRealiseParUniteAdministrative(uniteadmin_id));
+//     const val = parseFloat(100-this.TauxEquipementRealiseParUniteAdministrative(uniteadmin_id)).toFixed(2);
 //     if (isNaN(val)) return null;
 //   return val;
 //     }
@@ -354,7 +361,7 @@ TauxEquipementRealiseParUniteAdministrative() {
    
 //  }
 
-    // },
+//     },
     // afficher le nom unite administrative
       nomUniteAdministrative(){
   return uniteadmin_id =>{

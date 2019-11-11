@@ -160,8 +160,6 @@ export default {
     Milieu,
     Nfooter
   },*/
-  mounted() {
-    console.log("Component mounted.");
-  }
+ 
 };
 </script>

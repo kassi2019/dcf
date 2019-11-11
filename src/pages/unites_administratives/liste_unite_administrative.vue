@@ -29,7 +29,7 @@
                 <input
                   type="search"
                   v-model="search"
-                  placeholder="Saisir UNITE ADMINISTRATIVE"
+                  placeholder="Saisie unites administratives"
                 />
               </div>
             </div>

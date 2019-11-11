@@ -78,10 +78,10 @@
               <tbody>
                 <tr class="odd gradeX" v-for="amort in Amortissement" :key="amort.annee">
                   <td>{{amort.annee }}</td> 
-                  <td>{{formatageSomme( Number (amort.anuite) ) }}</td>
-                    <td>{{formatageSomme(Number(amort.cumul) ) }}</td>
+                  <td>{{amort.anuite }}</td>
+                    <td>{{amort.cumul }}</td>
 
-                  <td>{{formatageSomme( Number (amort.valeurNette) ) }}</td>
+                  <td>{{amort.valeurNette }}</td>
                   <!-- <td>{{test || 'Non renseigné'}} </td> -->
                    
                   
@@ -115,10 +115,10 @@
               <tbody>
                 <tr class="odd gradeX" v-for="amort in AmortissementProrataTemporis" :key="amort.annee">
                   <td>{{amort.annee }}</td> 
-                  <td>{{formatageSomme( Number (amort.anuite) ) }}</td>
-                    <td>{{formatageSomme(Number(amort.cumul) ) }}</td>
+                  <td>{{amort.anuite }}</td>
+                    <td>{{amort.cumul }}</td>
 
-                  <td>{{formatageSomme( Number (amort.valeurNette) ) }}</td>
+                  <td>{{amort.valeurNette }}</td>
                   <!-- <td>{{test || 'Non renseigné'}} </td> -->
                    
                   
@@ -203,6 +203,8 @@ export default {
         const immobilisat = this.immobilisat
       if(immobilisat.duree != "" && immobilisat.date_mise_service != "" && immobilisat.valeurorigine != ""){
         var tableauAmortissement = []
+         var tableauAmortissementAExporter = []
+
         var tailleDuTableau = this.immobilisat.duree
          var valeurNettActuelle = immobilisat.valeurorigine
           var cumulActuel = this.calculAnnuite
@@ -217,9 +219,16 @@ export default {
             cumulActuel = this.calculAnnuite + objet.cumul
             tableauAmortissement.push(objet)
 
+             let objet2 = {...objet,
+                          anuite: this.formatageSomme( Number ( objet.anuite )),
+                          valeurNette: this.formatageSomme( Number ( objet.valeurNette )),
+                          cumul: this.formatageSomme( Number ( objet.cumul )),
+                    }
+          tableauAmortissementAExporter.push(objet2)
+
           }
     
-        return tableauAmortissement
+        return tableauAmortissementAExporter
       }
       return null
 
@@ -230,6 +239,8 @@ export default {
         const immobilisat = this.immobilisat
       if(immobilisat.duree != "" && immobilisat.date_mise_service != "" && immobilisat.valeurorigine != ""){
         var tableauAmortissement = []
+        var tableauAmortissementAExporter = []
+
         var tailleDuTableau = this.immobilisat.duree
          var valeurNettActuelle = immobilisat.valeurorigine
           var cumulActuel = this.calculAnnuite
@@ -260,18 +271,27 @@ export default {
             valeurNettActuelle = objet.valeurNette
             cumulActuel = this.calculAnnuite + objet.cumul
             tableauAmortissement.push(objet)
+            let objet2 = {...objet,
+                          anuite: this.formatageSomme( Number ( objet.anuite )),
+                          valeurNette: this.formatageSomme( Number ( objet.valeurNette )),
+                          cumul: this.formatageSomme( Number ( objet.cumul )),
+                    }
+          tableauAmortissementAExporter.push(objet2)
+          
           // i++
 
           }
         }
       
 
-        return tableauAmortissement
+        return tableauAmortissementAExporter
       }
       return null
 
       
     },
+
+  
 
 
  

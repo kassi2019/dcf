@@ -49,9 +49,8 @@ Vue.use(require('vue-shortkey'))
 
 
 const app = new Vue({
-  el: '#app',
   render: h => h(App),
   router,
   store
-});
+}).$mount('#app');
 store.$app = app;

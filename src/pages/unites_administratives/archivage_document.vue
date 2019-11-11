@@ -161,8 +161,8 @@
               </span>
               <h5>Listes Archivages Documents</h5>
               <div align="right">
-                Search:
-                <input type="search" placeholder v-model="search" />
+                Recherche:
+                <input type="search" placeholder="Saisie ua ou type texte" v-model="search" />
               </div>
             </div>
 

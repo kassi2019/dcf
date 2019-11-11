@@ -47,6 +47,13 @@ export const jointureUaChapitreSection = (
     }
     return element;
   });
+
+
+
+
+
+
+  
 export {
   typeTextes,
   uniteAdministratives,

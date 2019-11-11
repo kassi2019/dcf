@@ -108,8 +108,8 @@
               </span>
               <h5>Liste des type text</h5>
               <div align="right">
-                Search:
-                <input type="search" placeholder v-model="search" />
+                Recherche:
+                <input type="search" placeholder="Saisie code ou libelle" v-model="search" />
               </div>
             </div>
 

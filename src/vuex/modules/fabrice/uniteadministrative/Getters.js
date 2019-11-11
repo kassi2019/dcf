@@ -15,10 +15,10 @@ export const nombreTypeText = state => state.typeTextes.length;
 // const nbreUniteAdministratives = state => state.nbreUniteAdministratives;
 // const nbreTypeTextes = state => state.nbreTypeTextes;
 
-export const nbreNouveauProjet = state =>
-  state.uniteAdministratives.filter(
-    nouveauProjet => nouveauProjet.date_creation == null
-  ).length;
+// export const nbreNouveauProjet = state =>
+//   state.uniteAdministratives.filter(
+//     nouveauProjet => nouveauProjet.date_creation == null
+//   ).length;
 
 export const jointureUaChapitreSection = (
   state,

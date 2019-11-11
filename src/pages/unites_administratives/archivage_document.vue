@@ -152,7 +152,7 @@
           
             worksheet="Archivage de document"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
@@ -227,6 +227,7 @@
 
     <fab :actions="fabActions" @cache="afficherModalAjouterArchivage" main-icon="apps" bg-color="green"></fab>
      <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterArchivage()">Open</button>
+     <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
      <notifications  />
   </div>
 </template>
@@ -351,6 +352,11 @@ export default {
 
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
+    
+
+    ExporterEnExel(){
+      this.$refs.excel.click()
     }
   }
 };

@@ -371,24 +371,23 @@ export function modifierMontantActuel({ commit }, objet) {
   // console.log(id_besoinImmo_a_modifier, qte_actu);
   axios.put("/modifier_besoin_immo/" + objet.id, {
     montant_total : objet.montant_actu
-    // ,
-    // montant_total = objet.montant_actu
+    
   })
     .then(response => {
       commit("MODIFIER_MONTANT_ACTUEL", response.objet);
     });
 }
-// export function modifierQteRealisebesoin({ commit }, objet) {
-//   // console.log(id_besoinImmo_a_modifier, qte_actu);
-//   axios.put("/modifier_besoin_immo/" + objet.id, {
-//     qterealise: objet.qte_real
-//     // ,
-//     // montant_total = objet.montant_actu
-//   })
-//     .then(response => {
-//       commit("MODIFIER_QUE_REALISE_BESOIN", response.objet)
-//     });
-// }
+export function modifierQteRealisebesoin({ commit }, objet) {
+  // console.log(id_besoinImmo_a_modifier, qte_actu);
+  axios.put("/modifier_besoin_immo/" + objet.id, {
+    qterealise: objet.qte_real
+    // ,
+    // montant_total = objet.montant_actu
+  })
+    .then(response => {
+      commit("MODIFIER_QTE_REALISE_BESOIN", response.objet)
+    });
+}
 // export function modifierActeurDepenses({ commit }, objet) {
 //    axios.put("/update_act_personnel/" + objet.id, {
 //      equipe_immo: objet.equipemt

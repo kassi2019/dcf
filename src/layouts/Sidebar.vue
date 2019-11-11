@@ -42,7 +42,7 @@
             <i class="icon icon-fullscreen"></i>
             <span>PLANIFICATION</span>
           </a>
-        <li @click.prevent="activate(4)" :class="{active: active_el ==4}">
+        <li @click.prevent="navigateToSuiviImmobilisation" :class="{active: active_el ==4}">
           <a title="SUIVIB ET CONTROLE BUDGETAIRE 1" href="#">
             <i class="icon icon-th-list"></i>
             <span>SUIVI ET CONTRÔLE B.</span>
@@ -125,6 +125,13 @@ export default {
         this.activate(1)
         this.$router.push({
           name: 'tableaudebord'
+        })
+      },
+
+ navigateToSuiviImmobilisation(){
+        this.activate(4)
+        this.$router.push({
+          name: 'TableauBordImmo'
         })
       },
 

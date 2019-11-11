@@ -40,6 +40,7 @@
               <i class="icon-th"></i>
             </span>
             <h5>Amortissement</h5>
+        
           </div>
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#tab1">Amortissement linéaire simple</a></li>
@@ -47,8 +48,20 @@
               
             </ul>
              <div class="widget-content tab-content">
+               
                 <div id="tab1" class="tab-pane active">
+                       <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields_lineaire"
+            title="Amortissement Linéaire Simple"
+            :data="Amortissement"
+            name="Amortissement Linéaire Simple"
+          >
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
                    <table class="table table-bordered table-striped">
+                     
               <thead>
                 <tr>
                   <!-- <th>Code</th> -->
@@ -78,6 +91,16 @@
                 </div>
             <!--  prorata -->
                  <div id="tab2" class="tab-pane">
+                        <download-excel
+            class="btn btn-default pull-right"
+            style="cursor:pointer;"
+            :fields="json_fields_prorata_temporis"
+            title="Amortissement Prorata Temporis"
+            :data="AmortissementProrataTemporis"
+            name="Amortissement Prorata Temporis"
+          >
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+          </download-excel>
                    <table class="table table-bordered table-striped">
               <thead>
                 <tr>
@@ -122,7 +145,19 @@ import { formatageSomme } from "../../../Repositories/Repository";
 export default {
   data() {
     return {
-      immobilisat: undefined
+      immobilisat: undefined,
+      json_fields_lineaire: {
+        ANNEE: "annee",
+        ANNUITE: "anuite",
+        CUMUL: "cumul",
+        VALEUR_NET_COMPTABLE:"valeurNette"
+      },
+      json_fields_prorata_temporis: {
+        ANNEE: "annee",
+        ANNUITE: "anuite",
+        CUMUL: "cumul",
+        VALEUR_NET_COMPTABLE:"valeurNette"
+      },
     };
   },
   created() {

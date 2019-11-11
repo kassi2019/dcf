@@ -21,12 +21,12 @@
             <span class="label label-important">{{nombreTypeText}}</span>Nombre de type texte
           </a>
         </li>
-        <li class="bg_lb">
+        <!-- <li class="bg_lb">
           <a href="#">
             <i class="icon-list-ol"></i>
             <span class="label label-important">{{nbreNouveauProjet}}</span>Nombre de nouveau projet
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default {
       "nombreTypeText",
       "nombreUniteAdministratives",
       "nombreArchivageDocument",
-      "nbreNouveauProjet"
+      // "nbreNouveauProjet"
 
       // "nbreArchivageNotes"
     ]),

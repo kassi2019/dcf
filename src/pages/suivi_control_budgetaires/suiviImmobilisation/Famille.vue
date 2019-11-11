@@ -122,7 +122,7 @@
             :data="filtre_famille"
             name="Liste des familles"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
@@ -185,6 +185,8 @@
 
     <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
     <notifications  />
+      <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
+
     <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
     <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterTitre()">Open</button>
   </div>
@@ -210,7 +212,7 @@ export default {
         // }
       ],
       json_fields: {
-        TYPE_EQUIPEMENT: "reletion_Equipement.libelle",
+        TYPE_EQUIPEMENT: "equipemt.libelle",
         CODE: "code",
         LIBELLE: "libelle"
       },
@@ -289,6 +291,10 @@ this.$("#modificationModal").modal('hide');
     },
     alert() {
       console.log("ok");
+    },
+    
+    ExporterEnExel(){
+      this.$refs.excel.click()
     }
   }
 };

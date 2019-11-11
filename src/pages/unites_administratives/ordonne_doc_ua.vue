@@ -8,7 +8,7 @@
           <div class="container-fluid">
             <div class="quick-actions_homepage deplaceCarre">
               <ul class="quick-actions">
-                <li class="bg_ls">
+                <li class="bg_ls" v-show="typeText_id.length !== 0">
                   <a href="#">
                     <i class="icon-list-ol"></i>
                     <span class="label label-important">{{nbreDocumentParTypeTexte(typeText_id)}}</span> Nbre de Document
@@ -26,7 +26,7 @@
             name="Liste d'Archivages document"
             worksheet="Archivage de document"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <h5>Liste Documents</h5>
@@ -79,6 +79,7 @@
         </div>
       </div>
     </div>
+      <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
   </div>
 </template>
   
@@ -131,41 +132,15 @@ export default {
         }
       };
     }
-    // nomDocumentParTypeTexte() {
-    //   return typeText_id => {
-    //     if (typeText_id != "") {
-    //       var ObjetTYPTEXT = this.typeTextes.find(
-    //         element => element.type_texte.id == typeText_id
-    //       );
-    //       return ObjetTYPTEXT.libelle;
-    //     }
-    //   };
-    // }
-
-    //     NomDeMissionParUA(){
-    // return ua_id =>{
-    //   if(ua_id !=""){
-    //     var ObjetUA = this.uniteAdministratives.find(element => element.id == ua_id)
-    //     return ObjetUA.libelle
-    //   }
-    // }
-    //   },
-    // filtre_archivage_document() {
-    //   const st = this.search.toLowerCase();
-    //   return this.archivageDocuments.filter(archivagedocument => {
-    //     return (
-    //       archivagedocument.reference.toLowerCase().includes(st) ||
-    //       archivagedocument.unite_administrative.libelle
-    //         .toLowerCase()
-    //         .includes(st) ||
-    //       archivagedocument.type_texte.libelle.toLowerCase().includes(st)
-    //     );
-    //   });
-    // }
+  
   },
   methods: {
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
+    
+ExporterEnExel(){
+      this.$refs.excel.click()
     }
   }
 };

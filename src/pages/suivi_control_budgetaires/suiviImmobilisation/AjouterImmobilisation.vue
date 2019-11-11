@@ -226,51 +226,9 @@
                         </td>
 
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Etat Immobilisation</label>
-                            <div class="controls">
-                              <select v-model="formData.etat_immobilisation">
-                              <option value="1">neuf(ve)</option>
-    <option value="2">Seconde Main</option>
-    <option value="3">Bon</option>
-    </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Cause inactivite:</label>
-                            <div class="controls">
-                              <select v-model="formData.cause_inactivite">
-                            
-    <option value="1">Vendue</option>
-    <option value="2">Mise en hors service</option>
-                              </select>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-
-<label class="control-label">Taux:</label>
-                          <div class="controls">
-                            <input
-                              type="text"
-                              class="span"
-                              placeholder="Saisir le Taux"
-                              v-model="formData.TVA_id"
-                            />
-                          </div>
-
-
-
-                 
-                        </td>
                        
-                      </tr>
 
-                      <tr>
-                          <td>
-                          <div class="control-group">
+                           <div class="control-group">
                             <label class="control-label">N°Identification:</label>
                             <div class="controls">
                               <input
@@ -283,7 +241,7 @@
                           </div>
                         </td>
                         <td>
-                          <label class="control-label">Numero CC:</label>
+                           <label class="control-label">Numero CC:</label>
                           <div class="controls">
                             <input
                               type="text"
@@ -291,6 +249,74 @@
                               placeholder="Saisir le Numero CC"
                               v-model="formData.numero_CC"
                             />
+                          </div>
+                         
+                        </td>
+                        
+  <td>
+                          <div class="control-group">
+                            <label class="control-label">Date de mise en service:</label>
+                            <div class="controls">
+                              <input type="date" class="span" v-model="formData.date_mise_service" />
+                            </div>
+                          </div>
+
+                          <input
+                    type="hidden"
+                   :value="totalqteRealise"
+                    
+                    class="span"
+                    
+                  />
+                   <input
+                    type="hidden"
+                   :value="AffichierQuantiteRealise"
+                    
+                    class="span"
+                    
+                  />
+                        </td>
+<!-- <label class="control-label">Taux:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Taux"
+                              v-model="formData.TVA_id"
+                            />
+                          </div>
+
+
+
+                 
+                        </td> -->
+                        
+               
+                      </tr>
+
+                      <tr>
+                          <td>
+                            <div class="control-group">
+                            <label class="control-label">Etat Immobilisation</label>
+                            <div class="controls">
+                              <select v-model="formData.etat_immobilisation">
+                              <option value="1">neuf(ve)</option>
+    <option value="2">Seconde Main</option>
+    <option value="3">Bon</option>
+    </select>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                         <div class="control-group">
+                            <label class="control-label">Cause inactivite:</label>
+                            <div class="controls">
+                              <select v-model="formData.cause_inactivite">
+                            
+    <option value="1">Vendue</option>
+    <option value="2">Mise en hors service</option>
+                              </select>
+                            </div>
                           </div>
                         </td>
                         <td>
@@ -413,14 +439,7 @@
                             </div>
                           </div>
                         </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Date de mise en service:</label>
-                            <div class="controls">
-                              <input type="date" class="span" v-model="formData.date_mise_service" />
-                            </div>
-                          </div>
-                        </td>
+                       
                         <td>
                           <div class="control-group">
                             <label class="control-label">Date d'acquisition:</label>
@@ -455,19 +474,9 @@
                             </div>
                           </div>
                         </td>
-                          <td>
-                         
-                        </td>
+                       
                       </tr>
                     </div>
-
-
-
-
-
-
-
-
                   </div>
                   <br />
                   <div align="right">
@@ -577,7 +586,10 @@ typeUniteAdministrativeDynamiques() {
         }
       };
     },
-
+// Historqteafecter() {
+//       const val = parseInt(this.formData.qte_affecte);
+//       return parseInt(val).toFixed(0);
+//     },
 
     acteurDepenseDynamiques() {
       return id => {
@@ -605,10 +617,19 @@ typeUniteAdministrativeDynamiques() {
       }
       return 0
     },
+    AffichierQuantiteRealise() {
+      const qtereali = this.trieUaImmobilisation.find(Qreal => Qreal.id == this.formData.besoinimmo_id);
+
+      if (qtereali) {
+        return qtereali.qterealise;
+      }
+      return 0
+    },
 
     idObjetBesoinImmoAModifierLaQuantite() {
       const qtereel = this.trieUaImmobilisation.find(
         qtreel => qtreel.id == this.formData.besoinimmo_id,
+       
       );
 
       if (qtereel) {
@@ -651,6 +672,13 @@ typeUniteAdministrativeDynamiques() {
       return parseFloat(val).toFixed(2);
     },
 
+totalqteRealise() {
+      const val = parseFloat(this.formData.qte_affecte) + parseFloat(this.AffichierQuantiteRealise);
+      return parseFloat(val).toFixed(2);
+    },
+
+
+
     AffichierTotalActuel() {
       const val = parseFloat(this.AfficheQteActuel) * parseFloat(this.AffichierprixUnitaire);
       return parseFloat(val).toFixed(2);
@@ -669,8 +697,8 @@ typeUniteAdministrativeDynamiques() {
     ...mapActions("SuiviImmobilisation", [
       "ajouterImmobilisation",
       "modifierQuantiteReel",
-      "modifierMontantActuel"
-      // "modifierActeurDepenses"
+      "modifierMontantActuel",
+      "modifierQteRealisebesoin"
     ]),
 
     // changerUniteAdmin(event) {
@@ -697,16 +725,16 @@ typeUniteAdministrativeDynamiques() {
         id: this.idObjetBesoinImmoAModifierMontantActuel,
         montant_actu: this.AffichierTotalActuel
       }
-    //  var objetPourModifierQteRealise = {
-    //     id: this.idObjetBesoinImmoAModifierQteRealise,
-    //     qte_real: this.formData.qte_affecte
-    //   }
+     var objetPourModifierQteRealise = {
+        id: this.idObjetBesoinImmoAModifierQteRealise,
+         qte_real: this.totalqteRealise
+      }
 
       //console.log(objetPourModifierpersoEquipe)
 
      this.modifierQuantiteReel(objetPourModifierQuantiteReel);
      this.modifierMontantActuel(objetPourModifierMontantActuel);
-    //  this.modifierQteRealisebesoin(objetPourModifierQteRealise);
+    this.modifierQteRealisebesoin(objetPourModifierQteRealise);
       var nouvelObjet = {
         ...this.formData,
         qte_reel: this.AffichierQuantiteteReel,

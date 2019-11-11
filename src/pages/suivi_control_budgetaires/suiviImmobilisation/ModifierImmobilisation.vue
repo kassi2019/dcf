@@ -226,30 +226,39 @@
                         </td>
 
                         <td>
-                          <div class="control-group">
-                            <label class="control-label">Etat Immobilisation</label>
+                           <label class="control-label">Numero CC:</label>
+                          <div class="controls">
+                            <input
+                              type="text"
+                              class="span"
+                              placeholder="Saisir le Numero CC"
+                              v-model="editImmobilisation.numero_CC"
+                            />
+                          </div>
+                          
+                        </td>
+                        <td>
+                         <div class="control-group">
+                            <label class="control-label">N°Identification:</label>
                             <div class="controls">
-                              <select v-model="editImmobilisation.etat_immobilisation">
-                              <option value="1">neuf(ve)</option>
-    <option value="2">Seconde Main</option>
-    <option value="3">Bon</option>
-    </select>
+                              <input
+                                type="text"
+                                class="span"
+                                placeholder="Saisir Num identification"
+                                v-model="editImmobilisation.identification"
+                              />
                             </div>
                           </div>
                         </td>
-                        <td>
+                          <td>
                           <div class="control-group">
-                            <label class="control-label">Cause inactivite:</label>
+                            <label class="control-label">Date de mise en service:</label>
                             <div class="controls">
-                              <select v-model="editImmobilisation.cause_inactivite">
-                            
-    <option value="1">Vendue</option>
-    <option value="2">Mise en hors service</option>
-                              </select>
+                              <input type="date" class="span" v-model="editImmobilisation.date_mise_service" />
                             </div>
                           </div>
                         </td>
-                        <td>
+                        <!-- <td>
 
 <label class="control-label">Taux:</label>
                           <div class="controls">
@@ -264,33 +273,34 @@
 
 
                  
-                        </td>
+                        </td> -->
                        
                       </tr>
 
                       <tr>
                           <td>
-                          <div class="control-group">
-                            <label class="control-label">N°Identification:</label>
+                              <div class="control-group">
+                            <label class="control-label">Cause inactivite:</label>
                             <div class="controls">
-                              <input
-                                type="text"
-                                class="span"
-                                placeholder="Saisir Num identification"
-                                v-model="editImmobilisation.identification"
-                              />
+                              <select v-model="editImmobilisation.cause_inactivite">
+                            
+    <option value="1">Vendue</option>
+    <option value="2">Mise en hors service</option>
+                              </select>
                             </div>
                           </div>
+                          
                         </td>
                         <td>
-                          <label class="control-label">Numero CC:</label>
-                          <div class="controls">
-                            <input
-                              type="text"
-                              class="span"
-                              placeholder="Saisir le Numero CC"
-                              v-model="editImmobilisation.numero_CC"
-                            />
+                         <div class="control-group">
+                            <label class="control-label">Etat Immobilisation</label>
+                            <div class="controls">
+                              <select v-model="editImmobilisation.etat_immobilisation">
+                              <option value="1">neuf(ve)</option>
+    <option value="2">Seconde Main</option>
+    <option value="3">Bon</option>
+    </select>
+                            </div>
                           </div>
                         </td>
                         <td>
@@ -413,14 +423,7 @@
                             </div>
                           </div>
                         </td>
-                        <td>
-                          <div class="control-group">
-                            <label class="control-label">Date de mise en service:</label>
-                            <div class="controls">
-                              <input type="date" class="span" v-model="editImmobilisation.date_mise_service" />
-                            </div>
-                          </div>
-                        </td>
+                      
                         <td>
                           <div class="control-group">
                             <label class="control-label">Date d'acquisition:</label>

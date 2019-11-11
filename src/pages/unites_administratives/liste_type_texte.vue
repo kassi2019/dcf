@@ -16,7 +16,7 @@
             name="Liste type texte"
             worksheet="Liste type texte"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
@@ -54,6 +54,7 @@
         </div>
       </div>
     </div>
+      <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
   </div>
 </template>
   
@@ -87,6 +88,12 @@ export default {
           type.libelle.toLowerCase().includes(st)
         );
       });
+    }
+  },
+  methods: {
+   
+    ExporterEnExel(){
+      this.$refs.excel.click()
     }
   }
 };

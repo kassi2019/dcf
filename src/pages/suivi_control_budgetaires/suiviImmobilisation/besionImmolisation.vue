@@ -327,7 +327,7 @@
             :data="trieUaImmobilisation"
             name="Liste de demandes d'immobilisation"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
@@ -404,7 +404,7 @@
 
     <fab :actions="fabActions" @cache="afficherModalAjouterBesoinImmobilisation" main-icon="apps" bg-color="green"></fab>
     <notifications  />
-    <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+      <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
      <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterBesoinImmobilisation()">Open</button>
   </div>
 </template>
@@ -430,7 +430,7 @@ export default {
       ],
 json_fields: {
         TYPE_UNITE_ADMINISTRATIVE: "typeUniteAdmin.libelle",
-        UNITE_ADMINISTRATIVE: "uniteAdminist.libelle ",
+        UNITE_ADMINISTRATIVE: "uniteAdminist.libelle",
         DESIGNATION: "famille.libelle",
         QUANTITE: "quantite",
         PRIX_UNITAIRE: "prix_unitaire",
@@ -599,6 +599,10 @@ Historqtemodifier() {
 
     formaterDate(date) {
       return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
+    
+    ExporterEnExel(){
+      this.$refs.excel.click()
     }
   }
 };

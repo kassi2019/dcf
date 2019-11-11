@@ -98,7 +98,7 @@
             :data="filtre_equipement"
             name="Liste des types équipements"
           >
-            <i title="Exporter en excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
+            <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
           <div class="widget-box">
             <div class="widget-title">
@@ -157,7 +157,10 @@
     </div>
 
     <fab :actions="fabActions" @cache="afficherModalAjouterTitre" main-icon="apps" bg-color="green"></fab>
-    <!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+ <button style="display:none;" v-shortkey.once="['ctrl', 'f']" @shortkey="afficherModalAjouterTitre()">Open</button>
+      <button style="display:none;" v-shortkey.once="['ctrl', 'e']" @shortkey="ExporterEnExel()">Open</button>
+<!-- <fab :actions="fabActions1" @cache="afficherModalModifierTypeTexte" bg-color="red"></fab> -->
+<notifications  />
   </div>
 </template>
   
@@ -245,6 +248,9 @@ export default {
     },
     alert() {
       console.log("ok");
+    },
+     ExporterEnExel(){
+      this.$refs.excel.click()
     }
   }
 };

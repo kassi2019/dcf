@@ -173,7 +173,7 @@
           <li>
             <router-link :to="{name:'famille'}" tag="a">
               <i class="icon-key"></i>
-              <span class="text">Familles</span>
+              <span class="text">Articles</span>
             </router-link>
           </li>
           <li>

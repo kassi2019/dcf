@@ -245,6 +245,7 @@ export default {
     // fonction pour vider l'input modification
     modifierFamilleLocal() {
       this.modifierEquipement(this.editEquipement);
+      this.$("#modificationModal").modal('hide');
     },
     alert() {
       console.log("ok");

@@ -148,7 +148,7 @@
 
               <div v-if="filtre_famille.length"></div>
               <div v-else>
-                <p style="text-align:center;font-size:20px;color:red;">Aucune Famille Article</p>
+                <p style="text-align:center;font-size:20px;color:red;">Aucun Article</p>
               </div>
 
             

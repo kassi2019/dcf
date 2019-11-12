@@ -213,6 +213,7 @@ import { formatageSomme } from "../../../Repositories/Repository";
 import { ModelListSelect } from "vue-search-select";
 import "vue-search-select/dist/VueSearchSelect.css";
 export default {
+  name: 'listeImmobilisationParUa',
    components: {
     ModelListSelect
   },
@@ -283,10 +284,10 @@ export default {
       "SuiviImmo",
       "familles",
       "services",
-      "besoinImmobilisations",
+      // "besoinImmobilisations",
       "personBesoinImmo",
 
-      "tauxbesoinimmoUa",
+      // "tauxbesoinimmoUa",
       "SommeEquipementPrevue",
       "SommeEquipementActuel",
       
@@ -302,15 +303,7 @@ export default {
      ...mapGetters("parametreGenerauxAdministratif", ["type_Unite_admins"]),
      ...mapGetters("uniteadministrative", ["uniteAdministratives"]),
 
-     // nombre enregistrement par type unite administrative
-
-
-
-
-
-   
-
-   
+     // nombre enregistrement par type unite administrative 
 
     // nombre enregistrement par  unite administrative
 
@@ -446,7 +439,7 @@ TauxEquipementRealiseParTypeUniteAdministrative() {
     //afiicher modal ajouter
     afficherModalAjouterImmobilisation() {
       this.$router.push({
-        name: "formulaireimmobilisation"
+        name: "AjouterImmobilisation"
       });
     },
 

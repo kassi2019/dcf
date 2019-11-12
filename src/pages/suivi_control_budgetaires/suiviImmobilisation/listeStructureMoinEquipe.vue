@@ -103,7 +103,9 @@ export default {
   //  components: {
   //   ModelListSelect
   // },
+  name:'listeStructureMoinEquipe',
   data() {
+    
     return {
       fabActions: [
         {

@@ -94,6 +94,7 @@ import moment from "moment";
 import { formatageSomme } from "../../../Repositories/Repository";
 
 export default {
+  name:'listeBesoinParUniteAdmin',
   data() {
     return {
       fabActions: [

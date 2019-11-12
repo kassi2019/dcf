@@ -102,7 +102,7 @@ import moment from "moment";
 // import { formatageSomme } from "../../../Repositories/Repository";
 
 export default {
-  
+  name:'listeStructurePlusEquipe',
   data() {
     return {
       fabActions: [

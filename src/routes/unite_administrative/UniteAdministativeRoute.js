@@ -11,6 +11,7 @@ const UniteAdministativeRoutes = [
     name: "uniteadministrative",
     component: uniteadministrative
   },
+  
   {
     path: "/liste_type_texte",
     name: "listetypetexte",

@@ -502,6 +502,7 @@
  <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  name:'formulaireModifierImmobilisation',
   data() {
     return {
       editImmobilisation: {},

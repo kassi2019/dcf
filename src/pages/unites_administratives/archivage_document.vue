@@ -236,6 +236,7 @@
 import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 export default {
+  name:'archivagedocument',
   data() {
     return {
       fabActions: [

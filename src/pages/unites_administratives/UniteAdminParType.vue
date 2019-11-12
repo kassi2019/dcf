@@ -232,7 +232,7 @@
             <div class="widget-title">
               <div align="right">
                 Recherche:
-                <input type="search" placeholder="Saisir section ou libelle" v-model="search" />
+                <input type="search" placeholder="Saisie section ou libelle" v-model="search" />
 
                 <!-- <div class="span3">
                   <model-list-select
@@ -329,7 +329,7 @@ import moment from "moment";
 // import { ModelListSelect } from "vue-search-select";
 // import "vue-search-select/dist/VueSearchSelect.css";
 export default {
-  name:'uniteadministrative',
+    name: 'UniteAdminParType',
   // components: {
   //   ModelListSelect
   // },

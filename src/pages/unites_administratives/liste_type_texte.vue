@@ -61,6 +61,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  name:'listetypetexte',
   data() {
     return {
       fabActions: [

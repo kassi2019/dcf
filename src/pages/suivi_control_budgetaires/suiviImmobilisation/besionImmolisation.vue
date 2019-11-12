@@ -415,6 +415,7 @@ import moment from "moment";
 import { formatageSomme } from "../../../Repositories/Repository";
 
 export default {
+  name: 'besionImmolisation',
   data() {
     return {
       fabActions: [

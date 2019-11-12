@@ -118,9 +118,9 @@
             class="btn btn-default pull-right"
             style="cursor:pointer;"
             :fields="json_fields"
-            title="Liste des Familles"
+            title="Liste des Articles"
             :data="filtre_famille"
-            name="Liste des familles"
+            name="Liste des Articles"
           >
             <i title="Exporter en excel" ref="excel" class="icon-table">&nbsp;&nbsp;Exporter en excel</i>
           </download-excel>
@@ -130,11 +130,11 @@
                 <i class="icon-th"></i>
               </span>
               <h5>Liste des Articles</h5>
-              <div align="right">
+              <!-- <div align="right">
                 Recherche:
                 <input type="search" placeholder v-model="search" />
                
-              </div>
+              </div> -->
             </div>
 
             <div class="widget-content nopadding" v-if="equipements.length && persoEquipement.length">

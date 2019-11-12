@@ -167,6 +167,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  name:'listeEquipement',
   data() {
     return {
       fabActions: [

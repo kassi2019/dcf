@@ -148,7 +148,7 @@ export default {
         MONTANT_CESSION: "montant_cession",
         DATE_CESSION: "date_cession",
         CAUSE_INACTIVITE: "cause_inactivite",
-        TVA: "TVA_id",
+        // TVA: "TVA_id",
         MONTANT_AMORTISSEMENT: "montant_amortissement_anterieur",
         DATE_AORTISSEMENT: "date_amortissement_anterieur"
       },

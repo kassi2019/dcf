@@ -164,6 +164,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  name:'service',
   data() {
     return {
       fabActions: [

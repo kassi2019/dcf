@@ -1,3 +1,5 @@
+import { groupBy} from '../../../../Repositories/Repository'
+
 const typeTextes = state =>
   state.typeTextes.sort((a, b) => (a.code > b.code ? 1 : -1));
 
@@ -19,6 +21,16 @@ export const nombreTypeText = state => state.typeTextes.length;
 //   state.uniteAdministratives.filter(
 //     nouveauProjet => nouveauProjet.date_creation == null
 //   ).length;
+
+export const uaGroupeParSection = (state, getters) => {
+  return groupBy(getters.uniteAdministratives, "section_id"); 
+
+}
+
+export const uaGroupeParType = (state, getters) => {
+ return getters.uaGroupeParSection.map(tr => groupBy(tr, "type_ua_id"))
+
+}
 
 export const jointureUaChapitreSection = (
   state,

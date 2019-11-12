@@ -91,6 +91,7 @@ import moment from "moment";
 import { ModelListSelect } from "vue-search-select";
 import "vue-search-select/dist/VueSearchSelect.css";
 export default {
+  name:'ordonnedocua',
   components: {
     ModelListSelect
   },

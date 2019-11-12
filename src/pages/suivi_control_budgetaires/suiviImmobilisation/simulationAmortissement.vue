@@ -133,6 +133,7 @@
 import { formatageSomme } from "../../../Repositories/Repository";
 
 export default {
+  name:'simulationAmortissement',
   data() {
     return {
         immobilisat: {

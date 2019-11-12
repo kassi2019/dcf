@@ -5,8 +5,8 @@
             <div class="accordion-heading">
               <div @click="toggle()" class="widget-title"> <a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> 
                   <span class="icon"><i :class="iconClasses"></i></span>
-                <h5>{{groupe.libelle}}</h5>
-                 <span class="badge badge-inverse" >{{getNombreArticle}}</span>
+                <h5>{{groupe.nom_section}}</h5>
+                 <!-- <span class="badge badge-inverse" >{{getNombreArticle}}</span> -->
 
                 </a> 
             </div>
@@ -16,21 +16,23 @@
                  <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Classe</th>
-                    <th>Libelle</th>
+                    <th>Chapitre</th>
+                    <th>Code</th>
+                     <th>Libelle</th>
+                    <th>Date création</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                   <ArticleItem
+                   <uniteAdministrativeItem
                         class="item"
-                        v-for="groupeElement in groupe.equipement_famille"
+                        v-for="groupeElement in groupe.secti"
                         :key="groupeElement.id"
                         :article="groupeElement"
                         @modification="$emit('modification', $event)"
                         @suppression="$emit('suppression', $event)"
 
-                    ></ArticleItem>
+                    ></uniteAdministrativeItem>
                 </tbody>
               </table>
               </div>
@@ -45,15 +47,15 @@
 
 
 <script>
-import ArticleItem from './ArticleItem'
+import uniteAdministrativeItem from './uniteAdministrativeItem'
 
 export default {
-    name: 'ArticleItemComponent',
+    name: 'uniteAdministrativeItemComponent',
      props: {
     groupe: Object,
   },
   components: {
-      ArticleItem
+      uniteAdministrativeItem
   },
   data: function () {
     return {
@@ -71,11 +73,11 @@ export default {
         this.groupe.equipement_famille.length
     },
 
-    getNombreArticle(){
-        var nombre = this.groupe.equipement_famille.length
-        if(nombre) return nombre
-        return 'Aucun' 
-    },
+    // getNombreArticle(){
+    //     var nombre = this.groupe.equipement_famille.length
+    //     if(nombre) return nombre
+    //     return 'Aucun' 
+    // },
     iconClasses() {
       return {
         'icon-plus': !this.isOpen && this.groupe.equipement_famille.length,

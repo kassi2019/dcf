@@ -44,13 +44,13 @@
         </li> 
         <li class="bg_lg" title="volume d'immobilisation réalise">
           <a href="#">
-            <i class="icon-th"></i>
+            <i class="icon-fullscreen"></i>
             <span class="label label-warning">{{tauxEquipementRealise}}%</span>Taux équipement Global réalisé
           </a>
         </li>
         <li class="bg_lg">
           <a href="#">
-            <i class="icon-th"></i>
+            <i class="icon-fullscreen"></i>
             <span class="label label-warning">{{tauxEquipementPrevue}}%</span>Taux équipement Global prévue
           </a>
         </li>
@@ -81,6 +81,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  name:'TableauBordImmo',
   data() {
     return {
       fabActions: [

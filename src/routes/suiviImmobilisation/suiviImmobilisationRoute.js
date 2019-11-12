@@ -5,19 +5,16 @@ import Immobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilis
 import AjouterImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/AjouterImmobilisation.vue";
 import ModifierImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/ModifierImmobilisation.vue";
 import immobilisationParService from "../../pages/suivi_control_budgetaires/suiviImmobilisation/immobilisationParService.vue";
-import VoirImmoParService from "../../pages/suivi_control_budgetaires/suiviImmobilisation/VoirImmoParService.vue";
-
+// import VoirImmoParService from "../../pages/suivi_control_budgetaires/suiviImmobilisation/VoirImmoParService.vue";
 import TableauBordImmo from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TableauBordImmo.vue";
 import RechercheTauxParUniteAdm from "../../pages/suivi_control_budgetaires/suiviImmobilisation/RechercheTauxParUniteAdm.vue";
-
-
 import DetailImmobilisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/DetailImmobilisation.vue";
 import besionImmolisation from "../../pages/suivi_control_budgetaires/suiviImmobilisation/besionImmolisation.vue";
 import listeEquipement from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeEquipement.vue";
 import listeBesoinParUniteAdmin from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeBesoinParUniteAdmin.vue";
 import listeImmobilisationParUa from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmobilisationParUa.vue";
 import listeImmoParServiceParAgent from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeImmoParServiceParAgent.vue";
-import TauxEquipementMinistère from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TauxEquipementMinistère.vue";
+// import TauxEquipementMinistère from "../../pages/suivi_control_budgetaires/suiviImmobilisation/TauxEquipementMinistère.vue";
 import listeActeurEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeActeurEquipe.vue";
 import listeStructurePlusEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeStructurePlusEquipe.vue";
 import listeStructureMoinEquipe from "../../pages/suivi_control_budgetaires/suiviImmobilisation/listeStructureMoinEquipe.vue";
@@ -43,11 +40,12 @@ const suiviImmobilisationRoutes = [
     name: "listeActeurEquipe",
     component: listeActeurEquipe
   },
-  {
-    path: "/Taux-Equipement-Ministère",
-    name: "TauxEquipementMinistère",
-    component: TauxEquipementMinistère
-  },
+  // {
+    
+  //   path: "/Taux-Equipement-Ministère",
+  //   name: "TauxEquipementMinistère",
+  //   component: TauxEquipementMinistère
+  // },
   {
     path: "/liste-immo-par-service-et-agent",
     name: "listeImmoParServiceParAgent",
@@ -78,6 +76,7 @@ const suiviImmobilisationRoutes = [
     name: "famille",
     component: Famille
   },
+
   {
     path: "/service",
     name: "service",
@@ -95,7 +94,7 @@ const suiviImmobilisationRoutes = [
   },
   {
     path: "/Ajouter_immobilisation",
-    name: "formulaireimmobilisation",
+    name: "AjouterImmobilisation",
     component: AjouterImmobilisation
   },
   {
@@ -108,11 +107,11 @@ const suiviImmobilisationRoutes = [
     name: "RechercheImmoParService",
     component: immobilisationParService
   },
-  {
-    path: "/Voir_immo/:id",
-    name: "afficherImmobilisation",
-    component: VoirImmoParService
-  },
+  // {
+  //   path: "/Voir_immo/:id",
+  //   name: "afficherImmobilisation",
+  //   component: VoirImmoParService
+  // },
   
   {
     path: "/TableauBordImmo",

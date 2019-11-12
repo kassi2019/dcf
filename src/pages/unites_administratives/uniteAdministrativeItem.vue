@@ -1,15 +1,20 @@
 <template>
   
-                  <tr class="odd gradeX" v-if="article" @dblclick="$emit('modification', article)">
+                  <tr class="odd gradeX" v-if="uniteadministrative" @dblclick="$emit('modification', uniteadministrative)">
                     <td
                     
-                    >{{article.code || 'Non renseigné'}}</td>
+                    >{{uniteadministrative.chpitr.libelle || 'Non renseigné'}}</td>
                     <td
                     
-                    >{{article.libelle || 'Non renseigné'}}</td>
-
+                    >{{uniteadministrative.code || 'Non renseigné'}}</td>
+ <td
+                    
+                    >{{uniteadministrative.libelle || 'Non renseigné'}}</td>
+                     <td
+                    
+                    >{{ formaterDate(uniteadministrative.date_creation) || 'Non renseigné'}}</td>
                     <td>
-                      <button class="btn btn-danger" @click.prevent="$emit('suppression', article.id)">
+                      <button class="btn btn-danger" @click.prevent="$emit('suppression', uniteadministrative.id)">
                         <span>
                           <i class="icon icon-trash"></i>
                         </span>
@@ -24,9 +29,9 @@
 
 
 export default {
-    name: 'ArticleItem',
+    name: 'uniteadministrativeItem',
      props: {
-    article: Object,
+    uniteadministrative: Object,
   },
  
 
@@ -57,12 +62,12 @@ export default {
  
     },
     br: function (){
-    this.$emit('make-br', this.article.children)
+    this.$emit('make-br', this.uniteadministrative.children)
   
     },
     makeFolder: function () {
       if (!this.isFolder) {
-      	this.$emit('make-modification', this.article)
+      	this.$emit('make-modification', this.uniteadministrative)
         this.isOpen = true
       }
     },
